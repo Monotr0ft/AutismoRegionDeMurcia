@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::connection('mysql-arba')->create('direcciones_arba', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo_via');
+            $table->enum('tipo_via',['Avda','Calle','Travesia','Carretera']);
             $table->string('nombre_via');
             $table->integer('numero');
             $table->string('ampliacion')->nullable();

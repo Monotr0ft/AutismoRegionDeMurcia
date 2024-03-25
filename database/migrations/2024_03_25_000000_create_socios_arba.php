@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('fecha_alta');
             $table->date('fecha_baja')->nullable();
             $table->boolean('junta_directiva')->default(false);
-            $table->string('posicion')->nullable()->unique();
+            $table->enum('posicion',['Presidente/a','Secretario/a','Vicepresidente/a','Tesorero/a','Vocal'])->nullable()->unique();
             $table->boolean('acceso_web')->default(true);
             $table->timestamps();
         });
