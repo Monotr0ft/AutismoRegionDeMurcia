@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('mysql-arba')->create('table_socios_arba', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::connection('mysql-arba')->table('socios', function (Blueprint $table) {
+            $table->foreign('direccion')->references('id')->on('direcciones_arba')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 
@@ -22,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('mysql-arba')->dropIfExists('table_socios_arba');
+        Schema::connection('mysql-arba')->table('socios', function (Blueprint $table) {
+            $table->dropForeign('direccion');
+        });
     }
 };
