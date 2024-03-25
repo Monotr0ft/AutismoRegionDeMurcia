@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('apellido2');
             $table->string('dni');
             $table->integer('telefono');
-            $table->unsignedBigInterger('direccion');
+            $table->unsignedBigInterger('direccion')->nullable();
             $table->string('email');
             $table->boolean('activo')->default(true);
             $table->date('fecha_alta');
