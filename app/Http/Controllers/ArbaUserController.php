@@ -20,7 +20,7 @@ class ArbaUserController extends Controller
         if (Auth::guard('arba')->attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/prueba');
+            return redirect()->intended('/arba/dashboard');
         }
 
         return back()->withErrors([

@@ -18,12 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/arba/login', [ArbaUserController::class, 'getLogin']);
-
-Route::post('/arba/login', [ArbaUserController::class, 'postLogin'])->name('arba.login');
-
-Route::post('/arba/logout', [ArbaUserController::class, 'destroy'])->name('arba.logout');
-
-Route::get('/prueba', function() {
-    return 'Hola, si estás leyendo esto es porque la ruta funciona correctamente';
-})->middleware('arba_user');
+Route::group(['prefix' => 'arba'], function() {
+    Route::get('/login', [ArbaUserController::class, 'getLogin']);
+    Route::post('/login', [ArbaUserController::class, 'postLogin'])->name('arba.login');
+    Route::post('/logout', [ArbaUserController::class, 'destroy'])->name('arba.logout');
+    Route::get('/dashboard', function() {
+        return 'Bienvenido al dashboard de ARBA';
+    })->middleware('arba_user');
+});
