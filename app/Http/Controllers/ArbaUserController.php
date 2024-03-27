@@ -7,10 +7,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ArbaUserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('arba_user');
-    }
 
     public function getLogin()
     {
