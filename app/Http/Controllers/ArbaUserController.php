@@ -27,4 +27,15 @@ class ArbaUserController extends Controller
             'email' => 'Las credenciales proporcionadas no coinciden con nuestros registros.',
         ]);
     }
+
+    public function destroy(Request $request)
+    {
+        Auth::guard('arba')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
 }
