@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('mysql-arba')->table('socios', function (Blueprint $table) {
+        /**Schema::connection('mysql-arba')->table('socios', function (Blueprint $table) {
             $table->dropForeign('socios_direccion_foreign');
-        });
+        });*/
     }
 };
