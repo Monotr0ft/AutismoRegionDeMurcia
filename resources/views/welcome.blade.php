@@ -136,6 +136,6 @@
                 </div>
             </div>
         </div>
-        <a href="{{ view("arba.login") }}">Login</a>
+        <a href="{{ redirect("/arba/login") }}">Login</a>
     </body>
 </html>
