@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::connection('mysql-arba')->table('socios', function (Blueprint $table) {
             $table->foreign('direccion')->references('id')->on('direcciones_arba')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('user_id')->references('id')->on('users_arba')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 
@@ -22,6 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::connection('mysql-arba')->table('socios', function (Blueprint $table) {
+            $table->dropForeign('socios_user_id_foreign');
             $table->dropForeign('socios_direccion_foreign');
         });
     }

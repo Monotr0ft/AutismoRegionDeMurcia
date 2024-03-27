@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'arba' => [
+            'driver' => 'session',
+            'provider' => 'arba_users',
+        ],
     ],
 
     /*
@@ -63,6 +67,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'arba_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\ArbaUser::class,
         ],
 
         // 'users' => [
@@ -94,6 +103,13 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        
+        'arba_users' => [
+            'provider' => 'arba_users',
+            'table' => 'password_reset_tokens_arba',
             'expire' => 60,
             'throttle' => 60,
         ],

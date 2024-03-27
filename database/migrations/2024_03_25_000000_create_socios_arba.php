@@ -26,6 +26,7 @@ return new class extends Migration
             $table->boolean('junta_directiva')->default(false);
             $table->enum('posicion',['Presidente/a','Secretario/a','Vicepresidente/a','Tesorero/a','Vocal'])->nullable()->unique();
             $table->boolean('acceso_web')->default(true);
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
         });
     }
