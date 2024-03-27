@@ -22,7 +22,9 @@ Route::group(['prefix' => 'arba'], function() {
     Route::get('/login', [ArbaUserController::class, 'getLogin']);
     Route::post('/login', [ArbaUserController::class, 'postLogin'])->name('arba.login');
     Route::post('/logout', [ArbaUserController::class, 'destroy'])->name('arba.logout');
-    Route::get('/dashboard', function() {
-        return view('arba.dashboard');
-    })->middleware('arba_user');
+    Route::group(['middleware' => 'arba_user'], function() {
+        Route::get('/dashboard', function() {
+            return view('arba.dashboard');
+        });
+    });
 });
