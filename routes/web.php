@@ -19,4 +19,4 @@ Route::get('/', function () {
 
 Route::get('/prueba', function() {
     return 'Hola, si estás leyendo esto es porque la ruta funciona correctamente';
-});
+})->middleware('auth');
