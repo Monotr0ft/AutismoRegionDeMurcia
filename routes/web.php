@@ -23,6 +23,6 @@ Route::group(['prefix' => 'arba'], function() {
     Route::post('/login', [ArbaUserController::class, 'postLogin'])->name('arba.login');
     Route::post('/logout', [ArbaUserController::class, 'destroy'])->name('arba.logout');
     Route::get('/dashboard', function() {
-        return 'Bienvenido al dashboard de ARBA';
+        return view('arba.dashboard');
     })->middleware('arba_user');
 });

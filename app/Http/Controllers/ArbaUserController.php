@@ -10,6 +10,10 @@ class ArbaUserController extends Controller
 
     public function getLogin()
     {
+        if (Auth::guard('arba')->check()) {
+            return redirect('/arba/dashboard');
+        }
+
         return view('arba.login');
     }
 
