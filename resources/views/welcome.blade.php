@@ -136,5 +136,6 @@
                 </div>
             </div>
         </div>
+        <a href="{{return view("arba.login")}}">Login</a>
     </body>
 </html>
