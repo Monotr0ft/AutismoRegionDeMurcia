@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ArbaUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/arba/login', [ArbaUserController::class, 'getLogin']);
+
+Route::post('/arba/login', [ArbaUserController::class, 'postLogin']);
 
 Route::get('/prueba', function() {
     return 'Hola, si estás leyendo esto es porque la ruta funciona correctamente';
