@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::get('/arba/login', [ArbaUserController::class, 'getLogin']);
 
-Route::post('/arba/login', [ArbaUserController::class, 'postLogin']);
+Route::post('/arba/login', [ArbaUserController::class, 'postLogin'])->name('arba.login');
 
 Route::get('/prueba', function() {
     return 'Hola, si estás leyendo esto es porque la ruta funciona correctamente';
