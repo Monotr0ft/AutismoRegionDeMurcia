@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARBA Inicio de Sesión</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
 </head>
 <body>
     <form method="POST" action="{{ route('arba.login') }}">
