@@ -21,7 +21,7 @@
             <label for="password" class="form-label">Contraseña</label>
             <input type="password" name="password" id="password" class="form-control" required>
         </div>
-        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+        <button type="submit" class="d-grid gap-2 col-6 mx-auto my-3 btn btn-dark login btn-lg">Iniciar sesión</button>
     </form>
 </body>
 </html>

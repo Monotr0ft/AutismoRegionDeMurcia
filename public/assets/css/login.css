@@ -1,10 +1,16 @@
 body {
-    background-color: green;
+    background-color: rgb(45, 138, 45);
     height: 100vh;
 }
+label {
+    font-size: 18px;
+}
 .formulario {
-    background-color: white;
+    background-color: rgb(180, 180, 180);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+.login {
+    text-align: center;
 }

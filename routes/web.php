@@ -24,11 +24,10 @@ Route::group(['prefix' => 'arba'], function() {
     Route::post('/logout', [ArbaUserController::class, 'destroy'])->name('arba.logout');
     Route::group(['middleware' => 'arba_user'], function() {
         Route::get('/dashboard', function() {
-            return view('arba.dashboard');
+            return view('arba.dashboard.paneles');
         });
+        Route::get('/socio/create', [\App\Http\Controllers\SocioController::class, 'getCreate'])->name('socio.create');
     });
 });
-
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
