@@ -7,14 +7,21 @@
     @include('bootstrap.index')
     <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
 </head>
-<body>
-    <form method="POST" action="{{ route('arba.login') }}">
+<body class="container-fluid d-flex flex-column justify-content-center align-items-center">
+    <div class="my-5">
+        <h1>ARBA LOGIN</h1>
+    </div>
+    <form method="POST" action="{{ route('arba.login') }}" class="container formulario my-5">
         @csrf
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" required>
-        <label for="password">Contraseña</label>
-        <input type="password" name="password" id="password" required>
-        <button type="submit">Iniciar sesión</button>
+        <div class="my-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" id="email" class="form-control" required>
+        </div>
+        <div class="my-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" name="password" id="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
     </form>
 </body>
 </html>
