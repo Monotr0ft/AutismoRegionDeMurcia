@@ -26,7 +26,8 @@ Route::group(['prefix' => 'arba'], function() {
         Route::get('/dashboard', function() {
             return view('arba.dashboard.paneles');
         });
-        Route::get('/socio/create', [\App\Http\Controllers\SocioController::class, 'getCreate'])->name('socio.create');
+        Route::get('/socio/create', [\App\Http\Controllers\SocioController::class, 'getCreate']);
+        Route::post('/socio/create', [\App\Http\Controllers\SocioController::class, 'store'])->name('arba.socio.create');
     });
 });
 
