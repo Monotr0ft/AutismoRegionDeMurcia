@@ -99,7 +99,7 @@
             <h2>Junta Directiva</h2>
             <br>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="on" id="juntaDirectiva">
+                <input class="form-check-input" type="checkbox" name="juntaDirectiva" value="on" id="juntaDirectiva">
                 <label class="form-check-label" for="juntaDirectiva">
                     ¿Forma parte de la Junta Directiva?
                 </label>
