@@ -31,7 +31,7 @@ class SocioController extends Controller
         $socio->telefono = $request->telefono;
         $socio->email = $request->email;
         $socio->fecha_alta = $request->fecha_alta;
-        if($request->junta_directiva == 'on'){
+        if($request->junta_directiva == 1){
             $socio->junta_directiva = 1;
             $socio->posicion = $request->cargo;
         }else {
