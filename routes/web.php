@@ -15,7 +15,7 @@ use App\Http\Controllers\ArbaUserController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('autismo.paginas.home');
 });
 
 Route::group(['prefix' => 'arba'], function() {
