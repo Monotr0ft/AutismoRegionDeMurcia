@@ -3,7 +3,66 @@
 @section('title')
 
 <title>ARBA - Crear Socio</title>
-<script src="{{ asset('assets/js/socioCreate.js') }}"></script>
+<script>
+    window.onload = function() {
+
+    let juntaDirectiva = document.getElementById('juntaDirectiva');
+
+    juntaDirectiva.addEventListener('change', function() {
+        let cargo = document.getElementById('cargo');
+        cargo.disabled = !cargo.disabled;
+    });
+
+    fetch('{{asset('assets/js/arbol.json')}}')
+        .then((response) => response.json())
+        .then((data) => {
+            let lista = data;
+            lista = lista.filter((item) => item.code == 14);
+            console.log(lista);
+            let provincias = document.getElementById('provincia');
+            lista[0].provinces.forEach((provincia) => {
+                let option = document.createElement('option');
+                option.value = provincia.label;
+                option.text = provincia.label;
+                provincias.appendChild(option);
+            });
+            
+            provincias.addEventListener('change', function() {
+                let municipios = document.getElementById('municipio');
+                municipios.disabled = false;
+                municipios.innerHTML = '<option selected>Selecciona un municipio</option>';
+                let provincia = provincias.value;
+                let municipiosProvincia = lista[0].provinces.filter((provinciaItem) => provinciaItem.label == provincia);
+                municipiosProvincia[0].towns.forEach((municipio) => {
+                    let option = document.createElement('option');
+                    option.value = municipio.label;
+                    option.text = municipio.label;
+                    municipios.appendChild(option);
+                });
+            });
+
+            // Ahora, que haga lo mismo con las localidades
+
+            let municipios = document.getElementById('municipio');
+
+            municipios.addEventListener('change', function() {
+                let localidades = document.getElementById('localidad');
+                localidades.disabled = false;
+                localidades.innerHTML = '<option selected>Selecciona una localidad</option>';
+                let municipio = municipios.value;
+                let municipiosProvincia = lista[0].provinces.filter((provinciaItem) => provinciaItem.label == provincias.value);
+                let localidadesMunicipio = municipiosProvincia[0].towns.filter((municipioItem) => municipioItem.label == municipio);
+                localidadesMunicipio[0].pedanias.forEach((localidad) => {
+                    let option = document.createElement('option');
+                    option.value = localidad.label;
+                    option.text = localidad.label;
+                    localidades.appendChild(option);
+                });
+            });
+
+        })
+    }
+</script>
 
 @stop
 
@@ -81,17 +140,23 @@
             <br>
             <div class="form-group">
                 <label for="provincia">Provincia</label>
-                <input type="text" class="form-control" name="provincia" id="provincia" value="Murcia" placeholder="Provincia" required>
+                <select class="form-select" name="provincia" id="provincia" required>
+                    <option selected>Selecciona una provincia</option>
+                </select>
             </div>
             <br>
             <div class="form-group">
                 <label for="municipio">Municipio</label>
-                <input type="text" class="form-control" name="municipio" id="municipio" placeholder="Municipio" required>
+                <select class="form-select" name="municipio" id="municipio" required disabled>
+                    <option selected>Selecciona un municipio</option>
+                </select>
             </div>
             <br>
             <div class="form-group">
                 <label for="localidad">Localidad</label>
-                <input type="text" class="form-control" name="localidad" id="localidad" placeholder="Localidad" required>
+                <select class="form-select" name="localidad" id="localidad" required disabled>
+                    <option selected>Selecciona una localidad</option>
+                </select>
             </div>
         </div>
         <br>
