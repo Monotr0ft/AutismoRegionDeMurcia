@@ -16,7 +16,7 @@ use App\Http\Controllers\ArbaUserController;
 
 Route::get('/', function () {
     return view('autismo.paginas.home');
-});
+})->name('home');
 
 Route::group(['prefix' => 'arba'], function() {
     Route::get('/login', [ArbaUserController::class, 'getLogin']);
@@ -31,4 +31,4 @@ Route::group(['prefix' => 'arba'], function() {
     });
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

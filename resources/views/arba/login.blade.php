@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARBA Inicio de Sesión</title>
-    @include('bootstrap.index')
+    @include('bootstrap.css')
     <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
 </head>
 <body class="container-fluid d-flex flex-column justify-content-center align-items-center">
@@ -23,5 +23,6 @@
         </div>
         <button type="submit" class="d-grid gap-2 col-6 mx-auto my-3 btn btn-dark login btn-lg">Iniciar sesión</button>
     </form>
+    @include('bootstrap.script')
 </body>
 </html>
