@@ -86,4 +86,8 @@ class SocioController extends Controller
         return view('arba.socio.create');
     }
 
+    public function getUser() {
+        return view('arba.socio.user');
+    }
+
 }

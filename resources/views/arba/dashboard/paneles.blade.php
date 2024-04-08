@@ -32,7 +32,7 @@
                     </div>
                     <div class="card-body">
                         <p>Vincula un socio a un usuario que se creará en el proceso.</p>
-                        <a href="#" class="btn btn-primary">Vincular socio</a>
+                        <a href="{{ action([\App\Http\Controllers\SocioController::class, 'getUser']) }}" class="btn btn-primary">Vincular socio</a>
                     </div>
                 </div>
             </div>
