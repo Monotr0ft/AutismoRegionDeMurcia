@@ -8,7 +8,7 @@
 
 @section('content')
 
-<div class="container-fluid">
+<div>
     <div class="row">
         <h1 class="text-center my-5 col-12 text-decoration-underline">Autismo Región de Murcia</h1>
         <div class="col-12 col-md-6">
@@ -17,7 +17,7 @@
             Ut possimus hic cum saepe deleniti vitae sed, deserunt quaerat impedit id voluptatum commodi? Soluta pariatur perspiciatis quasi a blanditiis inventore iure? Placeat recusandae nesciunt quidem dolore provident excepturi cumque?</p>
         </div>
         <div class="col-12 col-md-6 text-center">
-            <img src="#" alt="Autismo" class="img-fluid" style="border: black 3px solid;">
+            <img src="{{ asset('assets/img/palma_autismo.jpg') }}" alt="Autismo" class="img-fluid" style="width: 30rem;">
         </div>
         <div class="col-12 col-md-6 m-2 text-center">
             <a href="#"><button class="btn btn-primary">Más información</button></a>

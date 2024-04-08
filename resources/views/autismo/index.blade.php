@@ -7,7 +7,7 @@
     @include('bootstrap.css')
     <link rel="stylesheet" href="{{ asset('assets/css/autismo.css') }}">
 </head>
-<body>
+<body class="container-fluid">
     @include('autismo.components.navbar')
     @yield('content')
     @include('autismo.components.footer')

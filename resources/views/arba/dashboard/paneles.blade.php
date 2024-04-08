@@ -13,9 +13,8 @@
                 <h1>Paneles</h1>
             </div>
         </div>
-        <!-- TODO: Crear un panel que lleve a realizar la acción del controlador SocioController llamado getCreate -->
-        <div class="row col-12 col-sm-6 col-md-4">
-            <div class="col-12">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+            <div class="col">
                 <div class="card">
                     <div class="card-header">
                         <h2>Crear socio</h2>
@@ -23,6 +22,17 @@
                     <div class="card-body">
                         <p>Crear un nuevo socio.</p>
                         <a href="{{ action([\App\Http\Controllers\SocioController::class, 'getCreate']) }}" class="btn btn-primary">Crear socio</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Vincular socio a usuario</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Vincula un socio a un usuario que se creará en el proceso.</p>
+                        <a href="#" class="btn btn-primary">Vincular socio</a>
                     </div>
                 </div>
             </div>
