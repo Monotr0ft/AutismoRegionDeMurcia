@@ -29,6 +29,7 @@ Route::group(['prefix' => 'arba'], function() {
         Route::get('/socio/create', [\App\Http\Controllers\SocioController::class, 'getCreate']);
         Route::get('/socio/usuario', [\App\Http\Controllers\SocioController::class,'getUser']);
         Route::post('/socio/create', [\App\Http\Controllers\SocioController::class, 'store'])->name('arba.socio.create');
+        Route::post('/socio/usuario', [\App\Http\Controllers\SocioController::class, 'postUser'])->name('arba.user');
     });
 });
 

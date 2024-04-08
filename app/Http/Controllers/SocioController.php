@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \App\Models\Socio;
+use App\Models\Socio;
 use App\Models\DireccionArba;
+use App\Models\ArbaUser;
+use Illuminate\Support\Facades\Hash;
 
 class SocioController extends Controller
 {
@@ -87,7 +89,20 @@ class SocioController extends Controller
     }
 
     public function getUser() {
-        return view('arba.socio.user');
+        $socios = Socio::whereNull('user_id')->get();
+        return view('arba.socio.user', ['socios' => $socios]);
+    }
+
+    public function postUser() {
+        $socio = Socio::find(request('socio_id'));
+        $user = new ArbaUser;
+        $user->name = $socio->nombre;
+        $user->email = $socio->email;
+        $user->password = Hash::make(request('contraseña'));
+        $user->save();
+        $socio->user_id = $user->id;
+        $socio->save();
+        return redirect('/arba/dashboard');
     }
 
 }
