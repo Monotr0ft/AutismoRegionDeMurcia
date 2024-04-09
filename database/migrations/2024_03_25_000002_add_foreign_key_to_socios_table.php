@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::connection('mysql-arba')->table('socios', function (Blueprint $table) {
-            $table->foreign('direccion')->references('id')->on('direcciones_arba')->onUpdate('cascade')->onDelete('restrict');
-            $table->foreign('user_id')->references('id')->on('users_arba')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('direccion')->references('id')->on('direcciones_arba')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users_arba')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

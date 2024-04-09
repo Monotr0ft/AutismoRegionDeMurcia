@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
         // ]);
         Model::unguard();
         Schema::disableForeignKeyConstraints();
-        $this->call(ArbaUserSeeder::class);
+        //$this->call(ArbaUserSeeder::class);
+        $this->call(AsociacionSeeder::class);
         Model::reguard();
         Schema::enableForeignKeyConstraints();
     }

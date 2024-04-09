@@ -18,6 +18,8 @@ Route::get('/', function () {
     return view('autismo.paginas.home');
 })->name('home');
 
+Route::get('/autismo', [\App\Http\Controllers\AsociacionController::class, 'index'])->name('asociaciones');
+
 Route::group(['prefix' => 'arba'], function() {
     Route::get('/login', [ArbaUserController::class, 'getLogin']);
     Route::post('/login', [ArbaUserController::class, 'postLogin'])->name('arba.login');

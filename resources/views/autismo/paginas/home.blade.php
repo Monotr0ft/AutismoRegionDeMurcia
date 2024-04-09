@@ -2,7 +2,7 @@
 
 @section('title')
 
-<title>Autismo Región de Murcia</title>
+<title>Autismo Región de Murcia - Home</title>
 
 @stop
 

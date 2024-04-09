@@ -15,7 +15,7 @@
                     <a class="nav-link" href="#">¿Qué es Autismo Región de Murcia?</a>
                 </li>
                 <li class="nav-item px-3 h4">
-                    <a class="nav-link" href="#">Asociaciones TEA Murcia</a>
+                    <a class="nav-link" href="{{ route('asociaciones') }}">Asociaciones TEA Murcia</a>
                 </li>
                 <li class="nav-item px-3 h4">
                     <a class="nav-link" href="#">Recursos</a>
