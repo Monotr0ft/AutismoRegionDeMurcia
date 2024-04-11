@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('proyectos', function (Blueprint $table) {
+        Schema::connection('mysql-arba')->create('proyectos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->string('logo');
-            $table->string('ubicación');
+            $table->string('ubicacion');
             $table->string('coordenadas');
-            $table->text('descripción');
+            $table->text('descripcion');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('proyectos');
+        Schema::connection('mysql-arba')->dropIfExists('proyectos');
     }
 };
