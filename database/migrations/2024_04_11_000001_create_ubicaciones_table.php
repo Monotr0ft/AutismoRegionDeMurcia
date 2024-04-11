@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('mysql-arba')->create('plantas', function (Blueprint $table) {
+        Schema::connection('mysql-arba')->create('ubicaciones', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre_comun');
-            $table->string('nombre_cientifico');
+            $table->string('nombre');
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('mysql-arba')->dropIfExists('plantas');
+        Schema::connection('mysql-arba')->dropIfExists('ubicaciones');
     }
 };
