@@ -22,9 +22,12 @@ class DatabaseSeeder extends Seeder
         // ]);
         Model::unguard();
         Schema::disableForeignKeyConstraints();
-        //$this->call(ArbaUserSeeder::class);
+        Schema::connection('mysql-arba')->disableForeignKeyConstraints();
+        $this->call(ArbaUserSeeder::class);
         $this->call(AsociacionSeeder::class);
+        $this->call(StockPlantasSeeder::class);
         Model::reguard();
         Schema::enableForeignKeyConstraints();
+        Schema::connection('mysql-arba')->enableForeignKeyConstraints();
     }
 }

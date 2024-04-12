@@ -18,6 +18,12 @@ return new class extends Migration
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
+
+        Schema::connection('mysql-arba')->create('password_resets_arba', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
+        });
     }
 
     /**
@@ -28,5 +34,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('password_resets');
+        Schema::connection('mysql-arba')->dropIfExists('password_resets_arba');
     }
 };
