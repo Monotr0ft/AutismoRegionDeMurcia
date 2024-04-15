@@ -52,7 +52,7 @@ class AsociacionController extends Controller
             }
             $asociacion->redes_sociales = json_encode($redes_sociales);
         }
-        $asociacion->save();
+        //$asociacion->save();
         return redirect()->route('asociaciones');
     }
 
