@@ -16,7 +16,8 @@
         @foreach ($asociaciones as $asociacion)
         <div class="col-12 col-md-6 col-lg-4 my-3 d-flex align-items-stretch">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-around align-items-center">
+                    <img src="{{ asset($asociacion->logo) }}" class="img-fluid" width="200" alt="{{ $asociacion->nombre }}">
                     <h3 class="text-center">{{ $asociacion->nombre }}</h3>
                 </div>
                 <div class="card-body">
@@ -45,6 +46,9 @@
             </div>
         </div>
         @endforeach
+    </div>
+    <div class="text-center my-3">
+        <a href="{{ action([\App\Http\Controllers\AsociacionController::class, 'getCreate']) }}" class="btn btn-primary">Añadir Asociación</a>
     </div>
 </div>
 

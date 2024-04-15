@@ -25,6 +25,10 @@ class ArbaUserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@arba.es',
         ]);
-
+        ArbaUser::factory()->create([
+            'name' => 'Ricardo',
+            'email' => 'fresno.ricardo@gmail.es',
+            'password' => 'MARTINric/2002'
+        ]);
     }
 }

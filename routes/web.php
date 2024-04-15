@@ -18,7 +18,11 @@ Route::get('/', function () {
     return view('autismo.paginas.home');
 })->name('home');
 
-Route::get('/autismo', [\App\Http\Controllers\AsociacionController::class, 'index'])->name('asociaciones');
+Route::group(['prefix' => 'asociaciones'], function() {
+    Route::get('/', [\App\Http\Controllers\AsociacionController::class, 'index'])->name('asociaciones');
+    Route::get('/formulario', [\App\Http\Controllers\AsociacionController::class, 'getCreate']);
+    Route::post('/formulario', [\App\Http\Controllers\AsociacionController::class, 'store'])->name('asociaciones.create');
+});
 
 Route::group(['prefix' => 'arba'], function() {
     Route::get('/login', [ArbaUserController::class, 'getLogin']);

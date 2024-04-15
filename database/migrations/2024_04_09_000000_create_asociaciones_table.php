@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('asociaciones', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->string('logo')->nullable();
             $table->enum('tipo', ['Asociación', 'Fundación']);
             $table->string('direccion')->nullable();
             $table->integer('telefono')->nullable();
