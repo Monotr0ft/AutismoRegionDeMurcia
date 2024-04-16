@@ -10,8 +10,11 @@
     <div class="container">
         <div class="row">
             <div class="col-12 text-center my-5">
-                <h1>Volveremos más tarde</h1>
-                <p>Estamos realizando tareas de mantenimiento. Por favor, vuelva a intentarlo más tarde.</p>
+                <img src="{{ asset('assets/img/Murcia_-_Mapa_municipal.svg') }}" class="img-fluid" width="200" alt="Logo">
+            </div>
+            <div class="col-12 text-center my-5">
+                <h1>Página en construcción</h1>
+                <p>Proximamente estará disponible</p>
             </div>
         </div>
     </div>
