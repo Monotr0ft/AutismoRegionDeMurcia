@@ -51,7 +51,7 @@ class StockPlantasSeeder extends Seeder
 
     private $lugares = [
         [
-            'nombre' => 'invernadero',
+            'nombre' => 'Invernadero',
         ],
         [
             'nombre' => 'Umbráculo',

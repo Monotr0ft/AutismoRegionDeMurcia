@@ -17,8 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('lugar_id');
             $table->unsignedBigInteger('ubicacion_id');
             $table->unsignedBigInteger('contenedor_id');
-            $table->date('fecha_planta');
-            $table->integer('savia');
+            $table->date('fecha_planta')->nullable();
+            $table->integer('savia')->nullable();
             $table->integer('stock');
             $table->timestamps();
         });

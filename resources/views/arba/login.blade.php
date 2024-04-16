@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
 </head>
 <body class="container-fluid d-flex flex-column justify-content-center">
-    <div class="my-5 text-center">
+    <div class="my-5 text-center d-flex flex-column justify-content-center align-items-center">
         <h1>ARBA LOGIN</h1>
+        @if ($errors->any())
+            <h4 class="text-danger text-center p-4" style="background-color: whitesmoke; border-radius: 10px">{{ $errors->first() }}</h4>
+        @endif
     </div>
     <div class="row">
         <div class="col-12 col-lg-4">

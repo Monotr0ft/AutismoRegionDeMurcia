@@ -28,7 +28,7 @@ class ArbaUserController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'Las credenciales proporcionadas no coinciden con nuestros registros.',
+            'Las credenciales proporcionadas no coinciden con nuestros registros.',
         ]);
     }
 
