@@ -7,6 +7,14 @@
     @include ('bootstrap.css')
 </head>
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center my-5">
+                <h1>Volveremos más tarde</h1>
+                <p>Estamos realizando tareas de mantenimiento. Por favor, vuelva a intentarlo más tarde.</p>
+            </div>
+        </div>
+    </div>
     @include ('bootstrap.script')
 </body>
 </html>
