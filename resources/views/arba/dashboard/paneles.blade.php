@@ -17,11 +17,11 @@
             <div class="col">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Crear socio</h2>
+                        <h2>Lista Socios</h2>
                     </div>
                     <div class="card-body">
-                        <p>Crear un nuevo socio.</p>
-                        <a href="{{ action([\App\Http\Controllers\SocioController::class, 'getCreate']) }}" class="btn btn-primary">Crear socio</a>
+                        <p>Entra aquí para ver los socios y para crear nuevos</p>
+                        <a href="{{ route('arba.socio') }}" class="btn btn-primary">Ver socios</a>
                     </div>
                 </div>
             </div>

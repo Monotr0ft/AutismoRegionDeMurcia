@@ -88,7 +88,7 @@
                     <label for="redes_sociales">Redes Sociales</label>
                     <div id="redes_sociales">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="redes_sociales[]" required>
+                            <input type="text" class="form-control" name="redes_sociales[]">
                             <div class="input-group-append">
                                 <button class="btn btn-success" type="button" onclick="addRedSocial()">+</button>
                             </div>

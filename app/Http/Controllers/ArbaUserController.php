@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\ArbaUser;
 
 class ArbaUserController extends Controller
 {
@@ -21,6 +22,13 @@ class ArbaUserController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
+        $user = ArbaUser::where('email', $credentials['email'])->first();
+        if (!$user) {
+            return back()->withErrors([
+                'email' => 'El correo electrónico proporcionado no coincide con nuestros registros.',
+            ]);
+        }
+
         if (Auth::guard('arba')->attempt($credentials)) {
             $request->session()->regenerate();
 
@@ -28,7 +36,7 @@ class ArbaUserController extends Controller
         }
 
         return back()->withErrors([
-            'Las credenciales proporcionadas no coinciden con nuestros registros.',
+            'passwod' => 'Las credenciales proporcionadas no coinciden con nuestros registros.',
         ]);
     }
 

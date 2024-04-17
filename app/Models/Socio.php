@@ -19,7 +19,7 @@ class Socio extends Model
         return $this->belongsTo(ArbaUser::class, 'user_id');
     }
 
-    public function direccion(): BelongsTo
+    public function direccionArba(): BelongsTo
     {
         return $this->belongsTo(DireccionArba::class, 'direccion');
     }

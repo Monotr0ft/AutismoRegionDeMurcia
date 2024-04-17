@@ -15,7 +15,8 @@ class SocioController extends Controller
      */
     public function index()
     {
-        //
+        $socios = Socio::with('direccionArba')->get();
+        return view('arba.socio.index', ['socios' => $socios]);
     }
 
     /**

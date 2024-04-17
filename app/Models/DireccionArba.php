@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DireccionArba extends Model
 {
@@ -14,8 +14,8 @@ class DireccionArba extends Model
 
     protected $table = 'direcciones_arba';
 
-    public function socio(): HasOne
+    public function socio(): HasMany
     {
-        return $this->hasOne(Socio::class, 'direccion');
+        return $this->hasMany(Socio::class, 'direccion');
     }
 }

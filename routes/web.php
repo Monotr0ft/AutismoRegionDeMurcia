@@ -32,10 +32,17 @@ Route::group(['prefix' => 'arba'], function() {
         Route::get('/dashboard', function() {
             return view('arba.dashboard.paneles');
         })->name('dashboard.arba');
-        Route::get('/socio/create', [\App\Http\Controllers\SocioController::class, 'getCreate']);
-        Route::get('/socio/usuario', [\App\Http\Controllers\SocioController::class,'getUser']);
-        Route::post('/socio/create', [\App\Http\Controllers\SocioController::class, 'store'])->name('arba.socio.create');
-        Route::post('/socio/usuario', [\App\Http\Controllers\SocioController::class, 'postUser'])->name('arba.user');
+        Route::group(['prefix' => 'socio'], function() {
+            Route::get('/', [\App\Http\Controllers\SocioController::class, 'index'])->name('arba.socio');
+            Route::get('/{id}', [\App\Http\Controllers\SocioController::class, 'show']);
+            Route::get('/{id}/edit', [\App\Http\Controllers\SocioController::class, 'edit']);
+            Route::put('/{id}/edit', [\App\Http\Controllers\SocioController::class, 'update']);
+            Route::delete('/{id}', [\App\Http\Controllers\SocioController::class, 'destroy']);
+            Route::get('/create', [\App\Http\Controllers\SocioController::class, 'getCreate']);
+            Route::get('/usuario', [\App\Http\Controllers\SocioController::class,'getUser']);
+            Route::post('/create', [\App\Http\Controllers\SocioController::class, 'store'])->name('arba.socio.create');
+            Route::post('/usuario', [\App\Http\Controllers\SocioController::class, 'postUser'])->name('arba.user');
+        });
     });
 });
 
