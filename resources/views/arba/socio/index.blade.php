@@ -28,11 +28,11 @@
                         <th>Nombre</th>
                         <th>Apellidos</th>
                         <th>DNI</th>
-                        <th class="d-none d-lg-table-cell">Telefono</th>
-                        <th class="d-none d-lg-table-cell">Email</th>
+                        <th class="d-none d-md-table-cell">Telefono</th>
+                        <th class="d-none d-md-table-cell">Email</th>
                         <th class="d-none d-lg-table-cell">Posición en la Junta Directiva</th>
                         <th class="d-none d-lg-table-cell">Dirección</th>
-                        <th class="d-none d-lg-table-cell">Estado</th>
+                        <th class="d-none d-md-table-cell">Estado</th>
                         <th class="d-none d-lg-table-cell">¿Tiene acceso a la web?</th>
                         <th class="d-none d-lg-table-cell">¿Tiene cuenta de usuario?</th>
                         <th class="d-none d-lg-table-cell">Fecha de Alta</th>
@@ -45,8 +45,8 @@
                             <td>{{ $socio->nombre }}</td>
                             <td>{{ $socio->apellido1 }} {{ $socio->apellido2 }}</td>
                             <td>{{ $socio->dni }}</td>
-                            <td class="d-none d-lg-table-cell">{{ $socio->telefono }}</td>
-                            <td class="d-none d-lg-table-cell">{{ $socio->email }}</td>
+                            <td class="d-none d-md-table-cell">{{ $socio->telefono }}</td>
+                            <td class="d-none d-md-table-cell">{{ $socio->email }}</td>
                             @if ($socio->junta_directiva == 1)
                                 <td class="d-none d-lg-table-cell">{{ $socio->posicion }}</td>
                             @else
@@ -58,9 +58,9 @@
                                 <td class="d-none d-lg-table-cell">{{ $socio->direccionArba->tipo_via }} {{ $socio->direccionArba->nombre_via }} {{ $socio->direccionArba->numero }} {{ $socio->direccionArba->ampliacion }}, {{ $socio->direccionArba->provincia }}, {{ $socio->direccionArba->municipio }}, {{ $socio->direccionArba->localidad }}, {{ $socio->direccionArba->codigo_postal }}</td>
                             @endif
                             @if ($socio->activo == 1)
-                                <td class="d-none d-lg-table-cell">Activo</td>
+                                <td class="d-none d-md-table-cell">Activo</td>
                             @else
-                                <td class="d-none d-lg-table-cell">Inactivo</td>
+                                <td class="d-none d-md-table-cell">Inactivo</td>
                             @endif
                             @if ($socio->acceso_web == 1)
                                 <td class="d-none d-lg-table-cell">Sí</td>
