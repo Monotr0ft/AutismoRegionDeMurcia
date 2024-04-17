@@ -27,7 +27,7 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Apellidos</th>
-                        <th class="d-none d-lg-table-cell">DNI</th>
+                        <th>DNI</th>
                         <th class="d-none d-lg-table-cell">Telefono</th>
                         <th class="d-none d-lg-table-cell">Email</th>
                         <th class="d-none d-lg-table-cell">Posición en la Junta Directiva</th>
@@ -44,7 +44,7 @@
                         <tr>
                             <td>{{ $socio->nombre }}</td>
                             <td>{{ $socio->apellido1 }} {{ $socio->apellido2 }}</td>
-                            <td class="d-none d-lg-table-cell">{{ $socio->dni }}</td>
+                            <td>{{ $socio->dni }}</td>
                             <td class="d-none d-lg-table-cell">{{ $socio->telefono }}</td>
                             <td class="d-none d-lg-table-cell">{{ $socio->email }}</td>
                             @if ($socio->junta_directiva == 1)
