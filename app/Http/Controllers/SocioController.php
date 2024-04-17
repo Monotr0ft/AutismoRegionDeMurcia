@@ -56,7 +56,7 @@ class SocioController extends Controller
 
         $socio->save();
 
-        return redirect('/arba/dashboard');
+        return redirect('/arba/socio');
 
     }
 
