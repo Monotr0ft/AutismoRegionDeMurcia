@@ -3,6 +3,11 @@
 @section ('title')
 
     <title>ARBA - Socios</title>
+    <script>
+        function confirmDelete() {
+            return confirm('¿Estás seguro de que quieres eliminar este socio?');
+        }
+    </script>
 
 @stop
 
@@ -75,8 +80,8 @@
                             <td class="d-none d-lg-table-cell">{{ $socio->fecha_alta }}</td>
                             <td>
                                 <a href="{{ route('arba.socio.show', $socio->id) }}" class="btn btn-primary">Ver</a>
-                                <a href="{{ action([App\Http\Controllers\SocioController::class, 'getCreate']) }}" class="btn btn-warning">Editar</a>
-                                <form action="" method="POST" style="display: inline;">
+                                <a href="{{ action([\App\Http\Controllers\SocioController::class, 'getEdit'], $socio->id) }}" class="btn btn-warning">Editar</a>
+                                <form action="{{ route('arba.socio.delete', $socio->id) }}" method="POST" style="display: inline;" onsubmit="return confirmDelete()">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Eliminar</button>

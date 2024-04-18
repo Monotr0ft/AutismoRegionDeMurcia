@@ -35,9 +35,12 @@ Route::group(['prefix' => 'arba'], function() {
         Route::group(['prefix' => 'socio'], function() {
             Route::get('/', [\App\Http\Controllers\SocioController::class, 'index'])->name('arba.socio');
             Route::get('{id}', [\App\Http\Controllers\SocioController::class, 'show'])->name('arba.socio.show')->where('id', '[0-9]+');
+            Route::get('edit/{id}', [\App\Http\Controllers\SocioController::class, 'getEdit'])->name('arba.socio.edit')->where('id', '[0-9]+');
             Route::get('create', [\App\Http\Controllers\SocioController::class, 'getCreate']);
             Route::get('usuario', [\App\Http\Controllers\SocioController::class,'getUser']);
+            Route::put('edit/{id}', [\App\Http\Controllers\SocioController::class, 'update'])->name('arba.socio.edit')->where('id', '[0-9]+');
             Route::post('create', [\App\Http\Controllers\SocioController::class, 'store'])->name('arba.socio.create');
+            Route::delete('delete/{id}', [\App\Http\Controllers\SocioController::class, 'destroy'])->name('arba.socio.delete')->where('id', '[0-9]+');
             Route::post('usuario', [\App\Http\Controllers\SocioController::class, 'postUser'])->name('arba.user');
         });
     });

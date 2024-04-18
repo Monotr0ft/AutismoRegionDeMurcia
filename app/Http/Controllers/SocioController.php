@@ -25,7 +25,6 @@ class SocioController extends Controller
     public function store(Request $request)
     {
         $socio = new Socio;
-        $direccion = new DireccionArba;
 
         $socio->nombre = $request->nombre;
         $socio->apellido1 = $request->apellido_1;
@@ -41,18 +40,21 @@ class SocioController extends Controller
             $socio->junta_directiva = 0;
         }
 
-        $direccion->tipo_via = $request->tipo_calle;
-        $direccion->nombre_via = $request->nombre_calle;
-        $direccion->numero = $request->numero;
-        $direccion->ampliacion = $request->ampliacion;
-        $direccion->codigo_postal = $request->codigo_postal;
-        $direccion->municipio = $request->municipio;
-        $direccion->localidad = $request->localidad;
-        $direccion->provincia = $request->provincia;
-
-        $direccion->save();
-
-        $socio->direccion = $direccion->id;
+        if ($request->direcciones == 0) {
+            $direccion = new DireccionArba;
+            $direccion->tipo_via = $request->tipo_calle;
+            $direccion->nombre_via = $request->nombre_calle;
+            $direccion->numero = $request->numero;
+            $direccion->ampliacion = $request->ampliacion;
+            $direccion->codigo_postal = $request->codigo_postal;
+            $direccion->municipio = $request->municipio;
+            $direccion->localidad = $request->localidad;
+            $direccion->provincia = $request->provincia;
+            $direccion->save();
+            $socio->direccion = $direccion->id;
+        }else {
+            $socio->direccion = $request->direcciones;
+        }
 
         $socio->save();
 
@@ -77,7 +79,51 @@ class SocioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $socio = Socio::find($id);
+
+        $socio->nombre = $request->nombre;
+        $socio->apellido1 = $request->apellido_1;
+        $socio->apellido2 = $request->apellido_2;
+        $socio->dni = $request->dni;
+        $socio->telefono = $request->telefono;
+        $socio->email = $request->email;
+        $socio->fecha_alta = $request->fecha_alta;
+        if($request->juntaDirectiva === "on"){
+            $socio->junta_directiva = 1;
+            $socio->posicion = $request->cargo;
+        }else {
+            $socio->junta_directiva = 0;
+        }
+        if ($request->estado === "on") {
+            $socio->activo = 1;
+        }else {
+            $socio->activo = 0;
+            $socio->fecha_baja = $request->fecha_baja;
+        }
+        if ($request->acceso_web === "on") {
+            $socio->acceso_web = 1;
+        }else {
+            $socio->acceso_web = 0;
+        }
+        if ($request->direcciones == 0) {
+            $direccion = new DireccionArba;
+            $direccion->tipo_via = $request->tipo_calle;
+            $direccion->nombre_via = $request->nombre_calle;
+            $direccion->numero = $request->numero;
+            $direccion->ampliacion = $request->ampliacion;
+            $direccion->codigo_postal = $request->codigo_postal;
+            $direccion->municipio = $request->municipio;
+            $direccion->localidad = $request->localidad;
+            $direccion->provincia = $request->provincia;
+            $direccion->save();
+            $socio->direccion = $direccion->id;
+        }else {
+            $socio->direccion = $request->direcciones;
+        }
+
+        $socio->save();
+
+        return redirect('/arba/socio');
     }
 
     /**
@@ -85,12 +131,24 @@ class SocioController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $socio = Socio::find($id);
+        $socio->delete();
+        return redirect('/arba/socio');
     }
 
     public function getCreate()
     {
-        return view('arba.socio.create');
+        $direcciones = DireccionArba::all();
+        return view('arba.socio.create', ['direcciones' => $direcciones]);
+    }
+
+    public function getEdit(string $id) {
+        $socio = Socio::with('direccionArba')->find($id);
+        if (!$socio) {
+            return redirect('/arba/socio');
+        }
+        $direcciones = DireccionArba::all();
+        return view('arba.socio.edit', ['socio' => $socio, 'direcciones' => $direcciones]);
     }
 
     public function getUser() {

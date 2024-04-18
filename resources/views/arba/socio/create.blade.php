@@ -6,6 +6,30 @@
 <script>
     window.onload = function() {
 
+    let direcciones = document.getElementById('direcciones');
+
+    direcciones.addEventListener('change', function() {
+        let nuevaDireccion = document.getElementById('nueva_direccion');
+        nuevaDireccion.style.display = direcciones.value == 0 ? 'block' : 'none';
+        if (direcciones.value != 0) {
+            document.getElementById('tipo_calle').required = false;
+            document.getElementById('nombre_calle').required = false;
+            document.getElementById('numero').required = false;
+            document.getElementById('codigo_postal').required = false;
+            document.getElementById('provincia').required = false;
+            document.getElementById('municipio').required = false;
+            document.getElementById('localidad').required = false;
+        } else {
+            document.getElementById('tipo_calle').required = true;
+            document.getElementById('nombre_calle').required = true;
+            document.getElementById('numero').required = true;
+            document.getElementById('codigo_postal').required = true;
+            document.getElementById('provincia').required = true;
+            document.getElementById('municipio').required = true;
+            document.getElementById('localidad').required = true;
+        }
+    });
+
     let juntaDirectiva = document.getElementById('juntaDirectiva');
 
     juntaDirectiva.addEventListener('change', function() {
@@ -114,53 +138,66 @@
             <div class="form-group">
                 <h2>Dirección</h2>
                 <br>
-                <select class="form-select" name="tipo_calle" id="tipo_calle" required>
-                    <option selected>Selecciona un tipo de calle</option>
-                    <option value="Calle">Calle</option>
-                    <option value="Avda">Avenida</option>
-                    <option value="Travesia">Travesia</option>
-                    <option value="Carretera">Carretera</option>
+                <select class="form-select" name="direcciones" id="direcciones" required>
+                    <option value="0" selected>Nueva dirección</option>
+                    @foreach ($direcciones as $direccion)
+                        @if ($direccion->ampliacion == null)
+                            <option value="{{ $direccion->id }}">{{ $direccion->tipo_via }} {{ $direccion->nombre_via }} {{ $direccion->numero }}, {{ $direccion->provincia }}, {{ $direccion->municipio }}, {{ $direccion->localidad }}, {{ $direccion->codigo_postal }}</option>
+                        @else
+                            <option value="{{ $direccion->id }}">{{ $direccion->tipo_via }} {{ $direccion->nombre_via }} {{ $direccion->numero }} {{ $direccion->ampliacion }}, {{ $direccion->provincia }}, {{ $direccion->municipio }}, {{ $direccion->localidad }}, {{ $direccion->codigo_postal }}</option>
+                        @endif
+                    @endforeach
                 </select>
                 <br>
-                <div class="form-group">
-                    <label for="nombre_calle">Nombre de la calle</label>
-                    <input type="text" class="form-control" name="nombre_calle" id="nombre_calle" placeholder="Nombre de la calle" required>
-                </div>
-                <br>
-                <div class="form-group">
-                    <label for="numero">Número</label>
-                    <input type="text" class="form-control" name="numero" id="numero" placeholder="Número" required>
-                </div>
-                <br>
-                <div class="form-group">
-                    <label for="ampliacion">Ampliación</label>
-                    <input type="text" class="form-control" name="ampliacion" id="ampliacion" placeholder="Ampliación" required>
-                </div>
-                <br>
-                <div class="form-group">
-                    <label for="codigo_postal">Código postal</label>
-                    <input type="text" class="form-control" name="codigo_postal" id="codigo_postal" placeholder="Código postal" required>
-                </div>
-                <br>
-                <div class="form-group">
-                    <label for="provincia">Provincia</label>
-                    <select class="form-select" name="provincia" id="provincia" required>
-                        <option selected>Selecciona una provincia</option>
+                <div id="nueva_direccion">
+                    <select class="form-select" name="tipo_calle" id="tipo_calle" required>
+                        <option selected>Selecciona un tipo de calle</option>
+                        <option value="Calle">Calle</option>
+                        <option value="Avda">Avenida</option>
+                        <option value="Travesia">Travesia</option>
+                        <option value="Carretera">Carretera</option>
                     </select>
-                </div>
-                <br>
-                <div class="form-group">
-                    <label for="municipio">Municipio</label>
-                    <select class="form-select" name="municipio" id="municipio" required disabled>
-                        <option selected>Selecciona un municipio</option>
-                    </select>
-                </div>
-                <br>
-                <div class="form-group">
-                    <label for="localidad">Localidad</label>
-                    <select class="form-select" name="localidad" id="localidad" required disabled>
-                        <option selected>Selecciona una localidad</option>
-                    </select>
+                    <br>
+                    <div class="form-group">
+                        <label for="nombre_calle">Nombre de la calle</label>
+                        <input type="text" class="form-control" name="nombre_calle" id="nombre_calle" placeholder="Nombre de la calle" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="numero">Número</label>
+                        <input type="text" class="form-control" name="numero" id="numero" placeholder="Número" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="ampliacion">Ampliación</label>
+                        <input type="text" class="form-control" name="ampliacion" id="ampliacion" placeholder="Ampliación">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="codigo_postal">Código postal</label>
+                        <input type="text" class="form-control" name="codigo_postal" id="codigo_postal" placeholder="Código postal" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="provincia">Provincia</label>
+                        <select class="form-select" name="provincia" id="provincia" required>
+                            <option selected>Selecciona una provincia</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="municipio">Municipio</label>
+                        <select class="form-select" name="municipio" id="municipio" required disabled>
+                            <option selected>Selecciona un municipio</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="localidad">Localidad</label>
+                        <select class="form-select" name="localidad" id="localidad" required disabled>
+                            <option selected>Selecciona una localidad</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <br>

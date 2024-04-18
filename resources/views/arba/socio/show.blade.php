@@ -15,7 +15,7 @@
                 <h1 class="text-center">Socio {{ $socio->nombre }} {{ $socio->apellido1 }} {{ $socio->apellido2 }}</h1>
             </div>
             <div class="d-flex justify-content-center col-12">
-                <a href="" class="btn btn-warning m-2">Editar Socio</a>
+                <a href="{{ action([\App\Http\Controllers\SocioController::class, 'getEdit'], $socio->id) }}" class="btn btn-warning m-2">Editar Socio</a>
                 <a href="{{ route('arba.socio') }}" class="btn btn-primary m-2">Volver a Socios</a>
             </div>
         </div>
