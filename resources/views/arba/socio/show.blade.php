@@ -82,7 +82,7 @@
                 @else
                     <p><strong>¿Tiene cuenta de usuario?</strong> No</p>
                 @endif
-                <p><strong>Fecha de Alta:</strong> {{ $socio->created_at }}</p>
+                <p><strong>Fecha de Alta:</strong> {{ $socio->fecha_alta }}</p>
             </div>
         </div>
     </div>
