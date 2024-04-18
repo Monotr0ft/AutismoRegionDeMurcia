@@ -21,8 +21,8 @@
         <form method="POST" action="{{ route('arba.login') }}" class="container formulario col-12 col-lg-4">
             @csrf
             <div class="my-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" id="email" class="form-control" required>
+                <label for="dni" class="form-label">DNI</label>
+                <input type="text" name="dni" id="dni" class="form-control" required>
             </div>
             <div class="my-3">
                 <label for="password" class="form-label">Contraseña</label>

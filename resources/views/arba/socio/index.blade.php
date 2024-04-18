@@ -74,6 +74,7 @@
                             @endif
                             <td class="d-none d-lg-table-cell">{{ $socio->fecha_alta }}</td>
                             <td>
+                                <a href="{{ route('arba.socio.show', $socio->id) }}" class="btn btn-primary">Ver</a>
                                 <a href="{{ action([App\Http\Controllers\SocioController::class, 'getCreate']) }}" class="btn btn-warning">Editar</a>
                                 <form action="" method="POST" style="display: inline;">
                                     @csrf

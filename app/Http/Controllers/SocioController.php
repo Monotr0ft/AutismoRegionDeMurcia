@@ -65,7 +65,11 @@ class SocioController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $socio = Socio::with('direccionArba')->find($id);
+        if (!$socio) {
+            return redirect('/arba/socio');
+        }
+        return view('arba.socio.show', ['socio' => $socio]);
     }
 
     /**

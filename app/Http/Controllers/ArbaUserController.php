@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ArbaUser;
+use App\Models\Socio;
 
 class ArbaUserController extends Controller
 {
@@ -20,24 +21,31 @@ class ArbaUserController extends Controller
 
     public function postLogin(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-
-        $user = ArbaUser::where('email', $credentials['email'])->first();
-        if (!$user) {
-            return back()->withErrors([
-                'email' => 'El correo electrónico proporcionado no coincide con nuestros registros.',
-            ]);
+        if ($request->dni == 'admin@arba.es') {
+            $credentials = [
+                'email' => $request->dni,
+                'password' => $request->password
+            ];
+            if (Auth::guard('arba')->attempt($credentials)) {
+                return redirect('/arba/dashboard');
+            }
+            return redirect()->back()->with('error', 'Credenciales incorrectas');
         }
-
+        $socio = Socio::where('dni', $request->dni)->first();
+        if (!$socio) {
+            return redirect()->back()->with('error', 'No se ha encontrado ningún socio con ese DNI');
+        }
+        if (!$socio->user_id) {
+            return redirect()->back()->with('error', 'El socio no tiene cuenta de usuario');
+        }
+        $credentials = [
+            'email' => $socio->arbaUser->email,
+            'password' => $request->password
+        ];
         if (Auth::guard('arba')->attempt($credentials)) {
-            $request->session()->regenerate();
-
-            return redirect()->intended('/arba/dashboard');
+            return redirect('/arba/dashboard');
         }
-
-        return back()->withErrors([
-            'passwod' => 'Las credenciales proporcionadas no coinciden con nuestros registros.',
-        ]);
+        return redirect()->back()->with('error', 'Credenciales incorrectas');   
     }
 
     public function destroy(Request $request)

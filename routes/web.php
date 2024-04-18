@@ -34,6 +34,7 @@ Route::group(['prefix' => 'arba'], function() {
         })->name('dashboard.arba');
         Route::group(['prefix' => 'socio'], function() {
             Route::get('/', [\App\Http\Controllers\SocioController::class, 'index'])->name('arba.socio');
+            Route::get('{id}', [\App\Http\Controllers\SocioController::class, 'show'])->name('arba.socio.show')->where('id', '[0-9]+');
             Route::get('create', [\App\Http\Controllers\SocioController::class, 'getCreate']);
             Route::get('usuario', [\App\Http\Controllers\SocioController::class,'getUser']);
             Route::post('create', [\App\Http\Controllers\SocioController::class, 'store'])->name('arba.socio.create');
