@@ -36,7 +36,7 @@
                         <th class="d-none d-lg-table-cell">Redes Sociales</th>
                         <th class="d-none d-lg-table-cell">Descripción</th>
                         <th class="d-none d-lg-table-cell">¿Es regional?</th>
-                        <th>¿Está publicada?</th>
+                        <th class="d-none d-lg-table-cell">¿Está publicada?</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -66,9 +66,9 @@
                                 <td class="d-none d-lg-table-cell">No</td>
                             @endif
                             @if ($asociacion->publicar == 1)
-                                <td>Sí</td>
+                                <td class="d-none d-lg-table-cell">Sí</td>
                             @else
-                                <td>No</td>
+                                <td class="d-none d-lg-table-cell">No</td>
                             @endif
                             <td>
                                 <a href="{{ route('dashboard.asociaciones.show', $asociacion->id) }}" class="btn btn-primary">Ver</a>
