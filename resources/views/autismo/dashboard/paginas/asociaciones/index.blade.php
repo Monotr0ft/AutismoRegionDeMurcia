@@ -59,7 +59,7 @@
                                     @endforeach
                                 @endif
                             </td>
-                            <td>Solo se puede ver en el apartado "Ver"</td>
+                            <td class="d-none d-lg-table-cell">Solo se puede ver en el apartado "Ver"</td>
                             @if ($asociacion->es_regional == 1)
                                 <td class="d-none d-lg-table-cell">Sí</td>
                             @else
