@@ -29,14 +29,14 @@ class ArbaUserController extends Controller
             if (Auth::guard('arba')->attempt($credentials)) {
                 return redirect('/arba/dashboard');
             }
-            return redirect()->back()->with('error', 'Credenciales incorrectas');
+            return redirect()->back()->withErrors(['error' => 'Credenciales incorrectas']);
         }
         $socio = Socio::where('dni', $request->dni)->first();
         if (!$socio) {
-            return redirect()->back()->with('error', 'No se ha encontrado ningún socio con ese DNI');
+            return redirect()->back()->withErrors(['error' => 'No se ha encontrado ningún socio con ese DNI']);
         }
         if (!$socio->user_id) {
-            return redirect()->back()->with('error', 'El socio no tiene cuenta de usuario');
+            return redirect()->back()->withErrors(['error' => 'El socio no tiene cuenta de usuario']);
         }
         $credentials = [
             'email' => $socio->arbaUser->email,
@@ -45,7 +45,7 @@ class ArbaUserController extends Controller
         if (Auth::guard('arba')->attempt($credentials)) {
             return redirect('/arba/dashboard');
         }
-        return redirect()->back()->with('error', 'Credenciales incorrectas');   
+        return redirect()->back()->withErrors(['error' => 'Credenciales incorrectas']);   
     }
 
     public function destroy(Request $request)

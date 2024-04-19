@@ -24,6 +24,9 @@
                     <a class="nav-link" href="#">Noticias</a>
                 </li>
             </ul>
+            <form class="d-flex ms-auto">
+                <a href="{{ action([\App\Http\Controllers\UserController::class, 'getLogin']) }}" class="btn btn-outline-dark">Iniciar sesión</a>
+            </form>
         </div>
     </div>
 </nav>

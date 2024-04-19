@@ -23,6 +23,11 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
         Schema::disableForeignKeyConstraints();
         Schema::connection('mysql-arba')->disableForeignKeyConstraints();
+        \App\Models\User::factory()->create([
+            'name' => 'Monotr0ft',
+            'email' => 'admin@autismoregiondemurcia.es',
+            'password' => 'MARTINric/2004'
+        ]);
         $this->call(ArbaUserSeeder::class);
         $this->call(AsociacionSeeder::class);
         $this->call(StockPlantasSeeder::class);
