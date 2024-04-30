@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
         <a class="navbar-brand me-5" href="{{ route('home') }}">
             <img src="{{ asset('assets\img\Murcia_-_Mapa_municipal prueba.svg') }}" alt="Logo" width="100" height="100">
@@ -23,10 +23,25 @@
                 <li class="nav-item px-3 h4">
                     <a class="nav-link" href="#">Noticias</a>
                 </li>
+                <li class="nav-item px-3 h4 dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Usuario
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        @if (Auth::check())
+                            <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                                </form>
+                            </li>
+                        @else
+                            <li><a class="dropdown-item" href="{{ action([\App\Http\Controllers\UserController::class, 'getLogin']) }}">Iniciar sesión</a></li>
+                        @endif
+                    </ul>
+                </li>
             </ul>
-            <form class="d-flex ms-auto">
-                <a href="{{ action([\App\Http\Controllers\UserController::class, 'getLogin']) }}" class="btn btn-outline-dark">Iniciar sesión</a>
-            </form>
         </div>
     </div>
 </nav>

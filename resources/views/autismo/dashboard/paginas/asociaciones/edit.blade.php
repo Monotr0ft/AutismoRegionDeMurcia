@@ -65,7 +65,7 @@
                 <br>
                 <div class="form-group mb-3">
                     <label for="logo">Logo</label>
-                    <input type="file" class="form-control" id="logo" name="logo" onchange="previewImage(event, '#logoPreview')">
+                    <input type="file" class="form-control" id="logo" name="logo" accept="image/*" onchange="previewImage(event, '#logoPreview')">
                     <br>
                     <img src="" alt="" class="img-fluid" id="logoPreview" width="200">
                     <br>

@@ -16,7 +16,7 @@
             </div>
             <div class="d-flex justify-content-center col-12">
                 <a href="{{ action([\App\Http\Controllers\SocioController::class, 'getEdit'], $socio->id) }}" class="btn btn-warning m-2">Editar Socio</a>
-                <a href="{{ route('arba.socio') }}" class="btn btn-primary m-2">Volver a Socios</a>
+                <a href="{{ route('arba.socio') }}" class="btn btn-secondary m-2">Volver a Socios</a>
             </div>
         </div>
         <br>
@@ -61,28 +61,45 @@
             </div>
             <div class="col-12 col-md-6 text-center">
                 @if ($socio->junta_directiva == 1)
-                    <p><strong>Posición en la Junta Directiva:</strong> {{ $socio->posicion }}</p>
+                    <p><strong>Cargo en la Junta Directiva:</strong> {{ $socio->posicion }}</p>
                 @else
-                    <p><strong>Posición en la Junta Directiva:</strong> No pertenece a la junta directiva</p>
+                    <p><strong>Cargo en la Junta Directiva:</strong> No pertenece a la junta directiva</p>
                 @endif
                 @if ($socio->activo == 1)
                     <p><strong>Estado:</strong> Activo</p>
                 @else
                     <p><strong>Estado:</strong> Inactivo</p>
                 @endif
+                <p><strong>Fecha de Alta:</strong> {{ $socio->fecha_alta }}</p>
+                @if ($socio->fecha_baja != null)
+                    <p><strong>Fecha de Baja:</strong> {{ $socio->fecha_baja }}</p>
+                @endif
             </div>
             <div class="col-12 col-md-6 text-center">
-                @if ($socio->web == 1)
+                @if ($socio->acceso_web == 1)
                     <p><strong>¿Tiene acceso a la web?</strong> Sí</p>
                 @else
                     <p><strong>¿Tiene acceso a la web?</strong> No</p>
                 @endif
-                @if ($socio->usuario == 1)
+                @if ($socio->user_id != null)
                     <p><strong>¿Tiene cuenta de usuario?</strong> Sí</p>
                 @else
                     <p><strong>¿Tiene cuenta de usuario?</strong> No</p>
                 @endif
-                <p><strong>Fecha de Alta:</strong> {{ $socio->fecha_alta }}</p>
+                <div class="d-flex justify-content-center align-items-center">
+                    <p><strong>Lugares que tiene acceso:</strong></p>
+                    <ul class="text-start">
+                        @if ($socio->administracion == 1)
+                            <li>Administración</li>
+                        @endif
+                        @if ($socio->vivero == 1)
+                            <li>Vivero</li>
+                        @endif
+                        @if ($socio->partes_trabajo == 1)
+                            <li>Partes de Trabajo</li>
+                        @endif
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

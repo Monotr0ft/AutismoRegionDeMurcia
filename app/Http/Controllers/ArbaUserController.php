@@ -12,7 +12,8 @@ class ArbaUserController extends Controller
 
     public function getLogin()
     {
-        if (Auth::guard('arba')->check()) {
+
+        if (Auth::guard('arba')->check() && Socio::where('user_id', Auth::guard('arba')->user()->id)->first()->acceso_web == 1) {
             return redirect('/arba/dashboard');
         }
 

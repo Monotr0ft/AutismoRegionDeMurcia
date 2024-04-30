@@ -42,7 +42,7 @@
             <h2>Asociaciones de Trastorno del Espectro Autista<br>en la Región de Murcia</h2>
         </div>
         <div class="text-center my-3">
-            <a href="#"><button class="btn btn-primary">Más información</button></a>
+            <a href="{{ route('asociaciones') }}"><button class="btn btn-primary">Más información</button></a>
         </div>
     </div>
     <div>

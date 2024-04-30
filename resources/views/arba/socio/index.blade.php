@@ -18,13 +18,14 @@
             <h1 class="text-center">Socios</h1>
         </div>
     </div>
-
+    <br>
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 d-flex justify-content-between">
             <a href="{{ route('arba.socio.create') }}" class="btn btn-primary">Crear Socio</a>
+            <a href="{{ action([\App\Http\Controllers\SocioController::class, 'getUser']) }}" class="btn btn-primary">Vincular Socio a Usuario</a>
         </div>
     </div>
-
+    <br>
     <div class="row">
         <div class="col-12 table-responsive">
             <table class="table table-striped">
@@ -35,11 +36,12 @@
                         <th>DNI</th>
                         <th class="d-none d-md-table-cell">Telefono</th>
                         <th class="d-none d-md-table-cell">Email</th>
-                        <th class="d-none d-lg-table-cell">Posición en la Junta Directiva</th>
+                        <th class="d-none d-lg-table-cell">Cargo en la Junta Directiva</th>
                         <th class="d-none d-lg-table-cell">Dirección</th>
                         <th class="d-none d-md-table-cell">Estado</th>
-                        <th class="d-none d-lg-table-cell">¿Tiene acceso a la web?</th>
                         <th class="d-none d-lg-table-cell">¿Tiene cuenta de usuario?</th>
+                        <th class="d-none d-lg-table-cell">¿Tiene acceso a la web?</th>
+                        <th class="d-none d-lg-table-cell">Lugares que tiene acceso</th>
                         <th class="d-none d-lg-table-cell">Fecha de Alta</th>
                         <th>Acciones</th>
                     </tr>
@@ -67,16 +69,27 @@
                             @else
                                 <td class="d-none d-md-table-cell">Inactivo</td>
                             @endif
-                            @if ($socio->acceso_web == 1)
-                                <td class="d-none d-lg-table-cell">Sí</td>
-                            @else
-                                <td class="d-none d-lg-table-cell">No</td>
-                            @endif
                             @if ($socio->user_id == null)
                                 <td class="d-none d-lg-table-cell">No</td>
                             @else
                                 <td class="d-none d-lg-table-cell">Sí</td>
                             @endif
+                            @if ($socio->acceso_web == 1)
+                                <td class="d-none d-lg-table-cell">Sí</td>
+                            @else
+                                <td class="d-none d-lg-table-cell">No</td>
+                            @endif
+                            <td class="d-none d-lg-table-cell">
+                                @if ($socio->administracion == 1)
+                                    Administración<br>
+                                @endif
+                                @if ($socio->vivero == 1)
+                                    Vivero<br>
+                                @endif
+                                @if ($socio->partes_trabajo == 1)
+                                    Partes de Trabajo<br>
+                                @endif
+                            </td>
                             <td class="d-none d-lg-table-cell">{{ $socio->fecha_alta }}</td>
                             <td>
                                 <a href="{{ route('arba.socio.show', $socio->id) }}" class="btn btn-primary">Ver</a>

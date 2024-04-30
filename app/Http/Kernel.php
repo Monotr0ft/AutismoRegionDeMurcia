@@ -69,6 +69,9 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'user' => \App\Http\Middleware\UserMiddleware::class,
         'arba_user' => \App\Http\Middleware\ArbaUserMiddleware::class,
+        'administracion_arba' => \App\Http\Middleware\AdministracionArbaMiddleware::class,
+        'vivero_arba' => \App\Http\Middleware\ViveroArbaMiddleware::class,
+        'partes_trabajo_arba' => \App\Http\Middleware\PartesTrabajoArbaMiddleware::class,
     ];
 
 }

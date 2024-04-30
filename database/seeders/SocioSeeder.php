@@ -38,6 +38,9 @@ class SocioSeeder extends Seeder
             'junta_directiva' => 1,
             'posicion' => 'Vocal',
             'acceso_web' => 1,
+            'administracion' => 1,
+            'vivero' => 0,
+            'partes_trabajo' => 0,
             'user_id' => 2,
         ]);
     }

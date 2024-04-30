@@ -4,6 +4,18 @@
 
 <title>ARBA - Vincular Socio</title>
 
+<script>
+
+    function confirmCrear() {
+        return confirm('¿Estás seguro de que quieres crear una cuenta de usuario para este socio?');
+    }
+
+    function confirmVolver() {
+        return confirm('¿Estás seguro de que quieres volver a la lista de socios?');
+    }
+
+</script>
+
 @stop
 
 @section('content')
@@ -14,7 +26,7 @@
         <div class="col-12 col-lg-4">
 
         </div>
-        <form action="{{ route('arba.user') }}" method="POST" class="container my-5 col-12 col-lg-4">
+        <form action="{{ route('arba.user') }}" method="POST" class="container my-5 col-12 col-lg-4" onsubmit="return confirmCrear()">
             @csrf
             <h2>Socio</h2>
             <select name="socio_id" class="form-select">
@@ -30,7 +42,10 @@
                 <input type="password" class="form-control" name="contraseña" id="contraseña" placeholder="Contraseña" required>
             </div>
             <br>
-            <button type="submit" class="btn btn-primary my-3">Crear</button>
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Crear</button>
+                <a href="{{ route('arba.socio') }}" class="btn btn-secondary" onclick="return confirmVolver()">Volver</a>
+            </div>
         </form>
         <div class="col-12 col-lg-4">
 

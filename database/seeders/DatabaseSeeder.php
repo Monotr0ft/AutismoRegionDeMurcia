@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
         Schema::disableForeignKeyConstraints();
         Schema::connection('mysql-arba')->disableForeignKeyConstraints();
+        DB::connection('mysql')->table('users')->truncate();
         \App\Models\User::factory()->create([
             'name' => 'Monotr0ft',
             'email' => 'admin@autismoregiondemurcia.es',

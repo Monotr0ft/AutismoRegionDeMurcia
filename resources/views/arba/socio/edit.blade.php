@@ -93,6 +93,14 @@
 
         })
     }
+
+    function estasSeguroEditar() {
+        return confirm('¿Estás seguro de que quieres editar este socio?');
+    }
+
+    function estasSeguroVolver() {
+        return confirm('¿Estás seguro de que quieres volver a la lista de socios?');
+    }
     </script>
 
 @stop
@@ -105,7 +113,7 @@
         <div class="col-12 col-lg-4">
 
         </div>
-        <form action="{{ route('arba.socio.edit', $socio->id) }}" method="POST" class="container my-5 col-12 col-lg-4">
+        <form action="{{ route('arba.socio.edit', $socio->id) }}" method="POST" class="container my-5 col-12 col-lg-4" onsubmit="return estasSeguroEditar()">
             @csrf
             @method('PUT')
             <div class="form-group">
@@ -161,6 +169,39 @@
                 @endif
                 <label class="form-check-label" for="acceso_web">
                     ¿Tiene acceso a la web?
+                </label>
+            </div>
+            <br>
+            <div class="form-check">
+                @if ($socio->administracion == 1)
+                    <input class="form-check-input" type="checkbox" name="administracion" value="on" id="administracion" checked>
+                @else
+                    <input class="form-check-input" type="checkbox" name="administracion" value="on" id="administracion">
+                @endif
+                <label class="form-check-label" for="administracion">
+                    ¿Tiene acceso a la administración?
+                </label>
+            </div>
+            <br>
+            <div class="form-check">
+                @if ($socio->vivero == 1)
+                    <input class="form-check-input" type="checkbox" name="vivero" value="on" id="vivero" checked>
+                @else
+                    <input class="form-check-input" type="checkbox" name="vivero" value="on" id="vivero">
+                @endif
+                <label class="form-check-label" for="vivero">
+                    ¿Tiene acceso al vivero?
+                </label>
+            </div>
+            <br>
+            <div class="form-check">
+                @if ($socio->partes_trabajo == 1)
+                    <input class="form-check-input" type="checkbox" name="partes_trabajo" value="on" id="partes_trabajo" checked>
+                @else
+                    <input class="form-check-input" type="checkbox" name="partes_trabajo" value="on" id="partes_trabajo">
+                @endif
+                <label class="form-check-label" for="partes_trabajo">
+                    ¿Tiene acceso a los partes de trabajo?
                 </label>
             </div>
             <br>
@@ -306,7 +347,10 @@
                 @endif
             </div>
             <br>
-            <button type="submit" class="btn btn-primary my-3">Editar</button>
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-warning">Editar</button>
+                <a href="{{ route('arba.socio.show', $socio->id) }}" class="btn btn-secondary" onclick="return estasSeguroVolver()">Volver</a>
+            </div>
         </form>
         <div class="col-12 col-lg-4">
 

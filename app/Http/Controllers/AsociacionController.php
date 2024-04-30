@@ -52,7 +52,7 @@ class AsociacionController extends Controller
             }
             $asociacion->redes_sociales = json_encode($redes_sociales);
         }
-        //$asociacion->save();
+        $asociacion->save();
         return redirect()->route('asociaciones');
     }
 
@@ -95,6 +95,11 @@ class AsociacionController extends Controller
                 $asociacion->es_regional = 1;
             } else {
                 $asociacion->es_regional = 0;
+            }
+            if ($request->publicar == 1) {
+                $asociacion->publicar = 1;
+            } else {
+                $asociacion->publicar = 0;
             }
             if ($request->has('redes_sociales')) {
                 $redes_sociales = $request->input('redes_sociales');

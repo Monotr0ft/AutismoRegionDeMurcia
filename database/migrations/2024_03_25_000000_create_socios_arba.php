@@ -25,7 +25,10 @@ return new class extends Migration
             $table->date('fecha_baja')->nullable();
             $table->boolean('junta_directiva')->default(false);
             $table->enum('posicion',['Presidente/a','Secretario/a','Vicepresidente/a','Tesorero/a','Vocal'])->nullable();
-            $table->boolean('acceso_web')->default(true);
+            $table->boolean('acceso_web')->default(false);
+            $table->boolean('administracion')->default(false);
+            $table->boolean('vivero')->default(false);
+            $table->boolean('partes_trabajo')->default(false);
             $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
         });

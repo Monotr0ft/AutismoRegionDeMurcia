@@ -10,32 +10,53 @@
     <div class="row">
         <div class="row">
             <div class="col-12">
+                @php
+                    $user = Auth::guard('arba')->user();
+                    $socio = \App\Models\Socio::where('user_id', $user->id)->first();
+                @endphp
                 <h1>Paneles</h1>
             </div>
         </div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-            <div class="col">
-                <div class="card">
+            @if (!$socio || $socio->administracion == 1)
+            <div class="col d-flex align-items-stretch">
+                <div class="card" style="width: 100%">
                     <div class="card-header">
-                        <h2>Lista Socios</h2>
+                        <h2>Administración</h2>
                     </div>
                     <div class="card-body">
-                        <p>Entra aquí para ver los socios y para crear nuevos</p>
-                        <a href="{{ route('arba.socio') }}" class="btn btn-primary">Ver socios</a>
+                        <p>Aquí te permite manejar los socios, los proyectos y los usuarios de la web</p>
+                        <a href="{{ route('arba.administracion') }}" class="btn btn-primary">Entra aquí</a>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card">
+            @endif
+            @if (!$socio || $socio->vivero == 1)
+            <div class="col d-flex align-items-stretch">
+                <div class="card" style="width: 100%">
                     <div class="card-header">
-                        <h2>Vincular socio a usuario</h2>
+                        <h2>Vivero</h2>
                     </div>
                     <div class="card-body">
-                        <p>Vincula un socio a un usuario que se creará en el proceso.</p>
-                        <a href="{{ action([\App\Http\Controllers\SocioController::class, 'getUser']) }}" class="btn btn-primary">Vincular socio</a>
+                        <p>Desde aquí se puede llevar el stock y todos los datos del vivero</p>
+                        <a href="{{ route('arba.vivero') }}" class="btn btn-primary">Entra aquí</a>
                     </div>
                 </div>
             </div>
+            @endif
+            @if (!$socio || $socio->partes_trabajo == 1)
+            <div class="col d-flex align-items-stretch">
+                <div class="card" style="width: 100%">
+                    <div class="card-header">
+                        <h2>Partes de trabajo</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Lorem ipsum dolor</p>
+                        <a href="#" class="btn btn-primary">Entra aquí</a>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 @stop

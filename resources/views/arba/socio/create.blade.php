@@ -30,6 +30,18 @@
         }
     });
 
+    let accesoWeb = document.getElementById('acceso_web');
+
+    accesoWeb.addEventListener('change', function() {
+        let usuario = document.getElementById('usuario');
+        usuario.style.display = accesoWeb.checked ? 'block' : 'none';
+        if (!accesoWeb.checked) {
+            document.getElementById('password').required = false;
+        } else {
+            document.getElementById('password').required = true;
+        }
+    });
+
     let juntaDirectiva = document.getElementById('juntaDirectiva');
 
     juntaDirectiva.addEventListener('change', function() {
@@ -86,6 +98,18 @@
 
         })
     }
+
+    function estasSeguroCrear() {
+        return confirm('¿Estás seguro de que quieres crear este socio?');
+    }
+
+    function estasSeguroLimpiar() {
+        return confirm('¿Estás seguro de que quieres limpiar el formulario?');
+    }
+
+    function estasSeguroVolver() {
+        return confirm('¿Estás seguro de que quieres volver a la lista de socios?');
+    }
 </script>
 
 @stop
@@ -98,7 +122,7 @@
         <div class="col-12 col-lg-4">
 
         </div>
-        <form action="{{ route('arba.socio.create') }}" method="POST" class="container my-5 col-12 col-lg-4">
+        <form action="{{ route('arba.socio.create') }}" method="POST" class="container my-5 col-12 col-lg-4" onsubmit="return estasSeguroCrear()" onreset="return estasSeguroLimpiar()">
             @csrf
             <div class="form-group">
                 <label for="nombre">Nombre</label>
@@ -221,7 +245,50 @@
                 </select>
             </div>
             <br>
-            <button type="submit" class="btn btn-primary my-3">Crear</button>
+            <div class="form-group">
+                <h2>Usuario</h2>
+                <br>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="acceso_web" value="on" id="acceso_web">
+                    <label class="form-check-label" for="acceso_web">
+                        ¿Desea darle acceso a la web?
+                    </label>
+                </div>
+                <br>
+                <div id="usuario" style="display: none;">
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña">
+                    </div>
+                    <br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="administracion" value="on" id="administracion">
+                        <label class="form-check-label" for="administracion">
+                            ¿Desea darle acceso a la administración?
+                        </label>
+                    </div>
+                    <br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="vivero" value="on" id="vivero">
+                        <label class="form-check-label" for="vivero">
+                            ¿Desea darle acceso al vivero?
+                        </label>
+                    </div>
+                    <br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="partes_trabajo" value="on" id="partes_trabajo">
+                        <label class="form-check-label" for="partes_trabajo">
+                            ¿Desea darle acceso a los partes de trabajo?
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="d-flex justify-content-evenly">
+                <button type="submit" class="btn btn-primary">Crear</button>
+                <button type="reset" class="btn btn-danger">Limpiar</button>
+                <a href="{{ route('arba.socio') }}" onclick="return estasSeguroVolver()" class="btn btn-secondary">Volver</a>
+            </div>
         </form>
         <div class="col-12 col-lg-4">
 
