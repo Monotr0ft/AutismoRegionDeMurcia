@@ -26,25 +26,11 @@ class AutenticacionArba extends Mailable
         $this->user = $user;
     }
 
-    /**
-     * Get the message envelope
-     */
-
-     public function envelope()
-     {
-        return new Envelope(
-            from: new Address('autenticacion@arba.es', 'ARBA'),
-            replyTo: [
-                new Address($this->email, $this->user),
-            ],
-            subject: 'Autenticación en ARBA',
-        );
-     }
-
-     public function content(): Content
-     {
-        return new Content(
-            markdown: 'emails.autenticacion',
-        );
-     }
+    public function build()
+    {
+        return $this->from('info@arba.es', 'ARBA')
+                    ->to($this->email)
+                    ->subject('Autenticación en ARBA')
+                    ->markdown('emails.autenticacionarba');
+    }
 }

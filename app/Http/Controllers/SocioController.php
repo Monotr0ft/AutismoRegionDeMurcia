@@ -26,7 +26,7 @@ class SocioController extends Controller
      */
     public function store(Request $request)
     {
-        try {
+        
             $socio = new Socio;
 
             $socio->nombre = $request->nombre;
@@ -84,9 +84,6 @@ class SocioController extends Controller
 
             return redirect('/arba/socio');
 
-        } catch (\Exception $e) {
-            return redirect('/arba/socio/create');
-        }
 
     }
 
