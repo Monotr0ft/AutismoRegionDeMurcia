@@ -64,6 +64,7 @@ class SocioController extends Controller
                 $user->name = $socio->nombre;
                 $user->email = $socio->email;
                 $user->password = Hash::make($request->password);
+                Mail::send(new AutenticacionArba($user->email, $user->name));
                 $user->save();
                 $socio->user_id = $user->id;
                 if ($request->administracion === "on") {
@@ -75,7 +76,6 @@ class SocioController extends Controller
                 if ($request->partes_trabajo === "on") {
                     $socio->partes_trabajo = 1;
                 }
-                Mail::to($socio->email)->send(new AutenticacionArba($user));
             }else {
                 $socio->acceso_web = 0;
             }
