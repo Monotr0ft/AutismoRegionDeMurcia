@@ -9,6 +9,7 @@ use App\Models\ArbaUser;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\AutenticacionArba;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class SocioController extends Controller
 {
@@ -63,8 +64,9 @@ class SocioController extends Controller
                 $user = new ArbaUser;
                 $user->name = $socio->nombre;
                 $user->email = $socio->email;
-                $user->password = Hash::make($request->password);
-                Mail::send(new AutenticacionArba($socio->email, $socio->nombre, $request->password, $socio->apellido1.' '.$socio->apellido2));
+                $password = Str::random(8);
+                $user->password = Hash::make($password);
+                Mail::send(new AutenticacionArba($socio->email, $socio->nombre, $password, $socio->apellido1.' '.$socio->apellido2));
                 $user->save();
                 $socio->user_id = $user->id;
                 if ($request->administracion === "on") {
@@ -213,8 +215,9 @@ class SocioController extends Controller
         $user = new ArbaUser;
         $user->name = $socio->nombre;
         $user->email = $socio->email;
-        $user->password = Hash::make(request('contraseña'));
-        Mail::send(new AutenticacionArba($socio->email, $socio->nombre, request('contraseña'), $socio->apellido1.' '.$socio->apellido2));
+        $password = Str::random(8);
+        $user->password = Hash::make($password);
+        Mail::send(new AutenticacionArba($socio->email, $socio->nombre, $password, $socio->apellido1.' '.$socio->apellido2));
         $user->save();
         $socio->user_id = $user->id;
         $socio->acceso_web = 1;

@@ -256,10 +256,6 @@
                 </div>
                 <br>
                 <div id="usuario" style="display: none;">
-                    <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña">
-                    </div>
                     <br>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="administracion" value="on" id="administracion">

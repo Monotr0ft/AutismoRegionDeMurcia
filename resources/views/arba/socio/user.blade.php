@@ -37,10 +37,6 @@
             </select>
             <br>
             <h2>Usuario</h2>
-            <div class="form-group">
-                <label for="contraseña">Contraseña</label>
-                <input type="password" class="form-control" name="contraseña" id="contraseña" placeholder="Contraseña" required>
-            </div>
             <br>
             <div class="d-flex justify-content-between">
                 <button type="submit" class="btn btn-primary">Crear</button>
