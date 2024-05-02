@@ -28,7 +28,7 @@ class AutenticacionArba extends Mailable
 
     public function build()
     {
-        return $this->from('info@arba.es', 'ARBA')
+        return $this->from('info@autismoregiondemurcia.es', 'ARBA')
                     ->to($this->email)
                     ->subject('Autenticación en ARBA')
                     ->markdown('emails.autenticacionarba');
