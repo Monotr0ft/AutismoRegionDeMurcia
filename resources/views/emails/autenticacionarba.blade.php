@@ -12,8 +12,4 @@
 
     Esperemos que tenga una buena experiencia en la plataforma.
 
-    <x-mail::footer>
-        Arba
-    </x-mail::footer>
-
 </x-mail::message>
