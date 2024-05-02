@@ -14,16 +14,17 @@ class AutenticacionArba extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $email;
-    public $user;
+    public $email, $nombre, $password, $apellidos;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($email ,$user)
+    public function __construct($email, $nombre, $password, $apellidos)
     {
         $this->email = $email;
-        $this->user = $user;
+        $this->nombre = $nombre;
+        $this->password = $password;
+        $this->apellidos = $apellidos;
     }
 
     public function build()
@@ -31,6 +32,11 @@ class AutenticacionArba extends Mailable
         return $this->from('info@autismoregiondemurcia.es', 'ARBA')
                     ->to($this->email)
                     ->subject('Autenticación en ARBA')
-                    ->markdown('emails.autenticacionarba');
+                    ->markdown('emails.autenticacionarba')
+                    ->with([
+                        'nombre' => $this->nombre,
+                        'password' => $this->password,
+                        'apellidos' => $this->apellidos
+                    ]);
     }
 }

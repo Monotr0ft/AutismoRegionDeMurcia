@@ -26,7 +26,7 @@ class SocioController extends Controller
      */
     public function store(Request $request)
     {
-        
+        try {
             $socio = new Socio;
 
             $socio->nombre = $request->nombre;
@@ -83,8 +83,9 @@ class SocioController extends Controller
             $socio->save();
 
             return redirect('/arba/socio');
-
-
+        } catch (\Exception $e) {
+            return redirect('/arba/socio/create');
+        }
     }
 
     /**
@@ -213,6 +214,7 @@ class SocioController extends Controller
         $user->name = $socio->nombre;
         $user->email = $socio->email;
         $user->password = Hash::make(request('contraseña'));
+        Mail::send(new AutenticacionArba($socio->email, $socio->nombre, request('contraseña'), $socio->apellido1.' '.$socio->apellido2));
         $user->save();
         $socio->user_id = $user->id;
         $socio->acceso_web = 1;
