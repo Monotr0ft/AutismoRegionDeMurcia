@@ -20,18 +20,13 @@
         <div class="col-12 col-lg-4">
 
         </div>
-        <form method="POST" action="{{ route('arba.login') }}" class="container formulario col-12 col-lg-4">
+        <form method="POST" action="{{ route('arba.olvidecontrasenia') }}" class="container formulario col-12 col-lg-4">
             @csrf
             <div class="my-3">
                 <label for="dni" class="form-label">DNI</label>
                 <input type="text" name="dni" id="dni" class="form-control" required>
             </div>
-            <div class="my-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input type="password" name="password" id="password" class="form-control" required>
-            </div>
-            <button type="submit" class="d-grid gap-2 col-6 mx-auto my-3 btn btn-dark login btn-lg">Iniciar sesión</button>
-            <a href="{{ action([\App\Http\Controllers\ArbaUserController::class, 'getRecuperarContrasenia']) }}">¿Olvidastes tu contraseña?</a>
+            <button type="submit" class="d-grid gap-2 col-6 mx-auto my-3 btn btn-dark login btn-lg">Recuperar Contraseña</button>
         </form>
         <div class="col-12 col-lg-4">
 

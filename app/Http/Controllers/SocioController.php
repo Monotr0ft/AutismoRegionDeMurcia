@@ -116,6 +116,12 @@ class SocioController extends Controller
             $socio->dni = $request->dni;
             $socio->telefono = $request->telefono;
             $socio->email = $request->email;
+            if ($socio->user_id) {
+                $user = ArbaUser::find($socio->user_id);
+                $user->email = $request->email;
+                $user->name = $request->nombre;
+                $user->save();
+            }
             $socio->fecha_alta = $request->fecha_alta;
             if($request->juntaDirectiva === "on"){
                 $socio->junta_directiva = 1;

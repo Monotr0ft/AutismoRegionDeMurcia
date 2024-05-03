@@ -43,12 +43,18 @@ Route::group(['prefix' => 'asociaciones'], function() {
 
 Route::group(['prefix' => 'arba'], function() {
     Route::get('/login', [ArbaUserController::class, 'getLogin']);
+    Route::get('/olvidecontrasenia', [ArbaUserController::class, 'getRecuperarContrasenia']);
+    Route::get('/cambiocontrasenia/{token}', [ArbaUserController::class, 'getResetContrasenia']);
+    Route::post('/olvidecontrasenia', [ArbaUserController::class, 'postRecuperarContrasenia'])->name('arba.olvidecontrasenia');
+    Route::post('/cambiocontrasenia/{token}', [ArbaUserController::class, 'postActualizarContrasenia'])->name('arba.cambiocontrasenia');
     Route::post('/login', [ArbaUserController::class, 'postLogin'])->name('arba.login');
     Route::post('/logout', [ArbaUserController::class, 'destroy'])->name('arba.logout');
     Route::group(['middleware' => 'arba_user'], function() {
         Route::get('/dashboard', function() {
             return view('arba.dashboard.paneles');
         })->name('dashboard.arba');
+        Route::get('/perfil', [ArbaUserController::class, 'getUsuario'])->name('arba.perfil');
+        Route::put('/perfil', [ArbaUserController::class, 'updatePassword'])->name('arba.perfil.password');
         Route::group(['middleware' => 'administracion_arba'], function() {
             Route::get('/administracion', function() {
                 return view('arba.dashboard.paneles.administracion');
