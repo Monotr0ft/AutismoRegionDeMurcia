@@ -15,6 +15,9 @@
         @if ($errors->any())
             <h4 class="text-danger text-center p-4" style="background-color: whitesmoke; border-radius: 10px">{{ $errors->first() }}</h4>
         @endif
+        @if (Session::has('success'))
+            <h4 class="text-success text-center p-4" style="background-color: whitesmoke; border-radius: 10px">{{ Session::get('success') }}</h4>
+        @endif
     </div>
     <div class="row">
         <div class="col-12 col-lg-4">

@@ -2,7 +2,7 @@
 
 @section('title')
 
-    <title>Dashboard Autismo Región de Murcia - Asociaciones</title>
+    <title>Dashboard Autismo Región de Murcia - Asociaciones Nuevas</title>
 
     <script>
         function confirmVolver() {
@@ -25,8 +25,8 @@
             </div>
             <br>
             <div class="d-flex justify-content-center col-12">
-                <a href="{{ action([\App\Http\Controllers\AsociacionController::class, 'getEdit'], $asociacion->id) }}" class="btn btn-warning m-2">Editar Asociación</a>
-                <a href="{{ route('dashboard') }}" class="btn btn-secondary m-2" onclick="return confirmVolver()">Volver a Asociaciones</a>
+                <a href="{{ action([\App\Http\Controllers\AsociacionNuevaController::class, 'getEdit'], $asociacion->id) }}" class="btn btn-warning m-2">Editar Asociación</a>
+                <a href="{{ route('dashboard.asociacionesnuevas') }}" onclick="return confirmVolver()" class="btn btn-secondary m-2">Volver a Asociaciones</a>
             </div>
             <br>
         </div>

@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\AsociacionNueva;
 use App\Models\Asociacion;
 use Illuminate\Support\Facades\File;
 
-class AsociacionController extends Controller
+class AsociacionNuevaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $asociaciones = Asociacion::all();
-        return view('autismo.dashboard.paginas.asociaciones.index', ['asociaciones' => $asociaciones]);
+        $asociaciones = AsociacionNueva::all();
+        return view('autismo.dashboard.paginas.asociacionesnuevas.index', ['asociaciones' => $asociaciones]);
     }
 
     /**
@@ -22,7 +23,7 @@ class AsociacionController extends Controller
      */
     public function store(Request $request)
     {
-        $asociacion = new Asociacion();
+        $asociacion = new AsociacionNueva();
         $asociacion->nombre = $request->nombre;
         $asociacion->descripcion = $request->descripcion;
         $asociacion->direccion = $request->direccion;
@@ -61,11 +62,11 @@ class AsociacionController extends Controller
      */
     public function show(string $id)
     {
-        $asociacion = Asociacion::find($id);
+        $asociacion = AsociacionNueva::find($id);
         if (!$asociacion) {
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard.asociacionesnuevas');
         }
-        return view('autismo.dashboard.paginas.asociaciones.show', ['asociacion' => $asociacion]);
+        return view('autismo.dashboard.paginas.asociacionesnuevas.show', ['asociacion' => $asociacion]);
     }
 
     /**
@@ -73,7 +74,7 @@ class AsociacionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $asociacion = Asociacion::find($id);
+        $asociacion = AsociacionNueva::find($id);
         if ($asociacion) {
             $asociacion->nombre = $request->nombre;
             $asociacion->descripcion = $request->descripcion;
@@ -105,7 +106,7 @@ class AsociacionController extends Controller
             }
             $asociacion->save();
         }
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard.asociacionesnuevas');
     }
 
     /**
@@ -113,50 +114,52 @@ class AsociacionController extends Controller
      */
     public function destroy(string $id)
     {
-        $asociacion = Asociacion::find($id);
+        $asociacion = AsociacionNueva::find($id);
         if ($asociacion) {
             $asociacion->delete();
         }
-        return redirect()->route('dashboard');
-    }
-
-    public function getAsociaciones()
-    {
-        $asociaciones = Asociacion::where('publicar', true)->get();
-        return view('autismo.paginas.asociaciones', ['asociaciones' => $asociaciones]);
-    }
-
-    public function getCreate()
-    {
-        return view('autismo.paginas.asociaciones.create');
+        return redirect()->route('dashboard.asociacionesnuevas');
     }
 
     public function getEdit(string $id)
     {
-        $asociacion = Asociacion::find($id);
+        $asociacion = AsociacionNueva::find($id);
         if (!$asociacion) {
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard.asociacionesnuevas');
         }
-        return view('autismo.dashboard.paginas.asociaciones.edit', ['asociacion' => $asociacion]);
+        return view('autismo.dashboard.paginas.asociacionesnuevas.edit', ['asociacion' => $asociacion]);
     }
 
     public function publicar(string $id)
     {
-        $asociacion = Asociacion::find($id);
-        if ($asociacion) {
-            $asociacion->publicar = 1;
-            $asociacion->save();
+        $asociacionNueva = AsociacionNueva::find($id);
+        if ($asociacionNueva) {
+            $asociacionNueva->publicar = 1;
+            $asociacionNueva->save();
         }
-        return redirect()->route('dashboard');
+        $asociacion = new Asociacion();
+        $asociacion->nombre = $asociacionNueva->nombre;
+        $asociacion->descripcion = $asociacionNueva->descripcion;
+        $asociacion->direccion = $asociacionNueva->direccion;
+        $asociacion->telefono = $asociacionNueva->telefono;
+        $asociacion->email = $asociacionNueva->email;
+        $asociacion->web = $asociacionNueva->web;
+        $asociacion->logo = $asociacionNueva->logo;
+        $asociacion->es_regional = $asociacionNueva->es_regional;
+        $asociacion->redes_sociales = $asociacionNueva->redes_sociales;
+        $asociacion->publicar = 1;
+        $asociacion->save();
+        $asociacionNueva->delete();
+        return redirect()->route('dashboard.asociacionesnuevas');
     }
-
+    
     public function ocultar(string $id)
     {
-        $asociacion = Asociacion::find($id);
-        if ($asociacion) {
-            $asociacion->publicar = 0;
-            $asociacion->save();
+        $asociacionNueva = AsociacionNueva::find($id);
+        if ($asociacionNueva) {
+            $asociacionNueva->publicar = 0;
+            $asociacionNueva->save();
         }
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard.asociacionesnuevas');
     }
 }

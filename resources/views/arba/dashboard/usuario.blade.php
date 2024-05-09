@@ -49,7 +49,7 @@
             <div class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center">
                 <h2>Verificar email</h2>
                 @if (!$user->email_verified_at)
-                    <form method="POST" action="">
+                    <form method="POST" action="{{ action([\App\Http\Controllers\ArbaUserController::class, 'postMailVerificacion'], $user->email) }}">
                         @csrf
                         <button type="submit" class="btn btn-primary">Verificar email</button>
                     </form>

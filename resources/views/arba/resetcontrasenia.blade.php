@@ -23,6 +23,10 @@
         <form method="POST" action="{{ route('arba.cambiocontrasenia', $token) }}" class="container formulario col-12 col-lg-4">
             @csrf
             <div class="my-3">
+                <label for="dni" class="form-label">DNI</label>
+                <input type="text" name="dni" id="dni" class="form-control" required>
+            </div>
+            <div class="my-3">
                 <label for="new_password" class="form-label">Contraseña</label>
                 <input type="password" name="new_password" id="new_password" class="form-control" required>
             </div>

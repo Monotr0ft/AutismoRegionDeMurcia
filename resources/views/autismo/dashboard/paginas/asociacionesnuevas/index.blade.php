@@ -2,7 +2,7 @@
 
 @section('title')
 
-    <title>Dashboard Autismo Región de Murcia - Asociaciones</title>
+    <title>Dashboard Autismo Región de Murcia - Asociaciones Nuevas</title>
     <script>
 
         function confirmDelete() {
@@ -25,13 +25,13 @@
 
     <div class="row">
         <div class="col-12">
-            <h1 class="text-center">Asociaciones</h1>
+            <h1 class="text-center">Asociaciones Nuevas</h1>
         </div>
     </div>
     <br>
     <div class="row">
         <div class="col-12">
-            <a href="{{ route('dashboard.asociacionesnuevas') }}" class="btn btn-secondary">Cambiar a Asociaciones Nuevas</a>
+            <a href="{{ route('dashboard') }}" class="btn btn-secondary">Cambiar a Asociaciones</a>
         </div>
     </div>
     <br>
@@ -85,20 +85,20 @@
                                 <td class="d-none d-lg-table-cell">No</td>
                             @endif
                             <td class="d-flex flex-column justify-content-between align-items-center">
-                                <a href="{{ route('dashboard.asociaciones.show', $asociacion->id) }}" class="btn btn-primary m-1">Ver</a>
-                                <a href="{{ action([\App\Http\Controllers\AsociacionController::class, 'getEdit'], $asociacion->id) }}" class="btn btn-warning m-1">Editar</a>
+                                <a href="{{ route('dashboard.asociacionesnuevas.show', $asociacion->id) }}" class="btn btn-primary m-1">Ver</a>
+                                <a href="{{ action([\App\Http\Controllers\AsociacionNuevaController::class, 'getEdit'], $asociacion->id) }}" class="btn btn-warning m-1">Editar</a>
                                 @if ($asociacion->publicar == 0)
-                                    <form action="{{ route('dashboard.asociaciones.publicar', $asociacion->id) }}" method="POST" onsubmit="return confirmPublicar()" class="d-inline m-1">
+                                    <form action="{{ route('dashboard.asociacionesnuevas.publicar', $asociacion->id) }}" method="POST" onsubmit="return confirmPublicar()" class="d-inline m-1">
                                         @csrf
                                         <button type="submit" class="btn btn-success">Publicar</button>
                                     </form>
                                 @else
-                                    <form action="{{ route('dashboard.asociaciones.ocultar', $asociacion->id) }}" method="POST" onsubmit="return confirmOcultar()" class="d-inline m-1">
+                                    <form action="{{ route('dashboard.asociacionesnuevas.ocultar', $asociacion->id) }}" method="POST" onsubmit="return confirmOcultar()" class="d-inline m-1">
                                         @csrf
                                         <button type="submit" class="btn btn-danger">Ocultar</button>
                                     </form>
                                 @endif
-                                <form action="{{ route('dashboard.asociaciones.delete', $asociacion->id) }}" method="POST" onsubmit="return confirmDelete()" class="d-inline m-1">
+                                <form action="{{ route('dashboard.asociacionesnuevas.delete', $asociacion->id) }}" method="POST" onsubmit="return confirmDelete()" class="d-inline m-1">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Eliminar</button>

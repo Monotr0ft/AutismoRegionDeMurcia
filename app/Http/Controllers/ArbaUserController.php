@@ -12,6 +12,7 @@ use App\Mail\CambioDeContrasenia;
 use App\Mail\RecuperarContrasenia;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Mail\VerificarEmail;
 
 class ArbaUserController extends Controller
 {
@@ -136,6 +137,13 @@ class ArbaUserController extends Controller
     public function postActualizarContrasenia(Request $request, $token)
     {
         $passwordReset = DB::connection('mysql-arba')->table('password_reset_tokens_arba')->where('token', $token)->first();
+        if (!$passwordReset) {
+            return redirect('/arba/login');
+        }
+        $socio = Socio::where('email', $passwordReset->email)->first();
+        if ($socio->dni != $request->dni) {
+            return redirect()->back()->withErrors(['dni' => 'El DNI no coincide con el del socio']);
+        }
         $user = ArbaUser::where('email', $passwordReset->email)->first();
         if ($request->new_password != $request->new_password_confirmation) {
             return redirect()->back()->withErrors(['password' => 'Las contraseñas no coinciden']);
@@ -150,6 +158,26 @@ class ArbaUserController extends Controller
         DB::connection('mysql-arba')->table('password_reset_tokens_arba')->where('token', $token)->delete();
 
         return redirect('/arba/login')->with('success', 'Contraseña actualizada correctamente');
+    }
+
+    function postMailVerificacion($email) {
+        $socio = Socio::where('email', $email)->first();
+        Mail::to($email)->send(new VerificarEmail($socio->nombre, $socio->apellido1.' '.$socio->apellido2, $email));
+        return redirect()->back()->with('success', 'Se ha enviado un correo electrónico con las instrucciones para verificar el email');
+    }
+
+    function getVerificarEmail($email)
+    {
+        $user = ArbaUser::where('email', $email)->first();
+        if (!$user) {
+            return redirect('/arba/login');
+        }
+        if ($user->email_verified_at) {
+            return redirect('/arba/login')->with('success', 'Email ya verificado');
+        }
+        $user->email_verified_at = now();
+        $user->save();
+        return redirect('/arba/login')->with('success', 'Email verificado correctamente');
     }
 
 }

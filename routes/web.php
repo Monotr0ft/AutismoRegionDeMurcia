@@ -6,6 +6,7 @@ use App\Http\Controllers\SocioController;
 use App\Http\Controllers\AsociacionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StockPlantaController;
+use App\Http\Controllers\AsociacionNuevaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,17 +33,29 @@ Route::group(['prefix' => 'dashboard'], function() {
         Route::get('edit/{id}', [AsociacionController::class, 'getEdit'])->where('id', '[0-9]+');
         Route::put('edit/{id}', [AsociacionController::class, 'update'])->name('dashboard.asociaciones.edit')->where('id', '[0-9]+');
         Route::delete('delete/{id}', [AsociacionController::class, 'destroy'])->name('dashboard.asociaciones.delete')->where('id', '[0-9]+');
+        Route::post('publicar/{id}', [AsociacionController::class, 'publicar'])->name('dashboard.asociaciones.publicar')->where('id', '[0-9]+');
+        Route::post('ocultar/{id}', [AsociacionController::class, 'ocultar'])->name('dashboard.asociaciones.ocultar')->where('id', '[0-9]+');
+    });
+    Route::group(['prefix' => 'asociacionesnuevas'], function() {
+        Route::get('/', [AsociacionNuevaController::class, 'index'])->name('dashboard.asociacionesnuevas');
+        Route::get('/{id}', [AsociacionNuevaController::class, 'show'])->name('dashboard.asociacionesnuevas.show')->where('id', '[0-9]+');
+        Route::get('edit/{id}', [AsociacionNuevaController::class, 'getEdit'])->where('id', '[0-9]+');
+        Route::put('edit/{id}', [AsociacionNuevaController::class, 'update'])->name('dashboard.asociacionesnuevas.edit')->where('id', '[0-9]+');
+        Route::delete('delete/{id}', [AsociacionNuevaController::class, 'destroy'])->name('dashboard.asociacionesnuevas.delete')->where('id', '[0-9]+');
+        Route::post('publicar/{id}', [AsociacionNuevaController::class, 'publicar'])->name('dashboard.asociacionesnuevas.publicar')->where('id', '[0-9]+');
+        Route::post('ocultar/{id}', [AsociacionNuevaController::class, 'ocultar'])->name('dashboard.asociacionesnuevas.ocultar')->where('id', '[0-9]+');
     });
 })->middleware('auth');
 
 Route::group(['prefix' => 'asociaciones'], function() {
     Route::get('/', [AsociacionController::class, 'getAsociaciones'])->name('asociaciones');
     Route::get('/formulario', [AsociacionController::class, 'getCreate']);
-    Route::post('/formulario', [AsociacionController::class, 'store'])->name('asociaciones.create');
+    Route::post('/formulario', [AsociacionNuevaController::class, 'store'])->name('asociaciones.create');
 });
 
 Route::group(['prefix' => 'arba'], function() {
     Route::get('/login', [ArbaUserController::class, 'getLogin']);
+    Route::get('/verificaremail/{email}', [ArbaUserController::class, 'getVerificarEmail']);
     Route::get('/olvidecontrasenia', [ArbaUserController::class, 'getRecuperarContrasenia']);
     Route::get('/cambiocontrasenia/{token}', [ArbaUserController::class, 'getResetContrasenia']);
     Route::post('/olvidecontrasenia', [ArbaUserController::class, 'postRecuperarContrasenia'])->name('arba.olvidecontrasenia');
@@ -54,6 +67,7 @@ Route::group(['prefix' => 'arba'], function() {
             return view('arba.dashboard.paneles');
         })->name('dashboard.arba');
         Route::get('/perfil', [ArbaUserController::class, 'getUsuario'])->name('arba.perfil');
+        Route::post('/perfil/{email}', [ArbaUserController::class, 'postMailVerificacion']);
         Route::put('/perfil', [ArbaUserController::class, 'updatePassword'])->name('arba.perfil.password');
         Route::group(['middleware' => 'administracion_arba'], function() {
             Route::get('/administracion', function() {

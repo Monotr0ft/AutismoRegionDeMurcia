@@ -2,7 +2,7 @@
 
 @section('title')
 
-    <title>Dashboard Autismo Región de Murcia - Asociaciones</title>
+    <title>Dashboard Autismo Región de Murcia - Asociaciones Nuevas</title>
     <script>
         function previewImage(event, querySelector) {
             const input = event.target;
@@ -47,7 +47,7 @@
     <div class="row">
         <div class="col-12 col-md-4"></div>
         <div class="col-12 col-md-4">
-            <form action="{{ route('dashboard.asociaciones.edit', $asociacion->id) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirmEdit()">
+            <form action="{{ route('dashboard.asociacionesnuevas.edit', $asociacion->id) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirmEdit()">
                 @csrf
                 @method('PUT')
                 <div class="form-group mb-3">
@@ -124,7 +124,7 @@
                 <br>
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-warning">Editar Asociación</button>
-                    <a href="{{ route('dashboard') }}" class="btn btn-secondary" onclick="return confirmVolver()">Volver a Asociaciones</a>
+                    <a href="{{ route('dashboard.asociacionesnuevas') }}" class="btn btn-secondary" onclick="return confirmVolver()">Volver a Asociaciones</a>
                 </div>
             </form>
         </div>
