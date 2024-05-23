@@ -18,7 +18,7 @@ max-width: 100%;
 }
 </style>
     <header style="box-sizing: border-box; position: relative; text-align: center; padding: 25px 0;">
-        <img src="{{ asset('assets/img/Murcia_-_Mapa_municipal.svg') }}" alt="Logo de ARM" style="box-sizing: border-box; position: relative; max-width: 100%; height: 75px; max-height: 75px; width: 75px;">
+        <img src="{{ asset('assets/img/Murcia_-_Mapa_municipal.jpg') }}" alt="Logo de ARM" style="box-sizing: border-box; position: relative; max-width: 100%; height: 75px; max-height: 75px; width: 75px;">
     </header>
 
     <main style="box-sizing: border-box; position: relative; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 570px; background-color: #ffffff; border-radius: 2px; box-shadow: 0 2px 0 rgba(0, 0, 150, 0.025), 2px 4px 0 rgba(0, 0, 150, 0.015); width: 570px; margin: 0 auto; padding: 0; border-color: #e8e5ef; border-width: 1px;">
