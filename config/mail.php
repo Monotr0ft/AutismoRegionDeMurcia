@@ -121,6 +121,12 @@ return [
         'paths' => [
             resource_path('views/vendor/mail'),
         ],
+
+        'css' => [
+            public_path('assets/css/default.css'),
+        ],
+
+        'inliner' => true,
     ],
 
 ];

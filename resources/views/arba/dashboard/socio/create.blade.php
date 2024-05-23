@@ -3,6 +3,7 @@
 @section('title')
 
 <title>ARBA - Crear Socio</title>
+
 <script>
     window.onload = function() {
 
@@ -49,55 +50,64 @@
         cargo.disabled = !cargo.disabled;
     });
 
-    fetch('{{asset('assets/js/arbol.json')}}')
-        .then((response) => response.json())
-        .then((data) => {
-            let lista = data;
-            lista = lista.filter((item) => item.code == 14);
-            console.log(lista);
-            let provincias = document.getElementById('provincia');
-            lista[0].provinces.forEach((provincia) => {
+    let provinciaLista = document.getElementById('provincia');
+
+    fetch('https://apiv1.geoapi.es/provincias?type=JSON&key=f830ac50cc0e6b1d1bd1081223bacdf1d8dce93a435988ee74e06b513245e2a2&CCOM=17')
+        .then(response => response.json())
+        .then(data => {
+            data.data.forEach(provincia => {
                 let option = document.createElement('option');
-                option.value = provincia.label;
-                option.text = provincia.label;
-                provincias.appendChild(option);
+                option.value = provincia.PRO;
+                option.id = provincia.CPRO;
+                option.text = provincia.PRO;
+                provinciaLista.appendChild(option);
             });
-            
-            provincias.addEventListener('change', function() {
-                let municipios = document.getElementById('municipio');
-                municipios.disabled = false;
-                municipios.innerHTML = '<option selected>Selecciona un municipio</option>';
-                let provincia = provincias.value;
-                let municipiosProvincia = lista[0].provinces.filter((provinciaItem) => provinciaItem.label == provincia);
-                municipiosProvincia[0].towns.forEach((municipio) => {
+        });
+
+    let municipioLista = document.getElementById('municipio');
+
+    provinciaLista.addEventListener('change', function() {
+        fetch(`https://apiv1.geoapi.es/municipios?type=JSON&key=f830ac50cc0e6b1d1bd1081223bacdf1d8dce93a435988ee74e06b513245e2a2&CPRO=${provinciaLista.options[provinciaLista.selectedIndex].id}`)
+            .then(response => response.json())
+            .then(data => {
+                municipioLista.disabled = false;
+                municipioLista.innerHTML = '';
+                let option = document.createElement('option');
+                option.selected = true;
+                option.disabled = true;
+                option.text = 'Selecciona un municipio';
+                municipioLista.appendChild(option);
+                data.data.forEach(municipio => {
                     let option = document.createElement('option');
-                    option.value = municipio.label;
-                    option.text = municipio.label;
-                    municipios.appendChild(option);
+                    option.value = municipio.DMUN50;
+                    option.id = municipio.CMUM;
+                    option.text = municipio.DMUN50;
+                    municipioLista.appendChild(option);
                 });
             });
+    });
 
-            // Ahora, que haga lo mismo con las localidades
+    let localidadLista = document.getElementById('localidad');
 
-            let municipios = document.getElementById('municipio');
-
-            municipios.addEventListener('change', function() {
-                let localidades = document.getElementById('localidad');
-                localidades.disabled = false;
-                localidades.innerHTML = '<option selected>Selecciona una localidad</option>';
-                let municipio = municipios.value;
-                let municipiosProvincia = lista[0].provinces.filter((provinciaItem) => provinciaItem.label == provincias.value);
-                let localidadesMunicipio = municipiosProvincia[0].towns.filter((municipioItem) => municipioItem.label == municipio);
-                localidadesMunicipio[0].pedanias.forEach((localidad) => {
+    municipioLista.addEventListener('change', function() {
+        fetch(`https://apiv1.geoapi.es/poblaciones?type=JSON&key=f830ac50cc0e6b1d1bd1081223bacdf1d8dce93a435988ee74e06b513245e2a2&CPRO=${provinciaLista.options[provinciaLista.selectedIndex].id}&CMUM=${municipioLista.options[municipioLista.selectedIndex].id}`)
+            .then(response => response.json())
+            .then(data => {
+                localidadLista.disabled = false;
+                localidadLista.innerHTML = '';
+                let option = document.createElement('option');
+                option.selected = true;
+                option.disabled = true;
+                option.text = 'Selecciona una localidad';
+                localidadLista.appendChild(option);
+                data.data.forEach(localidad => {
                     let option = document.createElement('option');
-                    option.value = localidad.label;
-                    option.text = localidad.label;
-                    localidades.appendChild(option);
+                    option.value = localidad.NENTSI50;
+                    option.text = localidad.NENTSI50;
+                    localidadLista.appendChild(option);
                 });
             });
-
-        })
-    }
+    });
 
     function estasSeguroCrear() {
         return confirm('¿Estás seguro de que quieres crear este socio?');
@@ -110,6 +120,7 @@
     function estasSeguroVolver() {
         return confirm('¿Estás seguro de que quieres volver a la lista de socios?');
     }
+}
 </script>
 
 @stop

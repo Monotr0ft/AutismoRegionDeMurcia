@@ -91,10 +91,10 @@
                                 @endif
                             </td>
                             <td class="d-none d-lg-table-cell">{{ $socio->fecha_alta }}</td>
-                            <td>
-                                <a href="{{ route('arba.socio.show', $socio->id) }}" class="btn btn-primary">Ver</a>
-                                <a href="{{ action([\App\Http\Controllers\SocioController::class, 'getEdit'], $socio->id) }}" class="btn btn-warning">Editar</a>
-                                <form action="{{ route('arba.socio.delete', $socio->id) }}" method="POST" style="display: inline;" onsubmit="return confirmDelete()">
+                            <td class="d-flex flex-column justify-content-between align-items-center">
+                                <a href="{{ route('arba.socio.show', $socio->id) }}" class="btn btn-primary m-1">Ver</a>
+                                <a href="{{ action([\App\Http\Controllers\SocioController::class, 'getEdit'], $socio->id) }}" class="btn btn-warning m-1">Editar</a>
+                                <form action="{{ route('arba.socio.delete', $socio->id) }}" method="POST" style="display: inline;" class="m-1" onsubmit="return confirmDelete()">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Eliminar</button>

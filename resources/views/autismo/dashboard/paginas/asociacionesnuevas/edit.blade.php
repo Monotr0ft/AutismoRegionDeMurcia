@@ -3,6 +3,12 @@
 @section('title')
 
     <title>Dashboard Autismo Región de Murcia - Asociaciones Nuevas</title>
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 400px;
+        }
+    </style>
+    <script src="{{ asset('/assets/ckeditor5/build/ckeditor.js') }}"></script>
     <script>
         function previewImage(event, querySelector) {
             const input = event.target;
@@ -131,4 +137,11 @@
         <div class="col-12 col-md-4"></div>
     </div>
 </div>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#descripcion'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 @stop

@@ -19,7 +19,7 @@ class SocioController extends Controller
     public function index()
     {
         $socios = Socio::with('direccionArba')->get();
-        return view('arba.socio.index', ['socios' => $socios]);
+        return view('arba.dashboard.socio.index', ['socios' => $socios]);
     }
 
     /**
@@ -99,7 +99,7 @@ class SocioController extends Controller
         if (!$socio) {
             return redirect('/arba/socio');
         }
-        return view('arba.socio.show', ['socio' => $socio]);
+        return view('arba.dashboard.socio.show', ['socio' => $socio]);
     }
 
     /**
@@ -170,7 +170,12 @@ class SocioController extends Controller
             }else {
                 $socio->direccion = $request->direcciones;
             }
-
+            if ($socio->user_id) {
+                $user = ArbaUser::find($socio->user_id);
+                $user->email = $socio->email;
+                $user->name = $socio->nombre;
+                $user->save();
+            }
             $socio->save();
 
             return redirect('/arba/socio');
@@ -196,7 +201,7 @@ class SocioController extends Controller
     public function getCreate()
     {
         $direcciones = DireccionArba::all();
-        return view('arba.socio.create', ['direcciones' => $direcciones]);
+        return view('arba.dashboard.socio.create', ['direcciones' => $direcciones]);
     }
 
     public function getEdit(string $id) {
@@ -205,12 +210,12 @@ class SocioController extends Controller
             return redirect('/arba/socio');
         }
         $direcciones = DireccionArba::all();
-        return view('arba.socio.edit', ['socio' => $socio, 'direcciones' => $direcciones]);
+        return view('arba.dashboard.socio.edit', ['socio' => $socio, 'direcciones' => $direcciones]);
     }
 
     public function getUser() {
         $socios = Socio::whereNull('user_id')->get();
-        return view('arba.socio.user', ['socios' => $socios]);
+        return view('arba.dashboard.socio.user', ['socios' => $socios]);
     }
 
     public function postUser() {

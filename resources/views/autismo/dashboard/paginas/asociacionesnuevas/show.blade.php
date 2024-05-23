@@ -4,6 +4,24 @@
 
     <title>Dashboard Autismo Región de Murcia - Asociaciones Nuevas</title>
 
+    <style>
+        .text-tiny {
+            font-size: 0.7em;
+        }
+
+        .text-small {
+            font-size: 0.85em;
+        }
+
+        .text-big {
+            font-size: 1.4em;
+        }
+
+        .text-huge {
+            font-size: 1.8em;
+        }
+    </style>
+
     <script>
         function confirmVolver() {
             return confirm('¿Estás seguro de que quieres volver a Asociaciones Nuevas?');
@@ -56,8 +74,8 @@
                 <div class="col-12">
                     <h2 class="text-center">Descripción</h2>
                 </div>
-                <div class="col-12 text-center">
-                    <p>{{ $asociacion->descripcion }}</p>
+                <div class="col-12">
+                    <p>{!! $asociacion->descripcion !!}</p>
                 </div>
             </div>
             <br>

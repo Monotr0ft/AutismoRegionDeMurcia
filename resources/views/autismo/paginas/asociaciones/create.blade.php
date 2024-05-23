@@ -5,6 +5,14 @@
 <title>
     Autismo Región de Murcia - Crear Asociación
 </title>
+<style>
+
+    .ck-editor__editable_inline {
+        min-height: 400px;
+    }
+
+</style>
+<script src="{{ asset('/assets/ckeditor5/build/ckeditor.js') }}"></script>
 <script>
     function previewImage(event, querySelector) {
         const input = event.target;
@@ -51,8 +59,8 @@
                 </div>
                 <br>
                 <div class="form-group mb-3">
-                    <label for="descripcion">Descripción</label>
-                    <textarea class="form-control" id="descripcion" name="descripcion" rows="20" required></textarea>
+                    <label for="texto">Descripción</label>
+                    <textarea class="form-control" id="editor" name="descripcion"></textarea>
                 </div>
                 <br>
                 <div class="form-group mb-3">
@@ -98,7 +106,7 @@
                 <br>
                 <div class="form-group mb-3">
                     <label for="logo">Logo</label>
-                    <input type="file" class="form-control" id="logo" name="logo" accept="image/*" onchange="previewImage(event, '#imgPreview')">
+                    <input type="file" class="form-control" id="logo" name="logo" accept="image/*" onchange="previewImage(event, '#imgPreview')" required>
                     <br>
                     <img id="imgPreview" width="200">
                 </div>
@@ -115,5 +123,15 @@
         <div class="col-12 col-md-4"></div>
     </div>
 </div>
+<script>
+    let editorInstance;
+
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error(error);
+        });
+
+</script>
 
 @stop

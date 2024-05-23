@@ -7,6 +7,10 @@ use App\Http\Controllers\AsociacionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StockPlantaController;
 use App\Http\Controllers\AsociacionNuevaController;
+use App\Http\Controllers\ProyectoController;
+use App\Http\Controllers\ImageUploadController;
+use App\Http\Controllers\PaginaController;
+use App\Http\Controllers\NewsletterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +27,9 @@ Route::get('/', function () {
     return view('autismo.paginas.home');
 })->name('home');
 
+Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter');
+Route::post('/upload', [ImageUploadController::class, 'upload'])->name('upload');
+Route::post('/delete-image', [ImageUploadController::class, 'deleteImage'])->name('delete-image');
 Route::get('/login', [UserController::class, 'getLogin']);
 Route::post('/login', [UserController::class, 'postLogin'])->name('login');
 Route::post('/logout', [UserController::class, 'postLogout'])->name('logout');
@@ -45,6 +52,15 @@ Route::group(['prefix' => 'dashboard'], function() {
         Route::post('publicar/{id}', [AsociacionNuevaController::class, 'publicar'])->name('dashboard.asociacionesnuevas.publicar')->where('id', '[0-9]+');
         Route::post('ocultar/{id}', [AsociacionNuevaController::class, 'ocultar'])->name('dashboard.asociacionesnuevas.ocultar')->where('id', '[0-9]+');
     });
+    Route::group(['prefix' => 'paginas'], function() {
+        Route::get('/', [PaginaController::class, 'index'])->name('dashboard.paginas');
+        Route::get('/create', [PaginaController::class, 'getCreate'])->name('dashboard.paginas.create');
+        Route::get('/{id}', [PaginaController::class, 'show'])->name('dashboard.paginas.show')->where('id', '[0-9]+');
+        Route::get('/edit/{id}', [PaginaController::class, 'getEdit'])->where('id', '[0-9]+');
+        Route::post('/create', [PaginaController::class, 'store'])->name('dashboard.paginas.store');
+        Route::put('/edit/{id}', [PaginaController::class, 'edit'])->name('dashboard.paginas.edit')->where('id', '[0-9]+');
+        Route::delete('/delete/{id}', [PaginaController::class, 'delete'])->name('dashboard.paginas.delete')->where('id', '[0-9]+');
+    });
 })->middleware('auth');
 
 Route::group(['prefix' => 'asociaciones'], function() {
@@ -52,6 +68,10 @@ Route::group(['prefix' => 'asociaciones'], function() {
     Route::get('/formulario', [AsociacionController::class, 'getCreate']);
     Route::post('/formulario', [AsociacionNuevaController::class, 'store'])->name('asociaciones.create');
 });
+
+Route::get('/queesarm', [PaginaController::class, 'arm'])->name('queesarm');
+
+Route::get('/autismo', [PaginaController::class, 'autismo'])->name('autismo');
 
 Route::group(['prefix' => 'arba'], function() {
     Route::get('/login', [ArbaUserController::class, 'getLogin']);
@@ -83,6 +103,15 @@ Route::group(['prefix' => 'arba'], function() {
                 Route::post('create', [SocioController::class, 'store'])->name('arba.socio.create');
                 Route::delete('delete/{id}', [SocioController::class, 'destroy'])->name('arba.socio.delete')->where('id', '[0-9]+');
                 Route::post('usuario', [SocioController::class, 'postUser'])->name('arba.user');
+            });
+            Route::group(['prefix' => 'proyecto'], function() {
+                Route::get('/', [ProyectoController::class, 'index'])->name('arba.proyecto');
+                Route::get('{id}', [ProyectoController::class, 'show'])->name('arba.proyecto.show')->where('id', '[0-9]+');
+                Route::get('edit/{id}', [ProyectoController::class, 'getEdit'])->where('id', '[0-9]+');
+                Route::get('create', [ProyectoController::class, 'getCreate']);
+                Route::post('create', [ProyectoController::class, 'store'])->name('arba.proyecto.create');
+                Route::delete('delete/{id}', [ProyectoController::class, 'destroy'])->name('arba.proyecto.delete')->where('id', '[0-9]+');
+                Route::put('edit/{id}', [ProyectoController::class, 'update'])->name('arba.proyecto.edit')->where('id', '[0-9]+');
             });
         });
         Route::group(['middleware' => 'vivero_arba'], function() {

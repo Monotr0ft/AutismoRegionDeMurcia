@@ -3,6 +3,7 @@
 @section('title')
 
 <title>Autismo Región de Murcia - Asociaciones</title>
+<link rel="stylesheet" href="{{ asset('/assets/css/ckeditor.css') }}">
 
 @stop
 
@@ -21,7 +22,7 @@
                     <a href="https://{{ $asociacion->web }}" class="text-decoration-none" style="color: black"><h3 class="text-center">{{ $asociacion->nombre }}</h3></a>
                 </div>
                 <div class="card-body">
-                    <p>{{ $asociacion->descripcion }}</p>
+                    <div class="ck-content">{!! $asociacion->descripcion !!}</div>
                     <ul>
                         <li>Tipo: {{ $asociacion->tipo }}</li>
                         @if ($asociacion->direccion != null)

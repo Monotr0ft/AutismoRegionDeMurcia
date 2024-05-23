@@ -12,7 +12,10 @@
                     <a class="nav-link" href="{{ route('home') }}">Inicio</a>
                 </li>
                 <li class="nav-item px-3 h4">
-                    <a class="nav-link" href="#">¿Qué es Autismo Región de Murcia?</a>
+                    <a class="nav-link" href="{{ route('queesarm') }}">¿Qué es Autismo Región de Murcia?</a>
+                </li>
+                <li class="nav-item px-3 h4">
+                    <a class="nav-link" href="{{ route('autismo') }}">¿Qué es el Autismo?</a>
                 </li>
                 <li class="nav-item px-3 h4">
                     <a class="nav-link" href="{{ route('asociaciones') }}">Asociaciones TEA Murcia</a>
@@ -22,24 +25,6 @@
                 </li>
                 <li class="nav-item px-3 h4">
                     <a class="nav-link" href="#">Noticias</a>
-                </li>
-                <li class="nav-item px-3 h4 dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Usuario
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        @if (Auth::check())
-                            <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
-                            <li>
-                                <form action="{{ route('logout') }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="dropdown-item">Cerrar sesión</button>
-                                </form>
-                            </li>
-                        @else
-                            <li><a class="dropdown-item" href="{{ action([\App\Http\Controllers\UserController::class, 'getLogin']) }}">Iniciar sesión</a></li>
-                        @endif
-                    </ul>
                 </li>
             </ul>
         </div>

@@ -19,7 +19,7 @@ class StockPlantaController extends Controller
     public function index()
     {
         $stock_plantas = StockPlanta::all();
-        return view('arba.stock.index', ['stock_plantas' => $stock_plantas]);
+        return view('arba.dashboard.stock.index', ['stock_plantas' => $stock_plantas]);
     }
 
     /**
@@ -51,7 +51,7 @@ class StockPlantaController extends Controller
         if (!$stock_planta) {
             return redirect()->route('arba.stock');
         }
-        return view('arba.stock.show', ['stock_planta' => $stock_planta]);
+        return view('arba.dashboard.stock.show', ['stock_planta' => $stock_planta]);
     }
 
     /**
@@ -94,7 +94,7 @@ class StockPlantaController extends Controller
         $lugares = Lugar::all();
         $ubicaciones = Ubicacion::all();
         $contenedores = Contenedor::all();
-        return view('arba.stock.create', ['plantas' => $plantas, 'lugares' => $lugares, 'ubicaciones' => $ubicaciones, 'contenedores' => $contenedores]);
+        return view('arba.dashboard.stock.create', ['plantas' => $plantas, 'lugares' => $lugares, 'ubicaciones' => $ubicaciones, 'contenedores' => $contenedores]);
     }
 
     public function getEdit(string $id)
@@ -107,6 +107,6 @@ class StockPlantaController extends Controller
         $lugares = Lugar::all();
         $ubicaciones = Ubicacion::all();
         $contenedores = Contenedor::all();
-        return view('arba.stock.edit', ['stock_planta' => $stock_planta, 'plantas' => $plantas, 'lugares' => $lugares, 'ubicaciones' => $ubicaciones, 'contenedores' => $contenedores]);
+        return view('arba.dashboard.stock.edit', ['stock_planta' => $stock_planta, 'plantas' => $plantas, 'lugares' => $lugares, 'ubicaciones' => $ubicaciones, 'contenedores' => $contenedores]);
     }
 }

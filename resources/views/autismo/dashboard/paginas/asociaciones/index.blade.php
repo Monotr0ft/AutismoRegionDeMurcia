@@ -29,9 +29,15 @@
         </div>
     </div>
     <br>
-    <div class="row">
-        <div class="col-12">
-            <a href="{{ route('dashboard.asociacionesnuevas') }}" class="btn btn-secondary">Cambiar a Asociaciones Nuevas</a>
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <a href="{{ route('dashboard.asociacionesnuevas') }}" class="btn btn-secondary">Cambiar a Peticiones de Asociaciones</a>
+        </div>
+        <div>
+            <a href="{{ route('dashboard.paginas') }}" class="btn btn-secondary">Cambiar a Páginas</a>
+        </div>
+        <div>
+            <a href="#" class="btn btn-secondary">Cambiar a Noticias</a>
         </div>
     </div>
     <br>

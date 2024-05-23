@@ -26,6 +26,17 @@
                 </div>
             </div>
         </div>
+        <div class="col d-flex align-items-stretch">
+            <div class="card" style="width: 100%">
+                <div class="card-header">
+                    <h2>Proyectos</h2>
+                </div>
+                <div class="card-body">
+                    <p>Aquí se puede ver todos los proyectos</p>
+                    <a href="{{ route('arba.proyecto') }}" class="btn btn-primary">Entra aquí</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

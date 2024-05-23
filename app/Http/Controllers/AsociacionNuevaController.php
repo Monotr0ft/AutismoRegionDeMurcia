@@ -83,6 +83,9 @@ class AsociacionNuevaController extends Controller
             $asociacion->email = $request->email;
             $asociacion->web = $request->web;
             if ($request->hasFile('logo')) {
+                if ($asociacion->logo) {
+                    File::delete(public_path($asociacion->logo));
+                }
                 $logo = $request->file('logo');
                 $nombre = time() . $logo->getClientOriginalName();
                 $logo->storeAs('public/logos', $nombre);
@@ -116,6 +119,9 @@ class AsociacionNuevaController extends Controller
     {
         $asociacion = AsociacionNueva::find($id);
         if ($asociacion) {
+            if ($asociacion->logo) {
+                File::delete(public_path($asociacion->logo));
+            }
             $asociacion->delete();
         }
         return redirect()->route('dashboard.asociacionesnuevas');
