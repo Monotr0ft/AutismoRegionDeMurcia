@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use Faker\Provider\Address;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -21,25 +22,14 @@ class NewsletterSubscribe extends Mailable
         //
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
+    public function build()
     {
-        return new Envelope(
-            subject: 'Bienvenido a nuestro boletín de noticias',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'emails.newslettersubscribe',
-            with: ['url' => env('APP_URL')],
-        );
+        return $this->from(env('MAIL_FROM_ADDRESS'), 'ARM')
+            ->subject('¡Gracias por suscribirte a nuestro boletín!')
+            ->view('emails.newsletter')
+            ->with([
+                'url' => env('APP_URL'),
+            ]);
     }
 
     /**
