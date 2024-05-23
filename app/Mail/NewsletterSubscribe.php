@@ -26,7 +26,7 @@ class NewsletterSubscribe extends Mailable
     {
         return $this->from(env('MAIL_FROM_ADDRESS'), 'ARM')
             ->subject('¡Gracias por suscribirte a nuestro boletín!')
-            ->view('emails.newsletter')
+            ->view('emails.newslettersubscribe')
             ->with([
                 'url' => env('APP_URL'),
             ]);
