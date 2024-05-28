@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Asociacion;
+use App\Models\Newsletter;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotificacionNuevaAsociacion;
 
 class AsociacionController extends Controller
 {
@@ -151,6 +154,10 @@ class AsociacionController extends Controller
         $asociacion = Asociacion::find($id);
         if ($asociacion) {
             $asociacion->publicar = 1;
+            $newsletters = Newsletter::all();
+            foreach ($newsletters as $email) {
+                Mail::to($email->email)->send(new NotificacionNuevaAsociacion($asociacion, $email->token));
+            }
             $asociacion->save();
         }
         return redirect()->route('dashboard');
