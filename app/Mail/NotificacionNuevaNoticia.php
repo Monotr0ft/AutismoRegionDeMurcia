@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use Faker\Provider\Address;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -10,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class NewsletterSubscribe extends Mailable
+class NotificacionNuevaNoticia extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -27,10 +26,10 @@ class NewsletterSubscribe extends Mailable
     public function build()
     {
         return $this->from(env('MAIL_FROM_ADDRESS'), 'ARM')
-            ->subject('¡Gracias por suscribirte a nuestro boletín!')
-            ->view('emails.newslettersubscribe')
+            ->subject('¡Hay una nueva noticia disponible!')
+            ->view('emails.notificacionnuevanoticia')
             ->with([
-                'url' => env('APP_URL'),
+                'url' => env('APP_URL') . '/noticias',
                 'token' => $this->token,
             ]);
     }

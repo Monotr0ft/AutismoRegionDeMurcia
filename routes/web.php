@@ -10,6 +10,7 @@ use App\Http\Controllers\AsociacionNuevaController;
 use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\PaginaController;
+use App\Http\Controllers\NoticiaController;
 use App\Http\Controllers\NewsletterController;
 
 /*
@@ -26,6 +27,8 @@ use App\Http\Controllers\NewsletterController;
 Route::get('/', function () {
     return view('autismo.paginas.home');
 })->name('home');
+
+Route::get('/newsletter/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
 
 Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter');
 Route::post('/upload', [ImageUploadController::class, 'upload'])->name('upload');
@@ -61,6 +64,14 @@ Route::group(['prefix' => 'dashboard'], function() {
         Route::put('/edit/{id}', [PaginaController::class, 'edit'])->name('dashboard.paginas.edit')->where('id', '[0-9]+');
         Route::delete('/delete/{id}', [PaginaController::class, 'delete'])->name('dashboard.paginas.delete')->where('id', '[0-9]+');
     });
+    Route::group(['prefix' => 'noticias'], function() {
+        Route::get('/', [NoticiaController::class, 'index'])->name('dashboard.noticias');
+        Route::get('/create', [NoticiaController::class, 'getCreate'])->name('dashboard.noticias.create');
+        Route::get('/edit/{id}', [NoticiaController::class, 'getEdit'])->name('dashboard.noticias.edit')->where('id', '[0-9]+');
+        Route::post('/create', [NoticiaController::class, 'store'])->name('dashboard.noticias.store');
+        Route::put('/edit/{id}', [NoticiaController::class, 'update'])->name('dashboard.noticias.update')->where('id', '[0-9]+');
+        Route::delete('/delete/{id}', [NoticiaController::class, 'destroy'])->name('dashboard.noticias.delete')->where('id', '[0-9]+');
+    });
 })->middleware('auth');
 
 Route::group(['prefix' => 'asociaciones'], function() {
@@ -68,6 +79,8 @@ Route::group(['prefix' => 'asociaciones'], function() {
     Route::get('/formulario', [AsociacionController::class, 'getCreate']);
     Route::post('/formulario', [AsociacionNuevaController::class, 'store'])->name('asociaciones.create');
 });
+
+Route::get('/noticias', [NoticiaController::class, 'getNoticias'])->name('noticias');
 
 Route::get('/queesarm', [PaginaController::class, 'arm'])->name('queesarm');
 

@@ -24,7 +24,7 @@
                     <a class="nav-link" href="#">Recursos</a>
                 </li>
                 <li class="nav-item px-3 h4">
-                    <a class="nav-link" href="#">Noticias</a>
+                    <a class="nav-link" href="{{ route('noticias') }}">Noticias</a>
                 </li>
             </ul>
         </div>

@@ -49,7 +49,6 @@ class PaginaController extends Controller
     {
         $pagina = Pagina::find($id);
         if ($pagina) {
-            $pagina->titulo = $request->titulo;
             $pagina->contenido = $request->contenido;
             $pagina->save();
         }

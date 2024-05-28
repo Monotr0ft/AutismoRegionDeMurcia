@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use Faker\Provider\Address;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -10,27 +9,29 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class NewsletterSubscribe extends Mailable
+class NotificacionNuevaAsociacion extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $token;
+    public $asociacion, $token;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($token)
+    public function __construct($asociacion, $token)
     {
+        $this->asociacion = $asociacion;
         $this->token = $token;
     }
 
     public function build()
     {
         return $this->from(env('MAIL_FROM_ADDRESS'), 'ARM')
-            ->subject('¡Gracias por suscribirte a nuestro boletín!')
-            ->view('emails.newslettersubscribe')
+            ->subject('¡Hay una nueva asociación disponible!')
+            ->view('emails.notificacionnuevaasociacion')
             ->with([
-                'url' => env('APP_URL'),
+                'url' => env('APP_URL') . '/asociaciones',
+                'asociacion' => $this->asociacion,
                 'token' => $this->token,
             ]);
     }

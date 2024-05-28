@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AsociacionNueva;
 use App\Models\Asociacion;
+use App\Models\Newsletter;
+use App\Mail\NotificacionNuevaAsociacion;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\File;
 
 class AsociacionNuevaController extends Controller
@@ -33,7 +36,7 @@ class AsociacionNuevaController extends Controller
         $asociacion->publicar = 0;
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');
-            $nombre = time() . $logo->getClientOriginalName();
+            $nombre = $logo->getClientOriginalName();
             $logo->storeAs('public/logos', $nombre);
             if (!File::exists(public_path('assets/img/logos'))) {
                 File::makeDirectory(public_path('assets/img/logos'), 0777, true);
@@ -87,7 +90,7 @@ class AsociacionNuevaController extends Controller
                     File::delete(public_path($asociacion->logo));
                 }
                 $logo = $request->file('logo');
-                $nombre = time() . $logo->getClientOriginalName();
+                $nombre = $logo->getClientOriginalName();
                 $logo->storeAs('public/logos', $nombre);
                 if (!File::exists(public_path('assets/img/logos'))) {
                     File::makeDirectory(public_path('assets/img/logos'), 0777, true);
@@ -154,6 +157,10 @@ class AsociacionNuevaController extends Controller
         $asociacion->es_regional = $asociacionNueva->es_regional;
         $asociacion->redes_sociales = $asociacionNueva->redes_sociales;
         $asociacion->publicar = 1;
+        $newsletter = Newsletter::all();
+        foreach ($newsletter as $email) {
+            Mail::to($email->email)->send(new NotificacionNuevaAsociacion($asociacion, $email->token));
+        }
         $asociacion->save();
         $asociacionNueva->delete();
         return redirect()->route('dashboard.asociacionesnuevas');

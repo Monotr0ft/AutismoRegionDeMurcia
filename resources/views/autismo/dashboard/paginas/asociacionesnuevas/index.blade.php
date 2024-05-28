@@ -37,7 +37,7 @@
             <a href="{{ route('dashboard.paginas') }}" class="btn btn-secondary">Cambiar a Páginas</a>
         </div>
         <div>
-            <a href="#" class="btn btn-secondary">Cambiar a Noticias</a>
+            <a href="{{ route('dashboard.noticias') }}" class="btn btn-secondary">Cambiar a Noticias</a>
         </div>
     </div>
     <br>

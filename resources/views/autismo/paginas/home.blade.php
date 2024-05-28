@@ -3,6 +3,10 @@
 @section('title')
 
 <title>Autismo Región de Murcia - Home</title>
+@php
+    $noticias = App\Models\Noticia::orderBy('created_at', 'desc')->take(3)->get();
+@endphp
+
 
 @stop
 
@@ -16,7 +20,7 @@
             Porro at numquam cum exercitationem pariatur adipisci ullam, repellat iusto aliquam est eius ducimus maxime harum sed possimus voluptatum labore vero ex perferendis expedita assumenda excepturi, magnam omnis! Praesentium, dolore?
             Ut possimus hic cum saepe deleniti vitae sed, deserunt quaerat impedit id voluptatum commodi? Soluta pariatur perspiciatis quasi a blanditiis inventore iure? Placeat recusandae nesciunt quidem dolore provident excepturi cumque?</p>
             <div class="text-center m-2">
-                <a href="#"><button class="btn btn-primary">Más información</button></a>
+                <a href="{{ route('queesarm') }}"><button class="btn btn-primary">Más información</button></a>
             </div>
         </div>
         <div class="col-12 col-md-6 order-1 order-md-2 text-center">
@@ -33,7 +37,7 @@
             Porro at numquam cum exercitationem pariatur adipisci ullam, repellat iusto aliquam est eius ducimus maxime harum sed possimus voluptatum labore vero ex perferendis expedita assumenda excepturi, magnam omnis! Praesentium, dolore?
             Ut possimus hic cum saepe deleniti vitae sed, deserunt quaerat impedit id voluptatum commodi? Soluta pariatur perspiciatis quasi a blanditiis inventore iure? Placeat recusandae nesciunt quidem dolore provident excepturi cumque?</p>
             <div class="text-center m-2">
-                <a href="#"><button class="btn btn-primary">Más información</button></a>
+                <a href="{{ route('autismo') }}"><button class="btn btn-primary">Más información</button></a>
             </div>
         </div>
     </div>
@@ -48,10 +52,19 @@
     <div>
         <h2 class="text-center my-5">Noticias recientes</h2>
         <div class="row my-2">
-
+            @foreach ($noticias as $noticia)
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <h3 class="card-header">{{ $noticia->titulo }}</h3>
+                        <div class="card-body">
+                            <a class="btn btn-primary" href="https://{{ $noticia->url }}">Ver noticia</a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
         <div class="text-center my-3">
-            <a href="#"><button class="btn btn-primary">Más noticias</button></a>
+            <a href="{{ route('noticias') }}"><button class="btn btn-primary">Más noticias</button></a>
         </div>
     </div>
 </div>

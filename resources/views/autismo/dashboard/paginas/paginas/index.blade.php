@@ -29,7 +29,7 @@
         <a href="{{ route('dashboard') }}" class="btn btn-secondary">Cambiar a Asociaciones</a>
     </div>
     <div>
-        <a href="#" class="btn btn-secondary">Cambiar a Noticias</a>
+        <a href="{{ route('dashboard.noticias') }}" class="btn btn-secondary">Cambiar a Noticias</a>
     </div>
 </div>
 <br>
@@ -47,7 +47,6 @@
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <a href="{{ route('dashboard.paginas.show', $pagina->id) }}" class="btn btn-primary">Ver</a>
                     <a href="{{ action([\App\Http\Controllers\PaginaController::class, 'getEdit'], $pagina->id) }}" class="btn btn-warning">Editar</a>
-                    <a href="{{ route('dashboard.paginas.delete', $pagina->id) }}" class="btn btn-danger" onclick="return confirmDelete()">Eliminar</a>
                 </div>
             </div>
         </div>
