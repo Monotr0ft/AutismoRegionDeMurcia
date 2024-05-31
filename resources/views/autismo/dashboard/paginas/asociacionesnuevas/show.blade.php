@@ -39,7 +39,7 @@
             <div class="col-12 text-center">
                 <h1>{{ $asociacion->tipo }} {{ $asociacion->nombre }}</h1>
                 <br>
-                <img src="{{ asset($asociacion->logo) }}" alt="{{ $asociacion->nombre }}" class="img-fluid" width="200">
+                <img src="{{ asset($asociacion->logo) }}" alt="{{ $asociacion->nombre }}" class="img-fluid" style="height: 200px;">
             </div>
             <br>
             <div class="d-flex justify-content-center col-12">

@@ -57,9 +57,10 @@
         .then(data => {
             data.data.forEach(provincia => {
                 let option = document.createElement('option');
-                option.value = provincia.PRO;
+                let provinciaNombre = provincia.PRO.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                option.value = provinciaNombre;
                 option.id = provincia.CPRO;
-                option.text = provincia.PRO;
+                option.text = provinciaNombre;
                 provinciaLista.appendChild(option);
             });
         });
@@ -79,9 +80,16 @@
                 municipioLista.appendChild(option);
                 data.data.forEach(municipio => {
                     let option = document.createElement('option');
-                    option.value = municipio.DMUN50;
+                    let municipioNombre = municipio.DMUN50.split(/(\(.*?\))/).map((segment, index) => {
+                        if (index % 2 === 0) {
+                            return segment.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                        } else {
+                            return segment.charAt(0) + segment.charAt(1).toUpperCase() + segment.slice(2).toLowerCase();
+                        }
+                    }).join('');
+                    option.value = municipioNombre;
                     option.id = municipio.CMUM;
-                    option.text = municipio.DMUN50;
+                    option.text = municipioNombre;
                     municipioLista.appendChild(option);
                 });
             });
@@ -102,6 +110,13 @@
                 localidadLista.appendChild(option);
                 data.data.forEach(localidad => {
                     let option = document.createElement('option');
+                    let localidadNombre = localidad.NENTSI50.split(/(\(.*?\))/).map((segment, index) => {
+                        if (index % 2 === 0) {
+                            return segment.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                        } else {
+                            return segment.charAt(0) + segment.charAt(1).toUpperCase() + segment.slice(2).toLowerCase();
+                        }
+                    }).join('');
                     option.value = localidad.NENTSI50;
                     option.text = localidad.NENTSI50;
                     localidadLista.appendChild(option);
@@ -177,9 +192,17 @@
                     <option value="0" selected>Nueva dirección</option>
                     @foreach ($direcciones as $direccion)
                         @if ($direccion->ampliacion == null)
-                            <option value="{{ $direccion->id }}">{{ $direccion->tipo_via }} {{ $direccion->nombre_via }} {{ $direccion->numero }}, {{ $direccion->provincia }}, {{ $direccion->municipio }}, {{ $direccion->localidad }}, {{ $direccion->codigo_postal }}</option>
+                            @if (iconv('UTF-8', 'ASCII//TRANSLIT', $direccion->municipio) != iconv('UTF-8', 'ASCII//TRANSLIT', $direccion->localidad))
+                                <option value="{{ $direccion->id }}">{{ $direccion->tipo_via }} {{ $direccion->nombre_via }}, {{ $direccion->numero }}, {{ $direccion->localidad }}, {{ $direccion->municipio }} ({{ $direccion->provincia }})</option>
+                            @else
+                                <option value="{{ $direccion->id }}">{{ $direccion->tipo_via }} {{ $direccion->nombre_via }}, {{ $direccion->numero }}, {{ $direccion->municipio }} ({{ $direccion->provincia }})</option>
+                            @endif
                         @else
-                            <option value="{{ $direccion->id }}">{{ $direccion->tipo_via }} {{ $direccion->nombre_via }} {{ $direccion->numero }} {{ $direccion->ampliacion }}, {{ $direccion->provincia }}, {{ $direccion->municipio }}, {{ $direccion->localidad }}, {{ $direccion->codigo_postal }}</option>
+                            @if (iconv('UTF-8', 'ASCII//TRANSLIT', $direccion->municipio) != iconv('UTF-8', 'ASCII//TRANSLIT', $direccion->localidad))
+                                <option value="{{ $direccion->id }}">{{ $direccion->tipo_via }} {{ $direccion->nombre_via }}, {{ $direccion->numero }}, {{ $direccion->ampliacion }}, {{ $direccion->localidad }}, {{ $direccion->municipio }} ({{ $direccion->provincia }})</option>
+                            @else
+                                <option value="{{ $direccion->id }}">{{ $direccion->tipo_via }} {{ $direccion->nombre_via }}, {{ $direccion->numero }}, {{ $direccion->ampliacion }}, {{ $direccion->municipio }} ({{ $direccion->provincia }})</option>
+                            @endif
                         @endif
                     @endforeach
                 </select>

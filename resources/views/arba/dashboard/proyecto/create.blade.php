@@ -3,6 +3,14 @@
 @section ('title')
 
     <title>ARBA - Crear Proyectos</title>
+    <style>
+
+        .ck-editor__editable_inline {
+            min-height: 400px;
+        }
+
+    </style>
+    <script src="{{ asset('assets/ckeditor5/build/ckeditor.js') }}"></script>
     <script>
         function previewImage(event, querySelector) {
             const input = event.target;
@@ -62,7 +70,7 @@
                 <br>
                 <div class="form-group mb-3">
                     <label for="descripcion">Descripción</label>
-                    <textarea class="form-control" id="descripcion" name="descripcion" rows="20" required></textarea>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="20"></textarea>
                 </div>
                 <br>
                 <div class="d-flex justify-content-around">
@@ -75,5 +83,12 @@
         <div class="col-12 col-md-4"></div>
     </div>
 </div>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#descripcion'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 
 @stop

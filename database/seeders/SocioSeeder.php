@@ -21,9 +21,9 @@ class SocioSeeder extends Seeder
             'numero' => 1,
             'ampliacion' => 'A',
             'codigo_postal' => 30360,
-            'municipio' => 'UNIÓN (LA)',
-            'localidad' => 'UNION (LA)',
-            'provincia' => 'REGIÓN DE MURCIA',
+            'municipio' => 'Unión (La)',
+            'localidad' => 'Union (La)',
+            'provincia' => 'Región De Murcia',
         ]);
         DB::connection('mysql-arba')->table('socios')->insert([
             'nombre' => 'Ricardo',

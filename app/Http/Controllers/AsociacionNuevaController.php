@@ -26,13 +26,38 @@ class AsociacionNuevaController extends Controller
      */
     public function store(Request $request)
     {
+        $provincia = $request->input('provincia');
+        $municipio = $request->input('municipio');
+        $localidad = $request->input('localidad');
+        $tipo_calle = $request->input('tipo_calle');
+        $nombre_calle = $request->input('nombre_calle');
+        $numero = $request->input('numero');
+        if ($request->has('ampliacion')) {
+            $ampliacion = $request->input('ampliacion');
+        }
+        $municipioASCII = iconv('UTF-8', 'ASCII//TRANSLIT', $municipio);
+        $localidadASCII = iconv('UTF-8', 'ASCII//TRANSLIT', $localidad);
+        $codigo_postal = $request->input('codigo_postal');
+        if ($ampliacion) {
+            if ($municipioASCII != $localidadASCII) {
+                $direccion = $tipo_calle . ' ' . $nombre_calle . ', ' . $numero . ', ' . $ampliacion . ', ' . $codigo_postal . ', ' . $localidad . ', ' . $municipio . ' (' . $provincia . ')';
+            }else {
+                $direccion = $tipo_calle . ' ' . $nombre_calle . ', ' . $numero . ', ' . $ampliacion . ', ' . $codigo_postal . ', ' . $municipio . ' (' . $provincia . ')';
+            }
+        }else {
+            if ($municipioASCII != $localidadASCII) {
+                $direccion = $tipo_calle . ' ' . $nombre_calle . ', ' . $numero . ', ' . $codigo_postal . ', ' . $localidad . ', ' . $municipio . ' (' . $provincia . ')';
+            }else {
+                $direccion = $tipo_calle . ' ' . $nombre_calle . ', ' . $numero . ', ' . $codigo_postal . ', ' . $municipio . ' (' . $provincia . ')';
+            }
+        }
         $asociacion = new AsociacionNueva();
         $asociacion->nombre = $request->nombre;
         $asociacion->descripcion = $request->descripcion;
-        $asociacion->direccion = $request->direccion;
         $asociacion->telefono = $request->telefono;
+        $asociacion->direccion = $direccion;
         $asociacion->email = $request->email;
-        $asociacion->web = $request->web;
+        $asociacion->web = str_replace(['https://', 'http://'], '', $request->web);
         $asociacion->publicar = 0;
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');
@@ -81,10 +106,37 @@ class AsociacionNuevaController extends Controller
         if ($asociacion) {
             $asociacion->nombre = $request->nombre;
             $asociacion->descripcion = $request->descripcion;
-            $asociacion->direccion = $request->direccion;
             $asociacion->telefono = $request->telefono;
             $asociacion->email = $request->email;
             $asociacion->web = $request->web;
+            if ($request->nueva_direccion === "1") {
+                $provincia = $request->input('provincia');
+                $municipio = $request->input('municipio');
+                $localidad = $request->input('localidad');
+                $tipo_calle = $request->input('tipo_calle');
+                $nombre_calle = $request->input('nombre_calle');
+                $numero = $request->input('numero');
+                if ($request->has('ampliacion')) {
+                    $ampliacion = $request->input('ampliacion');
+                }
+                $municipioASCII = iconv('UTF-8', 'ASCII//TRANSLIT', $municipio);
+                $localidadASCII = iconv('UTF-8', 'ASCII//TRANSLIT', $localidad);
+                $codigo_postal = $request->input('codigo_postal');
+                if ($ampliacion) {
+                    if ($municipioASCII != $localidadASCII) {
+                        $direccion = $tipo_calle . ' ' . $nombre_calle . ', ' . $numero . ', ' . $ampliacion . ', ' . $codigo_postal . ', ' . $localidad . ', ' . $municipio . ' (' . $provincia . ')';
+                    }else {
+                        $direccion = $tipo_calle . ' ' . $nombre_calle . ', ' . $numero . ', ' . $ampliacion . ', ' . $codigo_postal . ', ' . $municipio . ' (' . $provincia . ')';
+                    }
+                }else {
+                    if ($municipioASCII != $localidadASCII) {
+                        $direccion = $tipo_calle . ' ' . $nombre_calle . ', ' . $numero . ', ' . $codigo_postal . ', ' . $localidad . ', ' . $municipio . ' (' . $provincia . ')';
+                    }else {
+                        $direccion = $tipo_calle . ' ' . $nombre_calle . ', ' . $numero . ', ' . $codigo_postal . ', ' . $municipio . ' (' . $provincia . ')';
+                    }
+                }
+                $asociacion->direccion = $direccion;
+            }
             if ($request->hasFile('logo')) {
                 if ($asociacion->logo) {
                     File::delete(public_path($asociacion->logo));

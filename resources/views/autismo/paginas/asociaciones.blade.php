@@ -18,7 +18,7 @@
         <div class="col-12 col-md-6 col-lg-4 my-3 d-flex align-items-stretch">
             <div class="card">
                 <div class="card-header d-flex justify-content-around align-items-center">
-                    <a href="https://{{ $asociacion->web }}"><img src="{{ asset($asociacion->logo) }}" class="img-fluid" width="200" alt="{{ $asociacion->nombre }}"></a>
+                    <a href="https://{{ $asociacion->web }}"><img src="{{ asset($asociacion->logo) }}" class="img-fluid" style="height: 200px;" alt="{{ $asociacion->nombre }}"></a>
                     <a href="https://{{ $asociacion->web }}" class="text-decoration-none" style="color: black"><h3 class="text-center">{{ $asociacion->nombre }}</h3></a>
                 </div>
                 <div class="card-body">

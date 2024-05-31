@@ -60,9 +60,17 @@
                                 <td class="d-none d-lg-table-cell">No pertenece a la junta directiva</td>
                             @endif
                             @if ($socio->direccionArba->ampliacion == null)
-                                <td class="d-none d-lg-table-cell">{{ $socio->direccionArba->tipo_via }} {{ $socio->direccionArba->nombre_via }} {{ $socio->direccionArba->numero }}, {{ $socio->direccionArba->provincia }}, {{ $socio->direccionArba->municipio }}, {{ $socio->direccionArba->localidad }}, {{ $socio->direccionArba->codigo_postal }}</td>
+                                @if (iconv('UTF-8', 'ASCII//TRANSLIT', $socio->direccionArba->municipio) != iconv('UTF-8', 'ASCII//TRANSLIT', $socio->direccionArba->provincia))
+                                    <td class="d-none d-lg-table-cell">{{ $direccion->tipo_via }} {{ $direccion->nombre_via }}, {{ $direccion->numero }}, {{ $direccion->localidad }}, {{ $direccion->municipio }} ({{ $direccion->provincia }})</td>
+                                @else
+                                    <td class="d-none d-lg-table-cell">{{ $direccion->tipo_via }} {{ $direccion->nombre_via }}, {{ $direccion->numero }}, {{ $direccion->localidad }} ({{ $direccion->municipio }})</td>
+                                @endif
                             @else
-                                <td class="d-none d-lg-table-cell">{{ $socio->direccionArba->tipo_via }} {{ $socio->direccionArba->nombre_via }} {{ $socio->direccionArba->numero }} {{ $socio->direccionArba->ampliacion }}, {{ $socio->direccionArba->provincia }}, {{ $socio->direccionArba->municipio }}, {{ $socio->direccionArba->localidad }}, {{ $socio->direccionArba->codigo_postal }}</td>
+                                @if (iconv('UTF-8', 'ASCII//TRANSLIT', $socio->direccionArba->municipio) != iconv('UTF-8', 'ASCII//TRANSLIT', $socio->direccionArba->provincia))
+                                    <td class="d-none d-lg-table-cell">{{ $direccion->tipo_via }} {{ $direccion->nombre_via }}, {{ $direccion->numero }}, {{ $direccion->ampliacion }}, {{ $direccion->localidad }}, {{ $direccion->municipio }} ({{ $direccion->provincia }})</td>
+                                @else
+                                    <td class="d-none d-lg-table-cell">{{ $direccion->tipo_via }} {{ $direccion->nombre_via }}, {{ $direccion->numero }}, {{ $direccion->ampliacion }}, {{ $direccion->localidad }} ({{ $direccion->municipio }})</td>
+                                @endif
                             @endif
                             @if ($socio->activo == 1)
                                 <td class="d-none d-md-table-cell">Activo</td>
