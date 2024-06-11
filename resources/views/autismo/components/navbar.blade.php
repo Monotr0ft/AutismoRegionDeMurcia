@@ -21,7 +21,7 @@
                     <a class="nav-link" href="{{ route('asociaciones') }}">Asociaciones TEA Murcia</a>
                 </li>
                 <li class="nav-item px-3 h4">
-                    <a class="nav-link" href="#">Recursos</a>
+                    <a class="nav-link" href="{{ route('recursos') }}">Recursos</a>
                 </li>
                 <li class="nav-item px-3 h4">
                     <a class="nav-link" href="{{ route('noticias') }}">Noticias</a>

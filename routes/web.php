@@ -86,6 +86,10 @@ Route::get('/queesarm', [PaginaController::class, 'arm'])->name('queesarm');
 
 Route::get('/autismo', [PaginaController::class, 'autismo'])->name('autismo');
 
+Route::get('/recursos', function () {
+    return view('autismo.paginas.recursos');
+})->name('recursos');
+
 Route::group(['prefix' => 'arba'], function() {
     Route::get('/login', [ArbaUserController::class, 'getLogin']);
     Route::get('/verificaremail/{email}', [ArbaUserController::class, 'getVerificarEmail']);
