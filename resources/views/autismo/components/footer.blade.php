@@ -62,7 +62,7 @@
             <div class="d-flex flex-column flex-sm-row w-100 gap-2">
                 <label for="email" class="visually-hidden">Email</label>
                 <input type="email" name="email" id="email" class="form-control" placeholder="Email">
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" class="btn btn-submit">Enviar</button>
             </div>
         </form>
     </div>
