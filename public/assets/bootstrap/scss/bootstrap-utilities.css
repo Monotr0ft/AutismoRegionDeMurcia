@@ -36,8 +36,8 @@
   --bs-danger: #dc3545;
   --bs-light: #f8f9fa;
   --bs-dark: #212529;
-  --bs-navbar: #a6e9d5;
-  --bs-submit: #198754;
+  --bs-navbar: #fff3cd;
+  --bs-submit: #0f5132;
   --bs-more: #adb5bd;
   --bs-primary-rgb: 13, 110, 253;
   --bs-secondary-rgb: 108, 117, 125;
@@ -47,8 +47,8 @@
   --bs-danger-rgb: 220, 53, 69;
   --bs-light-rgb: 248, 249, 250;
   --bs-dark-rgb: 33, 37, 41;
-  --bs-navbar-rgb: 166, 233, 213;
-  --bs-submit-rgb: 25, 135, 84;
+  --bs-navbar-rgb: 255, 243, 205;
+  --bs-submit-rgb: 15, 81, 50;
   --bs-more-rgb: 173, 181, 189;
   --bs-primary-text-emphasis: #052c65;
   --bs-secondary-text-emphasis: #2b2f32;
@@ -324,8 +324,8 @@
   text-decoration-color: RGBA(var(--bs-navbar-rgb), var(--bs-link-underline-opacity, 1)) !important;
 }
 .link-navbar:hover, .link-navbar:focus {
-  color: RGBA(184, 237, 221, var(--bs-link-opacity, 1)) !important;
-  text-decoration-color: RGBA(184, 237, 221, var(--bs-link-underline-opacity, 1)) !important;
+  color: RGBA(255, 245, 215, var(--bs-link-opacity, 1)) !important;
+  text-decoration-color: RGBA(255, 245, 215, var(--bs-link-underline-opacity, 1)) !important;
 }
 
 .link-submit {
@@ -333,8 +333,8 @@
   text-decoration-color: RGBA(var(--bs-submit-rgb), var(--bs-link-underline-opacity, 1)) !important;
 }
 .link-submit:hover, .link-submit:focus {
-  color: RGBA(20, 108, 67, var(--bs-link-opacity, 1)) !important;
-  text-decoration-color: RGBA(20, 108, 67, var(--bs-link-underline-opacity, 1)) !important;
+  color: RGBA(12, 65, 40, var(--bs-link-opacity, 1)) !important;
+  text-decoration-color: RGBA(12, 65, 40, var(--bs-link-underline-opacity, 1)) !important;
 }
 
 .link-more {
