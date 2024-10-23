@@ -11,6 +11,11 @@
         min-height: 400px;
     }
 
+    .ck-content {
+        background-color: transparent;
+        color: #000000;
+    }
+
 </style>
 <script src="{{ asset('/assets/ckeditor5/build/ckeditor.js') }}"></script>
 <script>

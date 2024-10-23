@@ -24,6 +24,8 @@
     .asociacion-item {
         transition: transform 0.3s ease-in-out; /* Animación de transición */
     }
+
+
 </style>
 
 @stop
@@ -113,69 +115,63 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const container = document.getElementById('asociaciones-container');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-        const scrollAmount = 300;  // Cantidad de píxeles que se desplaza al hacer clic en los botones
+document.addEventListener('DOMContentLoaded', (event) => {
+    const container = document.getElementById('asociaciones-container');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
 
-        // --- Desplazamiento con el mouse (drag) ---
-        container.addEventListener('mousedown', (e) => {
-            isDown = true;
-            container.style.cursor = 'grabbing';
-            startX = e.pageX - container.offsetLeft;
-            scrollLeft = container.scrollLeft;
-        });
+    let cardWidth = document.querySelector('.asociacion-item').offsetWidth; // Ancho inicial de una tarjeta
+    let cardsPerClick = getCardsPerClick(); // Determinar cuántas tarjetas mostrar por clic según el tamaño de pantalla
+    let scrollAmount = cardWidth * cardsPerClick; // Cantidad de píxeles a desplazar
 
-        container.addEventListener('mouseleave', () => {
-            isDown = false;
-            container.style.cursor = 'grab';
-        });
-
-        container.addEventListener('mouseup', () => {
-            isDown = false;
-            container.style.cursor = 'grab';
-        });
-
-        container.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - container.offsetLeft;
-            const walk = (x - startX) * 2; // Ajusta la velocidad de desplazamiento
-            container.scrollLeft = scrollLeft - walk;
-
-            handleInfiniteScroll();
-        });
-
-        // --- Desplazamiento con botones ---
-        nextBtn.addEventListener('click', () => {
-            container.scrollLeft += scrollAmount;
-            handleInfiniteScroll();
-        });
-
-        prevBtn.addEventListener('click', () => {
-            container.scrollLeft -= scrollAmount;
-            handleInfiniteScroll();
-        });
-
-        // --- Función para el desplazamiento infinito ---
-        function handleInfiniteScroll() {
-            const maxScrollLeft = container.scrollWidth - container.clientWidth; // Cantidad máxima de scroll
-
-            // Si llegamos al inicio, saltamos al final
-            if (container.scrollLeft <= 0) {
-                container.scrollLeft = maxScrollLeft; // Llevar el scroll al final
-            }
-
-            // Si llegamos al final, saltamos al inicio
-            if (container.scrollLeft >= maxScrollLeft) {
-                container.scrollLeft = 1; // Llevar el scroll al inicio
-            }
+    // Ajustar el número de tarjetas por clic según el tamaño de pantalla
+    function getCardsPerClick() {
+        const screenWidth = window.innerWidth;
+        if (screenWidth >= 1200) {
+            return 3;  // Pantallas grandes (tres tarjetas)
+        } else if (screenWidth >= 768) {
+            return 2;  // Pantallas medianas (dos tarjetas)
+        } else {
+            return 1;  // Pantallas pequeñas (una tarjeta)
         }
+    }
+
+    // --- Desplazamiento con botones ---
+    nextBtn.addEventListener('click', () => {
+        scrollNext();
     });
+
+    prevBtn.addEventListener('click', () => {
+        scrollPrev();
+    });
+
+    // --- Función para desplazarse hacia la derecha ---
+    function scrollNext() {
+        const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+        container.scrollLeft += scrollAmount; // Desplazar el número de tarjetas según la pantalla
+
+        if (container.scrollLeft >= maxScrollLeft) {
+            container.scrollLeft = 0; // Scroll infinito, volver al inicio
+        }
+    }
+
+    // --- Función para desplazarse hacia la izquierda ---
+    function scrollPrev() {
+        container.scrollLeft -= scrollAmount; // Desplazar el número de tarjetas según la pantalla
+
+        if (container.scrollLeft <= 0) {
+            container.scrollLeft = container.scrollWidth - container.clientWidth; // Scroll infinito, volver al final
+        }
+    }
+
+    // --- Recalcular el tamaño de las tarjetas y el desplazamiento cuando la ventana se redimensiona ---
+    window.addEventListener('resize', () => {
+        cardWidth = document.querySelector('.asociacion-item').offsetWidth;
+        cardsPerClick = getCardsPerClick(); // Recalcular cuántas tarjetas mostrar según el tamaño de pantalla
+        scrollAmount = cardWidth * cardsPerClick;
+    });
+});
 </script>
 
 @stop

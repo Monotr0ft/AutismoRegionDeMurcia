@@ -2,6 +2,10 @@
     text-align: justify;
 }
 
+body {
+    background-color: rgb(233, 255, 227)
+}
+
 .pie {
     background-color: rgb(161, 161, 161);
 }
