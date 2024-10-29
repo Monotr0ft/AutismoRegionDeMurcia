@@ -10,9 +10,12 @@
 </head>
 <body class="container-fluid d-flex flex-column justify-content-center">
     <div class="my-5 text-center d-flex flex-column justify-content-center align-items-center">
+        <img src="{{ asset('assets/img/Murcia_-_Mapa_municipal.svg') }}" alt="Logo Autismo Región de Murcia" class="img-fluid" style="height: 200px;">
+        <br>
         <h1>Autismo Región de Murcia - Login</h1>
+        <br>
         @if ($errors->any())
-            <h4 class="text-danger text-center p-4" style="background-color: whitesmoke; border-radius: 10px">{{ $errors->first() }}</h4>
+            <h4 class="text-center p-4" style="background-color: #ab0000; border-radius: 10px; color: white;">{{ $errors->first() }}</h4>
         @endif
     </div>
     <div class="row">

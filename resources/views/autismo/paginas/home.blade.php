@@ -47,6 +47,7 @@
             <img src="{{ asset('assets/img/palma_autismo.jpg') }}" alt="Autismo" class="img-fluid" style="width: 30rem;">
         </div>
     </div>
+    <hr>
     <div class="row">
         <h2 class=" text-center my-5 col-12">¿Qué es el autismo?</h2>
         <div class="col-12 col-md-6 text-center">
@@ -61,6 +62,7 @@
             </div>
         </div>
     </div>
+    <hr>
     <div class="container">
         <div class="text-center my-5">
             <h2>Asociaciones de Trastorno del Espectro Autista<br>en la Región de Murcia</h2>
@@ -75,7 +77,7 @@
                 @foreach ($asociaciones as $asociacion)
                     <div class="asociacion-item col-12 col-md-6 col-lg-4" style="display: inline-block; flex: 0 0 auto; padding: 0 15px;">
                         <div class="card" style="width: 100%;">
-                            <div class="card-header d-flex justify-content-around align-items-center" style="background-color: #788AA3;">
+                            <div class="card-header d-flex justify-content-around align-items-center" style="background-color: #FFFFFF;">
                                 <img src="{{ asset($asociacion->logo ) }}" alt="{{ $asociacion->nombre }}" class="img-fluid" style="height: 200px;">
                             </div>
                             <div class="card-body text-center" style="background-color: #CCCCCC;">
@@ -94,6 +96,7 @@
             <a href="{{ route('asociaciones') }}"><button class="btn btn-more">Más información</button></a>
         </div>
     </div>
+    <hr>
     <div>
         <h2 class=" text-center my-5">Noticias recientes</h2>
         <div class="row my-2">

@@ -17,8 +17,9 @@
         @foreach ($asociaciones as $asociacion)
         <div class="col-12 col-md-6 col-lg-4 my-3 d-flex align-items-stretch">
             <div class="card">
-                <div class="card-header d-flex justify-content-around align-items-center" style="background-color: #788AA3;">
+                <div class="card-header text-center" style="background-color: #FFFFFF;">
                     <a href="https://{{ $asociacion->web }}"><img src="{{ asset($asociacion->logo) }}" class="img-fluid" style="height: 200px;" alt="{{ $asociacion->nombre }}"></a>
+                    <br><br>
                     <a href="https://{{ $asociacion->web }}" class="text-decoration-none" style="color: black"><h3 class="text-center">{{ $asociacion->nombre }}</h3></a>
                 </div>
                 <div class="card-body" style="background-color: #CCCCCC;">
@@ -49,7 +50,7 @@
         @endforeach
     </div>
     <div class="text-center my-3">
-        <a href="{{ action([\App\Http\Controllers\AsociacionController::class, 'getCreate']) }}" class="btn btn-primary">Añadir Asociación</a>
+        <a href="{{ action([\App\Http\Controllers\AsociacionController::class, 'getCreate']) }}" class="btn btn-more">Añadir Asociación</a>
     </div>
 </div>
 

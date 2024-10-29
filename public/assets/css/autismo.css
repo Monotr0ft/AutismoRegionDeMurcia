@@ -1,11 +1,22 @@
+html {
+    min-height: 100%;
+    position: relative;
+}
+
 .justify {
     text-align: justify;
 }
 
 body {
-    background-color: rgb(233, 255, 227)
+    background-color: rgb(243, 243, 243);
+    margin: 0;
+    margin-bottom: 510px;
+    padding: 0;
 }
 
 .pie {
-    background-color: rgb(161, 161, 161);
+    background-color: rgb(180, 180, 180);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
