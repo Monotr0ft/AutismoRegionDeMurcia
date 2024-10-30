@@ -32,7 +32,7 @@
 
 @section('content')
 
-<div>
+<div class="contenido">
     <div class="row">
         <h1 class="text-center my-5 col-12 text-decoration-underline">Autismo Región de Murcia</h1>
         <div class="col-12 col-md-6 order-2 order-md-1">
@@ -82,7 +82,7 @@
                             </div>
                             <div class="card-body text-center" style="background-color: #CCCCCC;">
                                 <h3>{{ $asociacion->nombre }}</h3>
-                                <a href="https://{{ $asociacion->web }}" class="btn btn-more">Ver más</a>
+                                <a href="https://{{ $asociacion->web }}" class="btn btn-more" target="_blank">Ver más</a>
                             </div>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                     <div class="card">
                         <h3 class="card-header" style="background-color: #788AA3;">{{ $noticia->titulo }}</h3>
                         <div class="card-body" style="background-color: #CCCCCC;">
-                            <a class="btn btn-more" href="https://{{ $noticia->url }}">Ver noticia</a>
+                            <a class="btn btn-more" href="https://{{ $noticia->url }}" target="_blank">Ver noticia</a>
                         </div>
                     </div>
                 </div>

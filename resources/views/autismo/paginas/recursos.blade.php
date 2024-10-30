@@ -8,6 +8,8 @@
 
 @section('content')
 
-
+<div class="contenido">
+    
+</div>
 
 @stop

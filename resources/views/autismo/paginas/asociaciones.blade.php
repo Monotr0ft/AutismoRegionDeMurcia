@@ -9,7 +9,7 @@
 
 @section('content')
 
-<div>
+<div class="contenido">
     <div class="text-center my-5">
         <h2>Asociaciones de Trastorno del Espectro Autista<br>en la Región de Murcia</h2>
     </div>
@@ -18,9 +18,9 @@
         <div class="col-12 col-md-6 col-lg-4 my-3 d-flex align-items-stretch">
             <div class="card">
                 <div class="card-header text-center" style="background-color: #FFFFFF;">
-                    <a href="https://{{ $asociacion->web }}"><img src="{{ asset($asociacion->logo) }}" class="img-fluid" style="height: 200px;" alt="{{ $asociacion->nombre }}"></a>
+                    <a href="https://{{ $asociacion->web }}" target="_blank"><img src="{{ asset($asociacion->logo) }}" class="img-fluid" style="height: 200px;" alt="{{ $asociacion->nombre }}"></a>
                     <br><br>
-                    <a href="https://{{ $asociacion->web }}" class="text-decoration-none" style="color: black"><h3 class="text-center">{{ $asociacion->nombre }}</h3></a>
+                    <a href="https://{{ $asociacion->web }}" class="text-decoration-none" style="color: black" target="_blank"><h3>{{ $asociacion->nombre }}</h3></a>
                 </div>
                 <div class="card-body" style="background-color: #CCCCCC;">
                     <div class="ck-content">{!! $asociacion->descripcion !!}</div>

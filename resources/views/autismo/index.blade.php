@@ -10,7 +10,7 @@
 </head>
 <body>
     @include('autismo.components.navbar')
-    <main class="container-fluid">
+    <main class="container-fluid contenido">
         @yield('content')
     </main>
     @include('autismo.components.footer')

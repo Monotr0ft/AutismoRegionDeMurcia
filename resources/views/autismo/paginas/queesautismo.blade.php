@@ -10,7 +10,7 @@
 
 @section ('content')
 
-<div class="ck-content">
+<div class="ck-content contenido">
     {!! $pagina->contenido !!}
 </div>
 
