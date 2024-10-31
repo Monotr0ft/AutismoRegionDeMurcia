@@ -45,7 +45,7 @@
             </div>
             <br>
             <div class="d-flex justify-content-between">
-                <button type="submit" class="btn btn-primary">Crear</button>
+                <button type="submit" class="btn btn-submit">Crear</button>
                 <button type="reset" class="btn btn-danger">Resetear</button>
                 <a href="{{ route('dashboard.noticias') }}" class="btn btn-secondary" onclick="return confirmBack()">Volver</a>
             </div>

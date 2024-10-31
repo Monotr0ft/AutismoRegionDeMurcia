@@ -23,13 +23,13 @@
 <br>
 <div class="d-flex justify-content-between align-items-center">
     <div>
-        <a href="{{ route('dashboard') }}" class="btn btn-secondary">Cambiar a Asociaciones</a>
+        <a href="{{ route('dashboard') }}" class="btn btn-more">Cambiar a Asociaciones</a>
     </div>
     <div>
-        <a href="{{ route('dashboard.asociacionesnuevas') }}" class="btn btn-secondary">Cambiar a Peticiones de Asociaciones</a>
+        <a href="{{ route('dashboard.asociacionesnuevas') }}" class="btn btn-more">Cambiar a Peticiones de Asociaciones</a>
     </div>
     <div>
-        <a href="{{ route('dashboard.paginas') }}" class="btn btn-secondary">Cambiar a Páginas</a>
+        <a href="{{ route('dashboard.paginas') }}" class="btn btn-more">Cambiar a Páginas</a>
     </div>
 </div>
 <br>

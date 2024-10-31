@@ -49,19 +49,38 @@
         <div class="col-12 col-md-3"></div>
     </div>
     <br>
-    <div class="form-group">
+    <div style="margin-bottom: 10px; text-align: center;">
+        <!-- Botones de vista previa de tamaño de pantalla con `type="button"` -->
+        <button type="button" onclick="setEditorWidth('desktop')">Escritorio</button>
+        <button type="button" onclick="setEditorWidth('tablet')">Tableta</button>
+        <button type="button" onclick="setEditorWidth('mobile')">Móvil</button>
+    </div>
+    <br>
+    <div class="form-group" id="editor-container" style="max-width: 100%; border: 1px solid #ccc; padding: 5px;">
         <label for="contenido">Contenido</label>
         <textarea class="form-control" id="contenido" name="contenido"></textarea>
     </div>
     <br>
     <div class="d-flex justify-content-around align-items-center">
-        <button type="submit" class="btn btn-primary">Crear</button>
+        <button type="submit" class="btn btn-submit">Crear</button>
         <button type="reset" class="btn btn-warning">Resetear</button>
         <a href="{{ route('dashboard.paginas') }}" class="btn btn-secondary" onclick="return confirmVolver()">Volver</a>
     </div>
 </form>
 <script>
-    let images = [];
+    // Función para ajustar el ancho del editor y centrarlo
+    function setEditorWidth(view) {
+        const editorContainer = document.getElementById('editor-container');
+        
+        if (view === 'desktop') {
+            editorContainer.style.maxWidth = '100%'; // Ancho completo para escritorio
+        } else if (view === 'tablet') {
+            editorContainer.style.maxWidth = '768px'; // Tamaño típico de tableta
+        } else if (view === 'mobile') {
+            editorContainer.style.maxWidth = '375px'; // Tamaño típico de móvil
+        }
+        editorContainer.style.margin = '0 auto'; // Centrar el contenedor
+    }
 
     ClassicEditor
         .create(document.querySelector('#contenido'), {
@@ -75,27 +94,75 @@
             },
             image: {
                 toolbar: [
-                    'imageTextAlternative', // Para agregar texto alternativo a las imágenes
-                    'imageStyle:full', // Para imágenes de tamaño completo
-                    'imageStyle:side', // Para imágenes alineadas a los lados
-                    'imageStyle:alignLeft', // Para alinear la imagen a la izquierda
-                    'imageStyle:alignCenter', // Para alinear la imagen al centro
-                    'imageStyle:alignRight', // Para alinear la imagen a la derecha
-                    'linkImage', // Para agregar un enlace a la imagen
-                    'imageResize', // Para cambiar el tamaño de la imagen
-                    'imageInsert', // Para insertar una imagen
+                    'imageTextAlternative',
+                    'imageStyle:full',
+                    'imageStyle:side',
+                    'imageStyle:alignLeft',
+                    'imageStyle:alignCenter',
+                    'imageStyle:alignRight',
+                    'linkImage',
+                    'imageResize',
+                    'imageInsert',
                 ],
                 styles: [
-                    'full',
-                    'side',
-                    'alignLeft',
-                    'alignCenter',
-                    'alignRight',
+                    { name: 'full', className: 'img-fluid' },
+                    { name: 'side', className: 'img-fluid float-start' },
+                    { name: 'alignLeft', className: 'img-fluid float-start' },
+                    { name: 'alignCenter', className: 'img-fluid mx-auto d-block' },
+                    { name: 'alignRight', className: 'img-fluid float-end' }
                 ]
             },
+            mediaEmbed: {
+                previewsInData: true
+            }
+        })
+        .then(editor => {
+            const editorContainer = editor.ui.view.editable.element;
+
+            // Habilitar arrastrar y soltar para las imágenes
+            editorContainer.addEventListener('mousedown', (event) => {
+                if (event.target.tagName === 'IMG') {
+                    const img = event.target;
+                    let offsetX = event.clientX - img.getBoundingClientRect().left;
+                    let offsetY = event.clientY - img.getBoundingClientRect().top;
+
+                    const onMouseMove = (moveEvent) => {
+                        img.style.left = `${moveEvent.clientX - offsetX}px`;
+                        img.style.top = `${moveEvent.clientY - offsetY}px`;
+                        img.style.position = 'absolute'; // Hacer la posición absoluta para moverse libremente
+                    };
+
+                    document.addEventListener('mousemove', onMouseMove);
+
+                    document.addEventListener('mouseup', () => {
+                        document.removeEventListener('mousemove', onMouseMove);
+                    }, { once: true });
+                }
+            });
         })
         .catch(error => {
             console.error(error);
         });
 </script>
+
+<style>
+    .ck-content img {
+        cursor: move;
+        position: absolute;
+    }
+    /* Estilo adicional para los botones */
+    button {
+        padding: 8px 12px;
+        margin: 5px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
 @stop
