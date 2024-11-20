@@ -67,6 +67,34 @@
         <a href="{{ route('dashboard.paginas') }}" class="btn btn-secondary" onclick="return confirmVolver()">Volver</a>
     </div>
 </form>
+<style>
+    /* Estilo adicional para los botones */
+    button {
+        padding: 8px 12px;
+        margin: 5px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    /* CSS para centrar el editor y hacer las imágenes movibles */
+    #editor-container {
+        margin: 0 auto; /* Centrando el editor */
+    }
+
+    .ck-content img {
+        cursor: move; /* Indicador de que la imagen es movible */
+        position: relative; /* Cambiar a relative para que fluyan con el texto */
+        max-width: 100%; /* Mantener la imagen responsiva */
+    }
+</style>
+
 <script>
     // Función para ajustar el ancho del editor y centrarlo
     function setEditorWidth(view) {
@@ -123,17 +151,24 @@
             editorContainer.addEventListener('mousedown', (event) => {
                 if (event.target.tagName === 'IMG') {
                     const img = event.target;
-                    let offsetX = event.clientX - img.getBoundingClientRect().left;
-                    let offsetY = event.clientY - img.getBoundingClientRect().top;
 
+                    // Guardar la posición inicial del cursor y la imagen
+                    const initialMouseX = event.clientX;
+                    const initialMouseY = event.clientY;
+                    const initialImgX = img.offsetLeft;
+                    const initialImgY = img.offsetTop;
+
+                    // Mover la imagen siguiendo el cursor
                     const onMouseMove = (moveEvent) => {
-                        img.style.left = `${moveEvent.clientX - offsetX}px`;
-                        img.style.top = `${moveEvent.clientY - offsetY}px`;
-                        img.style.position = 'absolute'; // Hacer la posición absoluta para moverse libremente
+                        const deltaX = moveEvent.clientX - initialMouseX;
+                        const deltaY = moveEvent.clientY - initialMouseY;
+                        img.style.left = `${initialImgX + deltaX}px`;
+                        img.style.top = `${initialImgY + deltaY}px`;
+                        img.style.position = 'absolute'; // Asegura que se pueda mover libremente
                     };
 
+                    // Asignar los eventos para mover y soltar la imagen
                     document.addEventListener('mousemove', onMouseMove);
-
                     document.addEventListener('mouseup', () => {
                         document.removeEventListener('mousemove', onMouseMove);
                     }, { once: true });
@@ -144,25 +179,4 @@
             console.error(error);
         });
 </script>
-
-<style>
-    .ck-content img {
-        cursor: move;
-        position: absolute;
-    }
-    /* Estilo adicional para los botones */
-    button {
-        padding: 8px 12px;
-        margin: 5px;
-        cursor: pointer;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-    }
-
-    button:hover {
-        background-color: #0056b3;
-    }
-</style>
 @stop

@@ -48,8 +48,22 @@
                 let direccion = document.getElementById('direccion');
                 if (nueva_direccion.checked) {
                     direccion.style.display = 'block';
+                    document.getElementById('provincia').required = true;
+                    document.getElementById('municipio').required = true;
+                    document.getElementById('localidad').required = true;
+                    document.getElementById('tipo_calle').required = true;
+                    document.getElementById('nombre_calle').required = true;
+                    document.getElementById('numero').required = true;
+                    document.getElementById('codigo_postal').required = true;
                 } else {
                     direccion.style.display = 'none';
+                    document.getElementById('provincia').required = false;
+                    document.getElementById('municipio').required = false;
+                    document.getElementById('localidad').required = false;
+                    document.getElementById('tipo_calle').required = false;
+                    document.getElementById('nombre_calle').required = false;
+                    document.getElementById('numero').required = false;
+                    document.getElementById('codigo_postal').required = false;
                 }
             });
 
@@ -172,28 +186,28 @@
                 <div id="direccion" class="mb-3" style="display: none;">
                     <div class="form-group">
                         <label for="provincia">Provincia</label>
-                        <select class="form-select" name="provincia" id="provincia" required>
+                        <select class="form-select" name="provincia" id="provincia">
                             <option selected>Selecciona una provincia</option>
                         </select>
                     </div>
                     <br>
                     <div class="form-group">
                         <label for="municipio">Municipio</label>
-                        <select class="form-select" name="municipio" id="municipio" required disabled>
+                        <select class="form-select" name="municipio" id="municipio" disabled>
                             <option selected>Selecciona un municipio</option>
                         </select>
                     </div>
                     <br>
                     <div class="form-group">
                         <label for="localidad">Localidad</label>
-                        <select class="form-select" name="localidad" id="localidad" required disabled>
+                        <select class="form-select" name="localidad" id="localidad" disabled>
                             <option selected>Selecciona una localidad</option>
                         </select>
                     </div>
                     <br>
                     <div class="form-group">
                         <label for="tipo_calle">Tipo de calle</label>
-                        <select class="form-select" name="tipo_calle" id="tipo_calle" required>
+                        <select class="form-select" name="tipo_calle" id="tipo_calle">
                             <option selected>Selecciona un tipo de calle</option>
                             <option value="Calle">Calle</option>
                             <option value="Avda">Avenida</option>
@@ -204,12 +218,12 @@
                     <br>
                     <div class="form-group">
                         <label for="nombre_calle">Nombre de la calle</label>
-                        <input type="text" class="form-control" name="nombre_calle" id="nombre_calle" placeholder="Nombre de la calle" required>
+                        <input type="text" class="form-control" name="nombre_calle" id="nombre_calle" placeholder="Nombre de la calle">
                     </div>
                     <br>
                     <div class="form-group">
                         <label for="numero">Número</label>
-                        <input type="text" class="form-control" name="numero" id="numero" placeholder="Número" required>
+                        <input type="text" class="form-control" name="numero" id="numero" placeholder="Número">
                     </div>
                     <br>
                     <div class="form-group">
@@ -219,7 +233,7 @@
                     <br>
                     <div class="form-group">
                         <label for="codigo_postal">Código postal</label>
-                        <input type="text" class="form-control" name="codigo_postal" id="codigo_postal" placeholder="Código postal" required>
+                        <input type="text" class="form-control" name="codigo_postal" id="codigo_postal" placeholder="Código postal">
                     </div>
                 </div>
                 <br>
