@@ -54,8 +54,22 @@
                 let direccion = document.getElementById('direccion');
                 if (nueva_direccion.checked) {
                     direccion.style.display = 'block';
+                    document.getElementById('provincia').required = true;
+                    document.getElementById('municipio').required = true;
+                    document.getElementById('localidad').required = true;
+                    document.getElementById('tipo_calle').required = true;
+                    document.getElementById('nombre_calle').required = true;
+                    document.getElementById('numero').required = true;
+                    document.getElementById('codigo_postal').required = true;
                 } else {
                     direccion.style.display = 'none';
+                    document.getElementById('provincia').required = false;
+                    document.getElementById('municipio').required = false;
+                    document.getElementById('localidad').required = false;
+                    document.getElementById('tipo_calle').required = false;
+                    document.getElementById('nombre_calle').required = false;
+                    document.getElementById('numero').required = false;
+                    document.getElementById('codigo_postal').required = false;
                 }
             });
 
