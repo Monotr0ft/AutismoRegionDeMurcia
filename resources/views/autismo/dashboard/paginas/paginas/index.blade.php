@@ -21,22 +21,6 @@
     </div>
 </div>
 <br>
-<div class="d-flex justify-content-between align-items-center">
-    <div>
-        <a href="{{ route('dashboard.asociacionesnuevas') }}" class="btn btn-more">Cambiar a Peticiones de Asociaciones</a>
-    </div>
-    <div>
-        <a href="{{ route('dashboard') }}" class="btn btn-more">Cambiar a Asociaciones</a>
-    </div>
-    <div>
-        <a href="{{ route('dashboard.noticias') }}" class="btn btn-more">Cambiar a Noticias</a>
-    </div>
-</div>
-<br>
-<div class="text-center">
-    <a href="{{ route('dashboard.paginas.create') }}" class="btn btn-primary">Crear nueva página</a>
-</div>
-<br>
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
     @foreach ($paginas as $pagina)
         <div class="col d-flex align-items-stretch">

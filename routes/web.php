@@ -8,6 +8,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\StockPlantaController;
 use App\Http\Controllers\AsociacionNuevaController;
 use App\Http\Controllers\ProyectoController;
+use App\Http\Controllers\RecursoController;
+use App\Http\Controllers\EtiquetaController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\PaginaController;
 use App\Http\Controllers\NoticiaController;
@@ -37,8 +39,9 @@ Route::get('/login', [UserController::class, 'getLogin']);
 Route::post('/login', [UserController::class, 'postLogin'])->name('login');
 Route::post('/logout', [UserController::class, 'postLogout'])->name('logout');
 Route::group(['prefix' => 'dashboard'], function() {
-    Route::get('/', [AsociacionController::class, 'index'])->name('dashboard');
+    Route::get('/', function() { return view('autismo.dashboard.home'); } )->name('dashboard');
     Route::group(['prefix' => 'asociaciones'], function() {
+        Route::get('/', [AsociacionController::class, 'index'])->name('dashboard.asociaciones');
         Route::get('/{id}', [AsociacionController::class, 'show'])->name('dashboard.asociaciones.show')->where('id', '[0-9]+');
         Route::get('edit/{id}', [AsociacionController::class, 'getEdit'])->where('id', '[0-9]+');
         Route::put('edit/{id}', [AsociacionController::class, 'update'])->name('dashboard.asociaciones.edit')->where('id', '[0-9]+');
@@ -57,10 +60,8 @@ Route::group(['prefix' => 'dashboard'], function() {
     });
     Route::group(['prefix' => 'paginas'], function() {
         Route::get('/', [PaginaController::class, 'index'])->name('dashboard.paginas');
-        Route::get('/create', [PaginaController::class, 'getCreate'])->name('dashboard.paginas.create');
         Route::get('/{id}', [PaginaController::class, 'show'])->name('dashboard.paginas.show')->where('id', '[0-9]+');
         Route::get('/edit/{id}', [PaginaController::class, 'getEdit'])->where('id', '[0-9]+');
-        Route::post('/create', [PaginaController::class, 'store'])->name('dashboard.paginas.store');
         Route::put('/edit/{id}', [PaginaController::class, 'edit'])->name('dashboard.paginas.edit')->where('id', '[0-9]+');
         Route::delete('/delete/{id}', [PaginaController::class, 'delete'])->name('dashboard.paginas.delete')->where('id', '[0-9]+');
     });
@@ -71,6 +72,23 @@ Route::group(['prefix' => 'dashboard'], function() {
         Route::post('/create', [NoticiaController::class, 'store'])->name('dashboard.noticias.store');
         Route::put('/edit/{id}', [NoticiaController::class, 'update'])->name('dashboard.noticias.update')->where('id', '[0-9]+');
         Route::delete('/delete/{id}', [NoticiaController::class, 'destroy'])->name('dashboard.noticias.delete')->where('id', '[0-9]+');
+    });
+    Route::group(['prefix' => 'recursos'], function() {
+        Route::get('/', [RecursoController::class, 'index'])->name('dashboard.recursos');
+        Route::get('/create', [RecursoController::class, 'getCreate'])->name('dashboard.recursos.create');
+        Route::get('/edit/{id}', [RecursoController::class, 'getEdit'])->name('dashboard.recursos.edit')->where('id', '[0-9]+');
+        Route::get('/{id}', [RecursoController::class, 'show'])->name('dashboard.recursos.show')->where('id', '[0-9]+');
+        Route::post('/create', [RecursoController::class, 'store'])->name('dashboard.recursos.store');
+        Route::put('/edit/{id}', [RecursoController::class, 'update'])->name('dashboard.recursos.update')->where('id', '[0-9]+');
+        Route::delete('/delete/{id}', [RecursoController::class, 'destroy'])->name('dashboard.recursos.delete')->where('id', '[0-9]+');
+    });
+    Route::group(['prefix' => 'etiquetas'], function() {
+        Route::get('/', [EtiquetaController::class, 'index'])->name('dashboard.etiquetas');
+        Route::get('/create', [EtiquetaController::class, 'getCreate'])->name('dashboard.etiquetas.create');
+        Route::get('/edit/{id}', [EtiquetaController::class, 'getEdit'])->name('dashboard.etiquetas.edit')->where('id', '[0-9]+');
+        Route::post('/create', [EtiquetaController::class, 'store'])->name('dashboard.etiquetas.store');
+        Route::put('/edit/{id}', [EtiquetaController::class, 'update'])->name('dashboard.etiquetas.update')->where('id', '[0-9]+');
+        Route::delete('/delete/{id}', [EtiquetaController::class, 'destroy'])->name('dashboard.etiquetas.delete')->where('id', '[0-9]+');
     });
 })->middleware('auth');
 
@@ -90,6 +108,7 @@ Route::get('/recursos', function () {
     return view('autismo.paginas.recursos');
 })->name('recursos');
 
+/**
 Route::group(['prefix' => 'arba'], function() {
     Route::get('/login', [ArbaUserController::class, 'getLogin']);
     Route::get('/verificaremail/{email}', [ArbaUserController::class, 'getVerificarEmail']);
@@ -147,5 +166,6 @@ Route::group(['prefix' => 'arba'], function() {
         });
     });
 });
+*/
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
