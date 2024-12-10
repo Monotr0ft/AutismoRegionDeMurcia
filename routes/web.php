@@ -104,9 +104,7 @@ Route::get('/queesarm', [PaginaController::class, 'arm'])->name('queesarm');
 
 Route::get('/autismo', [PaginaController::class, 'autismo'])->name('autismo');
 
-Route::get('/recursos', function () {
-    return view('autismo.paginas.recursos');
-})->name('recursos');
+Route::get('/recursos', [RecursoController::class, 'getRecursos'])->name('recursos');
 
 /**
 Route::group(['prefix' => 'arba'], function() {

@@ -31,7 +31,6 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Título</th>
                     <th>Recurso</th>
                     <th>Etiquetas</th>
@@ -41,18 +40,17 @@
             <tbody>
                 @foreach ($recursos as $recurso)
                 <tr>
-                    <td>{{ $recurso->id }}</td>
                     <td>{{ $recurso->titulo }}</td>
-                    <td>
+                    <td class="text-truncate" style="max-width: 150px;">
                         @if ($recurso->url != null)
-                            <a href="{{ $recurso->url }}">Ver recurso</a>
+                            <a href="https://{{ $recurso->url }}" target="_blank">Ver recurso</a>
                         @else
 
                         @endif
                     </td>
                     <td>
                         @foreach ($recurso->etiquetas as $etiqueta)
-                            <span class="badge badge-primary">{{ $etiqueta->nombre }}</span>
+                            <span class="badge rounded-pill text-bg-primary">{{ $etiqueta->nombre }}</span>
                         @endforeach
                     </td>
                     <td>

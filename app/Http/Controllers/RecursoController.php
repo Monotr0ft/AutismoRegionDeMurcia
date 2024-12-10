@@ -23,7 +23,21 @@ class RecursoController extends Controller
     function store(Request $request)
     {
         $recurso = new Recurso();
-        // TODO - Implementar la lógica para guardar un recurso
+        $recurso->titulo = $request->titulo;
+        switch ($request->tipo) {
+            case 'urlTipo':
+                $recurso->url = str_replace(['http://', 'https://'], '', $request->url);
+                break;
+            case 'archivoTipo':
+                $recurso->archivo = $request->archivo;
+                break;
+        }
+        $recurso->save();
+
+        if ($request->has('etiquetas')) {
+            $recurso->etiquetas()->sync($request->etiquetas);
+        }
+
         return redirect()->route('dashboard.recursos');
     }
 
@@ -54,5 +68,12 @@ class RecursoController extends Controller
         $etiquetas = Etiqueta::all();
         $recurso = Recurso::find($id);
         return view('autismo.dashboard.paginas.recursos.edit', ['etiquetas' => $etiquetas, 'recurso' => $recurso]);
+    }
+
+    function getRecursos()
+    {
+        $recursos = Recurso::all();
+        $etiquetas = Etiqueta::all();
+        return view('autismo.paginas.recursos', ['recursos' => $recursos, 'etiquetas' => $etiquetas]);
     }
 }

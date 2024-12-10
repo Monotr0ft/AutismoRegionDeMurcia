@@ -56,7 +56,7 @@ class AsociacionController extends Controller
             $asociacion->redes_sociales = json_encode($redes_sociales);
         }
         $asociacion->save();
-        return redirect()->route('asociaciones');
+        return redirect()->route('dashboard.asociaciones');
     }
 
     /**
@@ -66,7 +66,7 @@ class AsociacionController extends Controller
     {
         $asociacion = Asociacion::find($id);
         if (!$asociacion) {
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard.asociaciones');
         }
         return view('autismo.dashboard.paginas.asociaciones.show', ['asociacion' => $asociacion]);
     }
@@ -138,7 +138,7 @@ class AsociacionController extends Controller
             }
             $asociacion->save();
         }
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard.asociaciones');
     }
 
     /**
@@ -153,7 +153,7 @@ class AsociacionController extends Controller
             }
             $asociacion->delete();
         }
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard.asociaciones');
     }
 
     public function getAsociaciones()
@@ -171,7 +171,7 @@ class AsociacionController extends Controller
     {
         $asociacion = Asociacion::find($id);
         if (!$asociacion) {
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard.asociaciones');
         }
         return view('autismo.dashboard.paginas.asociaciones.edit', ['asociacion' => $asociacion]);
     }
@@ -187,7 +187,7 @@ class AsociacionController extends Controller
             }
             $asociacion->save();
         }
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard.asociaciones');
     }
 
     public function ocultar(string $id)
@@ -197,6 +197,6 @@ class AsociacionController extends Controller
             $asociacion->publicar = 0;
             $asociacion->save();
         }
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard.asociaciones');
     }
 }

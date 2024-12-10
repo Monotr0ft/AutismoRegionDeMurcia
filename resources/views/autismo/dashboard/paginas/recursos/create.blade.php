@@ -35,13 +35,13 @@
                 <label for="tipo">Tipo</label>
                 <div class="text-center" id="tipo">
                     <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="tipo" id="urlTipo" value="1" checked>
+                        <input class="form-check-input" type="radio" name="tipo" id="urlTipo" value="urlTipo" checked>
                         <label class="form-check-label" for="urlTipo">
                             URL
                         </label>
                     </div>
                     <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="tipo" id="archivoTipo" value="2">
+                        <input class="form-check-input" type="radio" name="tipo" id="archivoTipo" value="archivoTipo">
                         <label class="form-check-label" for="archivoTipo">
                             Archivo
                         </label>
@@ -60,15 +60,16 @@
             <br>
             <div class="form-group">
                 <label for="etiquetas">Etiquetas</label>
-                <div id="etiquetas-container">
-                    <select class="form-control etiquetas-select" name="etiquetas[]">
-                        @foreach ($etiquetas as $etiqueta)
-                            <option value="{{ $etiqueta->id }}">{{ $etiqueta->nombre }}</option>
-                        @endforeach
-                    </select>
+                <div class="text-center" id="etiquetas">
+                    @foreach ($etiquetas as $etiqueta)
+                        <div class="form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="etiquetas[]" id="etiqueta{{ $etiqueta->id }}" value="{{ $etiqueta->id }}">
+                            <label class="form-check-label" for="etiqueta{{ $etiqueta->id }}">
+                                {{ $etiqueta->nombre }}
+                            </label>
+                        </div>
+                    @endforeach
                 </div>
-                <br>
-                <button type="button" class="btn btn-primary" id="addEtiqueta">Añadir etiqueta</button>
             </div>
             <br>
             <div class="d-flex justify-content-between">

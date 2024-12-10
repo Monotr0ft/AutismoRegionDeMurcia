@@ -11,6 +11,6 @@ class Etiqueta extends Model
 
     public function recursos()
     {
-        return $this->belongsToMany(Recurso::class);
+        return $this->belongsToMany(Recurso::class, 'recurso_etiquetas');
     }
 }

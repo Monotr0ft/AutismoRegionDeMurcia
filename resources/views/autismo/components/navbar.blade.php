@@ -9,22 +9,22 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item px-3 h4">
-                    <a class="nav-link" href="{{ route('home') }}">Inicio</a>
+                    <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="{{ route('home') }}">Inicio</a>
                 </li>
                 <li class="nav-item px-3 h4">
-                    <a class="nav-link" href="{{ route('queesarm') }}">¿Qué es Autismo Región de Murcia?</a>
+                    <a class="nav-link {{ Request::is('queesarm') ? 'active' : '' }}" href="{{ route('queesarm') }}">¿Qué es Autismo Región de Murcia?</a>
                 </li>
                 <li class="nav-item px-3 h4">
-                    <a class="nav-link" href="{{ route('autismo') }}">¿Qué es el Autismo?</a>
+                    <a class="nav-link {{ Request::is('autismo') ? 'active' : '' }}" href="{{ route('autismo') }}">¿Qué es el Autismo?</a>
                 </li>
                 <li class="nav-item px-3 h4">
-                    <a class="nav-link" href="{{ route('asociaciones') }}">Asociaciones TEA Murcia</a>
+                    <a class="nav-link {{ Request::is('asociaciones') ? 'active' : '' }}" href="{{ route('asociaciones') }}">Asociaciones TEA Murcia</a>
                 </li>
                 <li class="nav-item px-3 h4">
-                    <a class="nav-link" href="{{ route('recursos') }}">Recursos</a>
+                    <a class="nav-link {{ Request::is('recursos') ? 'active' : '' }}" href="{{ route('recursos') }}">Recursos</a>
                 </li>
                 <li class="nav-item px-3 h4">
-                    <a class="nav-link" href="{{ route('noticias') }}">Noticias</a>
+                    <a class="nav-link {{ Request::is('noticias') ? 'active' : '' }}" href="{{ route('noticias') }}">Noticias</a>
                 </li>
             </ul>
         </div>

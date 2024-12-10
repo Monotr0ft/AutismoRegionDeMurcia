@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('recursos', function (Blueprint $table) {
             $table->id();
             $table->string('titulo')->required();
-            $table->string('url');
-            $table->string('archivo');
+            $table->string('url')->nullable();
+            $table->string('archivo')->nullable();
             $table->timestamps();
         });
     }
