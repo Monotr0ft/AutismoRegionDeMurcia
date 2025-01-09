@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Models\Recurso;
 use App\Models\Etiqueta;
 
@@ -29,7 +30,14 @@ class RecursoController extends Controller
                 $recurso->url = str_replace(['http://', 'https://'], '', $request->url);
                 break;
             case 'archivoTipo':
-                $recurso->archivo = $request->archivo;
+                $archivo = $request->file('archivo');
+                $nombre = time() . $archivo->getClientOriginalName();
+                $archivo->storeAs('public/archivos', $nombre);
+                if(!File::exists(public_path('assets/archivos'))) {
+                    File::makeDirectory(public_path('assets/archivos'), 0777, true);
+                }
+                File::move(storage_path('app/public/archivos/' . $nombre), public_path('assets/archivos/' . $nombre));
+                $recurso->archivo = 'assets/archivos/' . $nombre;
                 break;
         }
         $recurso->save();
@@ -59,7 +67,7 @@ class RecursoController extends Controller
 
     function getCreate()
     {
-        $etiquetas = Etiqueta::all();
+        $etiquetas = Etiqueta::all()->sortBy('nombre');
         return view('autismo.dashboard.paginas.recursos.create', ['etiquetas' => $etiquetas]);
     }
 
@@ -73,7 +81,7 @@ class RecursoController extends Controller
     function getRecursos()
     {
         $recursos = Recurso::all();
-        $etiquetas = Etiqueta::all();
+        $etiquetas = Etiqueta::all()->sortBy('nombre');
         return view('autismo.paginas.recursos', ['recursos' => $recursos, 'etiquetas' => $etiquetas]);
     }
 }

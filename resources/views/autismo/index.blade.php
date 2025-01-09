@@ -6,6 +6,7 @@
     @yield('title')
     @include ('favicon.index')
     @include('bootstrap.css')
+    @include('jquery.script')
     <link rel="stylesheet" href="{{ asset('assets/css/autismo.css') }}">
 </head>
 <body>

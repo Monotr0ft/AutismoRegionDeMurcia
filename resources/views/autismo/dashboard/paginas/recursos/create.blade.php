@@ -23,8 +23,9 @@
 </div>
 <br>
 <div class="row">
-    <div class="col-12">
-        <form action="{{ route('dashboard.recursos.store') }}" method="POST">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <form action="{{ route('dashboard.recursos.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="titulo">Título</label>
@@ -79,19 +80,30 @@
             </div>
         </form>
     </div>
+    <div class="col-3"></div>
 </div>
 
 <script>
 
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('urlTipo').addEventListener('click', function() {
-            document.getElementById('urlDiv').style.display = 'block';
-            document.getElementById('archivoDiv').style.display = 'none';
+    $(document).ready(function() {
+        $('input[type=radio][name=tipo]').change(function() {
+            if (this.value === 'urlTipo') {
+                $('#urlDiv').show().find('input').prop('required', true);
+                $('#archivoDiv').hide().find('input').prop('required', false);
+            } else if (this.value === 'archivoTipo') {
+                $('#urlDiv').hide().find('input').prop('required', false);
+                $('#archivoDiv').show().find('input').prop('required', true);
+            }
         });
-        document.getElementById('archivoTipo').addEventListener('click', function() {
-            document.getElementById('urlDiv').style.display = 'none';
-            document.getElementById('archivoDiv').style.display = 'block';
-        });
+
+        $('#archivo').change(function() {
+            var archivo = $('#archivo').val();
+            var extension = archivo.split('.').pop().toLowerCase();
+            if (extension !== 'pdf') {
+                alert('El archivo debe ser un PDF');
+                $('#archivo').val('');
+            }
+        })
     });
 
 </script>

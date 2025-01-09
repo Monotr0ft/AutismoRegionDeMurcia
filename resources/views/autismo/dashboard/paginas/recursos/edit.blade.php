@@ -15,7 +15,8 @@
 </div>
 <br>
 <div class="row">
-    <div class="col-12">
+    <div class="col-3"></div>
+    <div class="col-6">
         <form action="{{ route('dashboard.recursos.update', $recurso->id) }}" method="POST">
             @csrf
             <div class="form-group">
@@ -41,11 +42,11 @@
                 </div>
             </div>
             <br>
-            <div class="form-group" style="display: block;" id="urlDiv">
+            <div class="form-group" @if ($recurso->url != null) style="display: block;" @else style="display: none;" @endif id="urlDiv">
                 <label for="url">URL</label>
                 <input type="text" class="form-control" id="url" name="url" value="{{ $recurso->url }}">
             </div>
-            <div class="form-group" style="display: none;" id="archivoDiv">
+            <div class="form-group" @if ($recurso->archivo != null) style="display: block;" @else style="display: none;" @endif id="archivoDiv">
                 <label for="archivo">Archivo</label>
                 <input type="file" class="form-control" id="archivo" name="archivo">
             </div>
@@ -69,18 +70,32 @@
             </div>
         </form>
     </div>
+    <div class="col-3"></div>
 </div>
 
 <script>
-    document.getElementById('urlTipo').addEventListener('change', function() {
-        document.getElementById('urlDiv').style.display = 'block';
-        document.getElementById('archivoDiv').style.display = 'none';
+    
+    $(document).ready(function() {
+        $('input[type=radio][name=tipo]').change(function() {
+            if (this.value === 'urlTipo') {
+                $('#urlDiv').show().prop('required', true);
+                $('#archivoDiv').hide().prop('required', false);
+            } else if (this.value === 'archivoTipo') {
+                $('#urlDiv').hide().prop('required', false);
+                $('#archivoDiv').show().prop('required', true);
+            }
+        });
+
+        $('#archivo').change(function() {
+            var archivo = $('#archivo').val();
+            var extension = archivo.split('.').pop().toLowerCase();
+            if (extension !== 'pdf') {
+                alert('El archivo debe ser un PDF');
+                $('#archivo').val('');
+            }
+        })
     });
 
-    document.getElementById('archivoTipo').addEventListener('change', function() {
-        document.getElementById('urlDiv').style.display = 'none';
-        document.getElementById('archivoDiv').style.display = 'block';
-    });
 </script>
 
 @endsection

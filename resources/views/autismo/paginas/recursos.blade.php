@@ -13,16 +13,16 @@
     <div class="row my-2">
         <div class="col-12 d-flex flex-wrap gap-2">
             @foreach ($etiquetas as $etiqueta)
-                <button value="{{ $etiqueta->id }}" class="badge bg-secondary">{{ $etiqueta->nombre }}</button>
+                <button value="{{ $etiqueta->id }}" class="badge bg-secondary etiqueta-btn">{{ $etiqueta->nombre }}</button>
             @endforeach
         </div>
         <div class="col-12">
             <hr>
         </div>
         <div class="col-12">
-            <div class="row">
+            <div class="row" id="recursos-container">
                 @foreach ($recursos as $recurso)
-                    <div class="col-12 col-md-6 col-lg-4">
+                    <div class="col-12 col-md-6 col-lg-4 recurso-card" data-etiquetas="{{ implode(',', $recurso->etiquetas->pluck('id')->toArray()) }}">
                         <div class="card">
                             <h3 class="card-header" style="background-color: #788AA3;">{{ $recurso->titulo }}</h3>
                             <div class="card-body" style="background-color: #CCCCCC;">
@@ -48,24 +48,38 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const etiquetaButtons = document.querySelectorAll('.etiqueta-btn');
-        const recursoCards = document.querySelectorAll('.recurso-card');
 
-        etiquetaButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const etiquetaId = this.value;
-                recursoCards.forEach(card => {
-                    const etiquetas = card.getAttribute('data-etiquetas').split(',');
-                    if (etiquetas.includes(etiquetaId)) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
+$(document).ready(function() {
+    const $etiquetaButtons = $('.etiqueta-btn');
+    const $recursoCards = $('.recurso-card');
+    const selectedEtiquetas = new Set();
+
+    $etiquetaButtons.click(function() {
+        const etiquetaId = $(this).val();
+        if (selectedEtiquetas.has(etiquetaId)) {
+            selectedEtiquetas.delete(etiquetaId);
+            $(this).removeClass('bg-primary').addClass('bg-secondary');
+        } else {
+            selectedEtiquetas.add(etiquetaId);
+            $(this).removeClass('bg-secondary').addClass('bg-primary');
+        }
+        filterRecursos();
     });
+
+    function filterRecursos() {
+        $recursoCards.each(function() {
+            const etiquetas = $(this).data('etiquetas').split(',').map(Number);
+            const hasAllEtiquetas = Array.from(selectedEtiquetas).every(id => etiquetas.includes(parseInt(id)));
+            if (selectedEtiquetas.size === 0 || hasAllEtiquetas) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    }
+
+});
+
 </script>
 
 @stop

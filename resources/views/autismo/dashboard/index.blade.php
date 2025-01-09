@@ -6,6 +6,7 @@
     @yield('title')
     @include('favicon.index')
     @include('bootstrap.css')
+    @include('jquery.script')
 </head>
 <body class="container-fluid">
     @include('autismo.dashboard.componentes.navbar')

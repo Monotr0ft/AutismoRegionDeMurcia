@@ -45,7 +45,7 @@
                         @if ($recurso->url != null)
                             <a href="https://{{ $recurso->url }}" target="_blank">Ver recurso</a>
                         @else
-
+                            <a href="{{ asset($recurso->archivo) }}" target="_blank">Ver recurso</a>
                         @endif
                     </td>
                     <td>

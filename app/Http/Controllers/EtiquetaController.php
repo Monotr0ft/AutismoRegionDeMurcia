@@ -9,7 +9,7 @@ class EtiquetaController extends Controller
 {  
     function index()
     {
-        $etiquetas = Etiqueta::all();
+        $etiquetas = Etiqueta::all()->sortBy('nombre');
         return view('autismo.dashboard.paginas.etiquetas.index', ['etiquetas' => $etiquetas]);
     }
 
