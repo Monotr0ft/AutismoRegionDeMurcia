@@ -4,6 +4,19 @@
 
 <title>Dashboard Autismo Región de Murcia - Editar recurso {{ $recurso->titulo }}</title>
 
+<script>
+    
+    function confirmEdit() {
+        return confirm('¿Estás seguro de que quieres editar este recurso?');
+    }
+
+    function confirmVolver() {
+        return confirm('¿Estás seguro de que quieres volver?');
+    }
+
+</script>
+
+
 @endsection
 
 @section ('content')
@@ -17,8 +30,9 @@
 <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
-        <form action="{{ route('dashboard.recursos.update', $recurso->id) }}" method="POST">
+        <form action="{{ route('dashboard.recursos.update', $recurso->id) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirmEdit()">
             @csrf
+            @method('PUT')
             <div class="form-group">
                 <label for="titulo">Título</label>
                 <input type="text" class="form-control" id="titulo" name="titulo" value="{{ $recurso->titulo }}" required>
@@ -48,7 +62,7 @@
             </div>
             <div class="form-group" @if ($recurso->archivo != null) style="display: block;" @else style="display: none;" @endif id="archivoDiv">
                 <label for="archivo">Archivo</label>
-                <input type="file" class="form-control" id="archivo" name="archivo">
+                <input type="file" class="form-control" id="archivo" name="archivo" value="{{ $recurso->archivo }}">
             </div>
             <br>
             <div class="form-group">
@@ -65,8 +79,9 @@
                 </div>
             </div>
             <br>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Editar recurso</button>
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-submit">Editar</button>
+                <a href="{{ route('dashboard.recursos') }}" class="btn btn-secondary" onclick="return confirmVolver()">Volver</a>
             </div>
         </form>
     </div>

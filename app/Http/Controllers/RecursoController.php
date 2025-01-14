@@ -15,12 +15,6 @@ class RecursoController extends Controller
         return view('autismo.dashboard.paginas.recursos.index', ['recursos' => $recursos]);
     }
 
-    function show($id)
-    {
-        $recurso = Recurso::find($id);
-        return view('autismo.dashboard.paginas.recursos.show', ['recurso' => $recurso]);
-    }
-
     function store(Request $request)
     {
         $recurso = new Recurso();
@@ -30,14 +24,16 @@ class RecursoController extends Controller
                 $recurso->url = str_replace(['http://', 'https://'], '', $request->url);
                 break;
             case 'archivoTipo':
-                $archivo = $request->file('archivo');
-                $nombre = time() . $archivo->getClientOriginalName();
-                $archivo->storeAs('public/archivos', $nombre);
-                if(!File::exists(public_path('assets/archivos'))) {
-                    File::makeDirectory(public_path('assets/archivos'), 0777, true);
+                if ($request->hasFile('archivo')) {
+                    $archivo = $request->file('archivo');
+                    $nombre = time() . $archivo->getClientOriginalName();
+                    $archivo->storeAs('public/archivos', $nombre);
+                    if (!File::exists(public_path('assets/archivos'))) {
+                        File::makeDirectory(public_path('assets/archivos'), 0777, true);
+                    }
+                    File::move(storage_path('app/public/archivos/' . $nombre), public_path('assets/archivos/' . $nombre));
+                    $recurso->archivo = 'assets/archivos/' . $nombre;
                 }
-                File::move(storage_path('app/public/archivos/' . $nombre), public_path('assets/archivos/' . $nombre));
-                $recurso->archivo = 'assets/archivos/' . $nombre;
                 break;
         }
         $recurso->save();
@@ -52,7 +48,39 @@ class RecursoController extends Controller
     function update(Request $request, $id)
     {
         $recurso = Recurso::find($id);
-        // TODO - Implementar la lógica para actualizar un recurso
+        $recurso->titulo = $request->titulo;
+        switch ($request->tipo) {
+            case 'urlTipo':
+                $recurso->url = str_replace(['http://', 'https://'], '', $request->url);
+                if ($recurso->archivo) {
+                    File::delete(public_path($recurso->archivo));
+                    $recurso->archivo = null;
+                }
+                break;
+            case 'archivoTipo':
+                if ($recurso->url) {
+                    $recurso->url = null;
+                }
+                if ($request->hasFile('archivo')) {
+                    $archivo = $request->file('archivo');
+                    $nombre = time() . $archivo->getClientOriginalName();
+                    $archivo->storeAs('public/archivos', $nombre);
+                    if (!File::exists(public_path('assets/archivos'))) {
+                        File::makeDirectory(public_path('assets/archivos'), 0777, true);
+                    }
+                    if ($recurso->archivo) {
+                        File::delete(public_path($recurso->archivo));
+                    }
+                    File::move(storage_path('app/public/archivos/' . $nombre), public_path('assets/archivos/' . $nombre));
+                    $recurso->archivo = 'assets/archivos/' . $nombre;
+                }
+                break;
+        }
+        $recurso->save();
+
+        if ($request->has('etiquetas')) {
+            $recurso->etiquetas()->sync($request->etiquetas);
+        }
         return redirect()->route('dashboard.recursos');
     }
 
@@ -60,6 +88,9 @@ class RecursoController extends Controller
     {
         $recurso = Recurso::find($id);
         if ($recurso) {
+            if ($recurso->archivo) {
+                File::delete(public_path($recurso->archivo));
+            }
             $recurso->delete();
         }
         return redirect()->route('dashboard.recursos');

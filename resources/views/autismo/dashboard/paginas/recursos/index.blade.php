@@ -54,7 +54,6 @@
                         @endforeach
                     </td>
                     <td>
-                        <a href="{{ route('dashboard.recursos.show', $recurso->id) }}" class="btn btn-info">Ver</a>
                         <a href="{{ route('dashboard.recursos.edit', $recurso->id) }}" class="btn btn-warning">Editar</a>
                         <form action="{{ route('dashboard.recursos.delete', $recurso->id) }}" method="POST" style="display: inline;" onsubmit="return confirmDelete()">
                             @csrf

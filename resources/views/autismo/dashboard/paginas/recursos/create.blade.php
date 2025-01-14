@@ -6,8 +6,16 @@
 
 <script>
 
-    function confirmDelete() {
-        return confirm('¿Estás seguro de que quieres eliminar este recurso?');
+    function confirmCreate() {
+        return confirm('¿Estás seguro de que quieres crear este recurso?');
+    }
+
+    function confirmReset() {
+        return confirm('¿Estás seguro de que quieres resetear el formulario?');
+    }
+
+    function confirmVolver() {
+        return confirm('¿Estás seguro de que quieres volver?');
     }
 
 </script>
@@ -25,7 +33,7 @@
 <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
-        <form action="{{ route('dashboard.recursos.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('dashboard.recursos.store') }}" method="POST" enctype="multipart/form-data" onreset="return confirmReset()" onsubmit="return confirmCreate()">
             @csrf
             <div class="form-group">
                 <label for="titulo">Título</label>
@@ -76,7 +84,7 @@
             <div class="d-flex justify-content-between">
                 <button type="submit" class="btn btn-submit">Crear</button>
                 <button type="reset" class="btn btn-danger">Resetear</button>
-                <a href="{{ route('dashboard.recursos') }}" class="btn btn-secondary">Volver</a>
+                <a href="{{ route('dashboard.recursos') }}" class="btn btn-secondary" onclick="return confirmVolver()">Volver</a>
             </div>
         </form>
     </div>
