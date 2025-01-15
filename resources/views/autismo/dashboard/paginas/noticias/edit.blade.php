@@ -42,6 +42,11 @@
                 <input type="text" class="form-control" id="url" name="url" value="{{ $noticia->url }}" required>
             </div>
             <br>
+            <div class="form-group">
+                <label for="fecha">Fecha</label>
+                <input type="date" class="form-control" id="fecha" name="fecha" value="{{ $noticia->fecha }}" required>
+            </div>
+            <br>
             <div class="d-flex justify-content-around">
                 <button type="submit" class="btn btn-warning">Editar</button>
                 <a href="{{ route('dashboard.noticias') }}" class="btn btn-secondary" onclick="return confirmBack()">Volver</a>

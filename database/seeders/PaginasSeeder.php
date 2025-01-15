@@ -15,9 +15,6 @@ class PaginasSeeder extends Seeder
     {
         DB::table('paginas')->truncate();
         foreach ($this->paginas as $pagina) {
-            if (isset($pagina['redes_sociales'])) {
-                $pagina['redes_sociales'] = json_encode($pagina['redes_sociales']);
-            }
             \App\Models\Pagina::create($pagina);
         }
     }

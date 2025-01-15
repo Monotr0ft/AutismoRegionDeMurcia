@@ -32,6 +32,7 @@
                 <tr>
                     <th>Titulo</th>
                     <th>Enlace</th>
+                    <th>Fecha</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -40,6 +41,7 @@
                     <tr>
                         <td>{{ $noticia->titulo }}</td>
                         <td><a href="https://{{ $noticia->url }}">Ver noticia</a></td>
+                        <td>{{ $noticia->fecha }}</td>
                         <td>
                             <a href="{{ route('dashboard.noticias.edit', $noticia->id) }}" class="btn btn-warning">Editar</a>
                             <form action="#" method="POST" style="display: inline;">

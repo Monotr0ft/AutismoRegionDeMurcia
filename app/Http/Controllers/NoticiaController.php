@@ -21,6 +21,7 @@ class NoticiaController extends Controller
         $noticia = new Noticia();
         $noticia->titulo = $request->titulo;
         $noticia->url = str_replace(['http://', 'https://'], '', $request->url);
+        $noticia->fecha = $request->fecha;
         $newsletter = Newsletter::all();
         foreach ($newsletter as $email) {
             Mail::to($email->email)->send(new NotificacionNuevaNoticia($email->token));
@@ -34,6 +35,7 @@ class NoticiaController extends Controller
         $noticia = Noticia::find($id);
         $noticia->titulo = $request->titulo;
         $noticia->url = str_replace(['http://', 'https://'], '', $request->url);
+        $noticia->fecha = $request->fecha;
         $noticia->save();
         return redirect()->route('dashboard.noticias');
     }
@@ -63,7 +65,7 @@ class NoticiaController extends Controller
 
     public function getNoticias()
     {
-        $noticias = Noticia::all()->sortByDesc('id');
+        $noticias = Noticia::all()->sortByDesc('fecha');
         return view('autismo.paginas.noticias', ['noticias' => $noticias]);
     }
 

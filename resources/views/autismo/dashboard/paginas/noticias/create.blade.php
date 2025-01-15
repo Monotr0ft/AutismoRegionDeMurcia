@@ -44,6 +44,11 @@
                 <input type="text" class="form-control" id="url" name="url" required>
             </div>
             <br>
+            <div class="form-group">
+                <label for="fecha">Fecha</label>
+                <input type="date" class="form-control" id="fecha" name="fecha" required>
+            </div>
+            <br>
             <div class="d-flex justify-content-between">
                 <button type="submit" class="btn btn-submit">Crear</button>
                 <button type="reset" class="btn btn-danger">Resetear</button>

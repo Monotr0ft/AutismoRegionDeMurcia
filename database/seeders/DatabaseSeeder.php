@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StockPlantasSeeder::class);
         $this->call(SocioSeeder::class);
         $this->call(PaginasSeeder::class);
+        $this->call(NoticiasSeeder::class);
         Model::reguard();
         Schema::enableForeignKeyConstraints();
         Schema::connection('mysql-arba')->enableForeignKeyConstraints();
