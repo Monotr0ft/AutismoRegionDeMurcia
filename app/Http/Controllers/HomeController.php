@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pagina;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $parrafo1 = Pagina::where('titulo', 'Home parrafo 1')->first();
+        $parrafo2 = Pagina::where('titulo', 'Home parrafo 2')->first();
+        return view('autismo.paginas.home', ['parrafo1' => $parrafo1, 'parrafo2' => $parrafo2]);
     }
 }

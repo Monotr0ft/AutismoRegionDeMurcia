@@ -6,11 +6,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="{{ asset('/assets/ckeditor5/build/ckeditor.js') }}"></script>
     <style>
-
         .ck-editor__editable_inline {
             min-height: 1400px;
         }
-
+        .ck-content {
+            background-color: transparent; 
+            color: #000000;
+        }
     </style>
     <script>
 
@@ -78,8 +80,6 @@
     }
 
     .ck-content img {
-        cursor: move; /* Indicador de que la imagen es movible */
-        position: relative; /* Cambiar a relative para que fluyan con el texto */
         max-width: 100%; /* Mantener la imagen responsiva */
     }
 </style>
@@ -87,16 +87,16 @@
 <script>
     // Función para ajustar el ancho del editor y centrarlo
     function setEditorWidth(view) {
-        const editorContainer = document.getElementById('editor-container');
+        const editorContainer = $('#editor-container');
         
         if (view === 'desktop') {
-            editorContainer.style.maxWidth = '100%'; // Ancho completo para escritorio
+            editorContainer.css('max-width', '100%'); // Ancho completo para escritorio
         } else if (view === 'tablet') {
-            editorContainer.style.maxWidth = '768px'; // Tamaño típico de tableta
+            editorContainer.css('max-width', '768px'); // Tamaño típico de tableta
         } else if (view === 'mobile') {
-            editorContainer.style.maxWidth = '375px'; // Tamaño típico de móvil
+            editorContainer.css('max-width', '375px'); // Tamaño típico de móvil
         }
-        editorContainer.style.margin = '0 auto'; // Centrar el contenedor
+        editorContainer.css('margin', '0 auto'); // Centrar el contenedor
     }
 
     ClassicEditor
@@ -109,6 +109,7 @@
                     'Accept': 'application/json',
                 }
             },
+            withCredentials: true,
             image: {
                 toolbar: [
                     'imageTextAlternative',
@@ -131,38 +132,10 @@
             },
             mediaEmbed: {
                 previewsInData: true
-            }
+            },
         })
         .then(editor => {
-            const editorContainer = editor.ui.view.editable.element;
-
-            // Habilitar arrastrar y soltar para las imágenes
-            editorContainer.addEventListener('mousedown', (event) => {
-                if (event.target.tagName === 'IMG') {
-                    const img = event.target;
-
-                    // Guardar la posición inicial del cursor y la imagen
-                    const initialMouseX = event.clientX;
-                    const initialMouseY = event.clientY;
-                    const initialImgX = img.offsetLeft;
-                    const initialImgY = img.offsetTop;
-
-                    // Mover la imagen siguiendo el cursor
-                    const onMouseMove = (moveEvent) => {
-                        const deltaX = moveEvent.clientX - initialMouseX;
-                        const deltaY = moveEvent.clientY - initialMouseY;
-                        img.style.left = `${initialImgX + deltaX}px`;
-                        img.style.top = `${initialImgY + deltaY}px`;
-                        img.style.position = 'absolute'; // Asegura que se pueda mover libremente
-                    };
-
-                    // Asignar los eventos para mover y soltar la imagen
-                    document.addEventListener('mousemove', onMouseMove);
-                    document.addEventListener('mouseup', () => {
-                        document.removeEventListener('mousemove', onMouseMove);
-                    }, { once: true });
-                }
-            });
+            window.editor = editor;
         })
         .catch(error => {
             console.error(error);

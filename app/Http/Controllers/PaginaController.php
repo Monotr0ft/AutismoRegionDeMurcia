@@ -66,13 +66,13 @@ class PaginaController extends Controller
 
     public function arm()
     {
-        $pagina = Pagina::where('id', 1)->first();
+        $pagina = Pagina::where('titulo', '¿Qué es Autismo Región de Murcia?')->first();
         return view('autismo.paginas.queesarm', ['pagina' => $pagina]);
     }
 
     public function autismo()
     {
-        $pagina = Pagina::where('id', 2)->first();
+        $pagina = Pagina::where('titulo', '¿Qué es el Autismo?')->first();
         return view('autismo.paginas.queesautismo', ['pagina' => $pagina]);
     }
 

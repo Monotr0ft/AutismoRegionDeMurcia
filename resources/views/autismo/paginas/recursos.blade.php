@@ -29,7 +29,7 @@
                                 @if ($recurso->url)
                                     <a class="btn btn-more" href="https://{{ $recurso->url }}" target="_blank">Ver recurso</a>
                                 @else
-                                    <a class="btn btn-more" href="{{ $recurso->archivo }}" target="_blank">Ver recurso</a>
+                                    <a class="btn btn-more" href="{{ asset($recurso->archivo) }}" target="_blank">Ver recurso</a>
                                 @endif
                                 <br>
                                 <br>

@@ -3,7 +3,6 @@
 @section('title')
 
 <title>Autismo Región de Murcia - Asociaciones</title>
-<link rel="stylesheet" href="{{ asset('/assets/css/ckeditor.css') }}">
 
 @stop
 
