@@ -9,13 +9,16 @@ class UserController extends Controller
 {
     public function getLogin()
     {
+        if (Auth::guard('web')->check()) {
+            return redirect('/dashboard');
+        }
         return view('autismo.user.login');
     }
 
     public function postLogin(Request $request)
     {
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('web')->attempt($credentials)) {
             return redirect('/dashboard');
         }
         return redirect()->back()->withErrors(['error' => 'Usuario o contraseña incorrectos']);

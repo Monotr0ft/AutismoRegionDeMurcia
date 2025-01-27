@@ -38,7 +38,7 @@ Route::get('/recursos', [RecursoController::class, 'getRecursos'])->name('recurs
 include __DIR__.'/newsletter.php';
 include __DIR__.'/login.php';
 
-Route::group(['prefix' => 'dashboard'], function() {
+Route::group(['prefix' => 'dashboard', 'middleware' => 'user'], function() {
     Route::get('/', function() { return view('autismo.dashboard.home'); } )->name('dashboard');
     include __DIR__.'/asociaciones.php';
     include __DIR__.'/asociacionesnuevas.php';
@@ -47,7 +47,7 @@ Route::group(['prefix' => 'dashboard'], function() {
     include __DIR__.'/recursos.php';
     include __DIR__.'/etiquetas.php';
     include __DIR__.'/imageupload.php';
-})->middleware('auth');
+});
 
 /**
  * Include the routes for the ARBA project

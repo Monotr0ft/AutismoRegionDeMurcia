@@ -26,7 +26,7 @@ class RecursoController extends Controller
             case 'archivoTipo':
                 if ($request->hasFile('archivo')) {
                     $archivo = $request->file('archivo');
-                    $nombre = time() . $archivo->getClientOriginalName();
+                    $nombre = $request->titulo . '.pdf';
                     $archivo->storeAs('public/archivos', $nombre);
                     if (!File::exists(public_path('assets/archivos'))) {
                         File::makeDirectory(public_path('assets/archivos'), 0777, true);
@@ -63,7 +63,7 @@ class RecursoController extends Controller
                 }
                 if ($request->hasFile('archivo')) {
                     $archivo = $request->file('archivo');
-                    $nombre = time() . $archivo->getClientOriginalName();
+                    $nombre = $request->titulo . '.pdf';
                     $archivo->storeAs('public/archivos', $nombre);
                     if (!File::exists(public_path('assets/archivos'))) {
                         File::makeDirectory(public_path('assets/archivos'), 0777, true);
