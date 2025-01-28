@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RecursoController;
 use App\Http\Controllers\PaginaController;
 use App\Http\Controllers\NoticiaController;
+use App\Http\Controllers\CookieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,8 @@ use App\Http\Controllers\NoticiaController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::post('/accept-cookies', [CookieController::class, 'acceptCookies'])->name('accept.cookies');
 
 Route::group(['prefix' => 'asociaciones'], function() {
     Route::get('/', [AsociacionController::class, 'getAsociaciones'])->name('asociaciones');
