@@ -4,7 +4,6 @@
 
     <title>Dashboard Autismo Región de Murcia - Editar Página {{ $pagina->titulo }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="{{ asset('/assets/ckeditor5/build/ckeditor.js') }}"></script>
     <style>
         .ck-editor__editable_inline {
             min-height: 1400px;
@@ -14,6 +13,7 @@
             color: #000000;
         }
     </style>
+    @include ('ckeditor.css')
     <script>
 
         function confirmEdit() {
@@ -36,7 +36,7 @@
     </div>
 </div>
 <br>
-<form action="{{ route('dashboard.paginas.edit', $pagina->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('dashboard.paginas.edit', $pagina->id) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirmEdit()">
     @csrf
     @method('PUT')
     <div style="margin-bottom: 10px; text-align: center;">
@@ -47,8 +47,8 @@
     </div>
     <br>
     <div class="form-group" id="editor-container" style="max-width: 100%; border: 1px solid #ccc; padding: 5px;">
-        <label for="contenido">Contenido</label>
-        <textarea class="form-control" id="contenido" name="contenido">
+        <label for="editor">Contenido</label>
+        <textarea class="form-control" id="editor" name="contenido">
             {!! $pagina->contenido !!}
         </textarea>
     </div>
@@ -74,14 +74,6 @@
         background-color: #0056b3;
     }
 
-    /* CSS para centrar el editor y hacer las imágenes movibles */
-    #editor-container {
-        margin: 0 auto; /* Centrando el editor */
-    }
-
-    .ck-content img {
-        max-width: 100%; /* Mantener la imagen responsiva */
-    }
 </style>
 
 <script>
@@ -99,46 +91,9 @@
         editorContainer.css('margin', '0 auto'); // Centrar el contenedor
     }
 
-    ClassicEditor
-        .create(document.querySelector('#contenido'), {
-            simpleUpload: {
-                uploadUrl: '{{ route('upload') }}',
-                withCredentials: true,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'Accept': 'application/json',
-                }
-            },
-            withCredentials: true,
-            image: {
-                toolbar: [
-                    'imageTextAlternative',
-                    'imageStyle:full',
-                    'imageStyle:side',
-                    'imageStyle:alignLeft',
-                    'imageStyle:alignCenter',
-                    'imageStyle:alignRight',
-                    'linkImage',
-                    'imageResize',
-                    'imageInsert',
-                ],
-                styles: [
-                    { name: 'full', className: 'img-fluid' },
-                    { name: 'side', className: 'img-fluid float-start' },
-                    { name: 'alignLeft', className: 'img-fluid float-start' },
-                    { name: 'alignCenter', className: 'img-fluid mx-auto d-block' },
-                    { name: 'alignRight', className: 'img-fluid float-end' }
-                ]
-            },
-            mediaEmbed: {
-                previewsInData: true
-            },
-        })
-        .then(editor => {
-            window.editor = editor;
-        })
-        .catch(error => {
-            console.error(error);
-        });
 </script>
+<script>
+    const uploadUrl = "{{ route('upload') }}";
+</script>
+@include ('ckeditor.script')
 @stop

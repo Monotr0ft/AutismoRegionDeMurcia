@@ -3,6 +3,7 @@
 @section('title')
 
     <title>Dashboard Autismo Región de Murcia - Asociaciones</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
         .ck-editor__editable_inline {
             min-height: 400px;
@@ -13,142 +14,7 @@
             color: #000000;
         }
     </style>
-    <script src="{{ asset('/assets/ckeditor5/build/ckeditor.js') }}"></script>
-    <script>
-        function previewImage(event, querySelector) {
-            const input = event.target;
-            $imgPreview = document.querySelector(querySelector);
-            if (!input.files.length) {
-                return;
-            }
-            file = input.files[0];
-            objectURL = URL.createObjectURL(file);
-            $imgPreview.src = objectURL;
-        }
-        function addRedSocial() {
-            const redes_sociales = document.getElementById('redes_sociales');
-            const div = document.createElement('div');
-            div.classList.add('input-group', 'mb-3');
-            div.innerHTML = `
-                <input type="text" class="form-control" name="redes_sociales[]" required>
-                <button type="button" class="btn btn-danger" onclick="this.parentElement.remove()">Eliminar</button>
-            `;
-            redes_sociales.appendChild(div);
-        }
-        function removeRedSocial(button) {
-            const div = button.parentNode.parentNode;
-            div.parentNode.removeChild(div);
-        }
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-
-            let nueva_direccion = document.getElementById('nueva_direccion');
-
-            nueva_direccion.addEventListener('change', function() {
-                let direccion = document.getElementById('direccion');
-                if (nueva_direccion.checked) {
-                    direccion.style.display = 'block';
-                    document.getElementById('provincia').required = true;
-                    document.getElementById('municipio').required = true;
-                    document.getElementById('localidad').required = true;
-                    document.getElementById('tipo_calle').required = true;
-                    document.getElementById('nombre_calle').required = true;
-                    document.getElementById('numero').required = true;
-                    document.getElementById('codigo_postal').required = true;
-                } else {
-                    direccion.style.display = 'none';
-                    document.getElementById('provincia').required = false;
-                    document.getElementById('municipio').required = false;
-                    document.getElementById('localidad').required = false;
-                    document.getElementById('tipo_calle').required = false;
-                    document.getElementById('nombre_calle').required = false;
-                    document.getElementById('numero').required = false;
-                    document.getElementById('codigo_postal').required = false;
-                }
-            });
-
-            let provinciaLista = document.getElementById('provincia');
-
-            fetch('https://apiv1.geoapi.es/provincias?type=JSON&key=f830ac50cc0e6b1d1bd1081223bacdf1d8dce93a435988ee74e06b513245e2a2&CCOM=17')
-                .then(response => response.json())
-                .then(data => {
-                    data.data.forEach(provincia => {
-                        let nombreProvincia = provincia.PRO.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-                        let option = document.createElement('option');
-                        option.value = nombreProvincia;
-                        option.id = provincia.CPRO;
-                        option.text = nombreProvincia;
-                        provinciaLista.appendChild(option);
-                    });
-                });
-
-            let municipioLista = document.getElementById('municipio');
-
-            provinciaLista.addEventListener('change', function() {
-                fetch(`https://apiv1.geoapi.es/municipios?type=JSON&key=f830ac50cc0e6b1d1bd1081223bacdf1d8dce93a435988ee74e06b513245e2a2&CPRO=${provinciaLista.options[provinciaLista.selectedIndex].id}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        municipioLista.disabled = false;
-                        municipioLista.innerHTML = '';
-                        let option = document.createElement('option');
-                        option.selected = true;
-                        option.disabled = true;
-                        option.text = 'Selecciona un municipio';
-                        municipioLista.appendChild(option);
-                        data.data.forEach(municipio => {
-                            let option = document.createElement('option');
-                            let nombreMunicipio = municipio.DMUN50.split(/(\(.*?\))/).map((segment, index) => {
-                                if (index % 2 === 0) {
-                                    return segment.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-                                } else {
-                                    return segment.charAt(0) + segment.charAt(1).toUpperCase() + segment.slice(2).toLowerCase();
-                                }
-                            }).join('');
-                            option.value = nombreMunicipio;
-                            option.id = municipio.CMUM;
-                            option.text = nombreMunicipio;
-                            municipioLista.appendChild(option);
-                        });
-                    });
-            });
-
-            let localidadLista = document.getElementById('localidad');
-
-            municipioLista.addEventListener('change', function() {
-                fetch(`https://apiv1.geoapi.es/poblaciones?type=JSON&key=f830ac50cc0e6b1d1bd1081223bacdf1d8dce93a435988ee74e06b513245e2a2&CPRO=${provinciaLista.options[provinciaLista.selectedIndex].id}&CMUM=${municipioLista.options[municipioLista.selectedIndex].id}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        localidadLista.disabled = false;
-                        localidadLista.innerHTML = '';
-                        let option = document.createElement('option');
-                        option.selected = true;
-                        option.disabled = true;
-                        option.text = 'Selecciona una localidad';
-                        localidadLista.appendChild(option);
-                        data.data.forEach(localidad => {
-                            let option = document.createElement('option');
-                            let nombreLocalidad = localidad.NENTSI50.split(/(\(.*?\))/).map((segment, index) => {
-                                if (index % 2 === 0) {
-                                    return segment.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-                                } else {
-                                    return segment.charAt(0) + segment.charAt(1).toUpperCase() + segment.slice(2).toLowerCase();
-                                }
-                            }).join('');
-                            option.value = nombreLocalidad;
-                            option.text = nombreLocalidad;
-                            localidadLista.appendChild(option);
-                        });
-                    });
-            });
-            })
-
-        function confirmEdit() {
-            return confirm('¿Estás seguro de que quieres editar esta asociación?');
-        }
-        function confirmVolver() {
-            return confirm('¿Estás seguro de que quieres volver a Asociaciones Nuevas?');
-        }
-    </script>
+    @include('ckeditor.css')
 
 @stop
 
@@ -170,8 +36,8 @@
                 </div>
                 <br>
                 <div class="form-group mb-3">
-                    <label for="descripcion">Descripción</label>
-                    <textarea class="form-control" id="descripcion" name="descripcion" rows="20" required>{{ $asociacion->descripcion }}</textarea>
+                    <label for="editor">Descripción</label>
+                    <textarea class="form-control" id="editor" name="descripcion" rows="20" required>{{ $asociacion->descripcion }}</textarea>
                 </div>
                 <br>
                 <h2>Direccion</h2>
@@ -305,10 +171,90 @@
     </div>
 </div>
 <script>
-    ClassicEditor
-        .create(document.querySelector('#descripcion'))
-        .catch(error => {
-            console.error(error);
+    function previewImage(event, querySelector) {
+        const input = event.target;
+        const $imgPreview = $(querySelector);
+        if (!input.files.length) {
+            return;
+        }
+        const file = input.files[0];
+        const objectURL = URL.createObjectURL(file);
+        $imgPreview.attr('src', objectURL).show();
+    }
+    function addRedSocial() {
+        const $redesSociales = $('#redes_sociales');
+        const $div = $('<div>').addClass('input-group mb-3');
+        $div.html(`
+            <input type="text" class="form-control" name="redes_sociales[]">
+            <div class="input-group-append">
+                <button class="btn btn-danger" type="button" onclick="removeRedSocial(this)">-<button>
+            </div>
+        `);
+        $redesSociales.append($div);
+    }
+    function removeRedSocial(button) {
+        $(button).closest('.input-group').remove();
+    }
+    $(document).ready(function() {
+        const $provinciaLista = $('#provincia');
+        const $municipioLista = $('#municipio');
+        const $localidadLista = $('#localidad');
+        $.getJSON('https://apiv1.geoapi.es/provincias?type=JSON&key=f830ac50cc0e6b1d1bd1081223bacdf1d8dce93a435988ee74e06b513245e2a2&CCOM=17', function(data) {
+            data.data.forEach(function(provincia) {
+                const nombreProvincia = provincia.PRO.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                const $option = $('<option>').val(nombreProvincia).attr('id', provincia.CPRO).text(nombreProvincia);
+                $provinciaLista.append($option);
+            });
         });
+        $provinciaLista.change(function() {
+            const provinciaId = $provinciaLista.find('option:selected').attr('id');
+            $.getJSON(`https://apiv1.geoapi.es/municipios?type=JSON&key=f830ac50cc0e6b1d1bd1081223bacdf1d8dce93a435988ee74e06b513245e2a2&CPRO=${provinciaId}`, function(data) {
+                $municipioLista.prop('disabled', false).empty();
+                const $defaultOption = $('<option>').prop('selected', true).prop('disabled', true).text('Selecciona un municipio');
+                $municipioLista.append($defaultOption);
+                data.data.forEach(function(municipio) {
+                    const nombreMunicipio = municipio.DMUN50.split(/(\(.*?\))/).map((segment, index) => {
+                        if (index % 2 === 0) {
+                            return segment.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                        } else {
+                            return segment.charAt(0) + segment.charAt(1).toUpperCase() + segment.slice(2).toLowerCase();
+                        }
+                    }).join('');
+                    const $option = $('<option>').val(nombreMunicipio).attr('id', municipio.CMUM).text(nombreMunicipio);
+                    $municipioLista.append($option);
+                });
+            });
+        });
+        $municipioLista.change(function() {
+            const provinciaId = $provinciaLista.find('option:selected').attr('id');
+            const municipioId = $municipioLista.find('option:selected').attr('id');
+            $.getJSON(`https://apiv1.geoapi.es/poblaciones?type=JSON&key=f830ac50cc0e6b1d1bd1081223bacdf1d8dce93a435988ee74e06b513245e2a2&CPRO=${provinciaId}&CMUM=${municipioId}`, function(data) {
+                $localidadLista.prop('disabled', false).empty();
+                const $defaultOption = $('<option>').prop('selected', true).prop('disabled', true).text('Selecciona una localidad');
+                $localidadLista.append($defaultOption);
+                data.data.forEach(function(localidad) {
+                    const nombreLocalidad = localidad.NENTSI50.split(/(\(.*?\))/).map((segment, index) => {
+                        if (index % 2 === 0) {
+                            return segment.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                        } else {
+                            return segment.charAt(0) + segment.charAt(1).toUpperCase() + segment.slice(2).toLowerCase();
+                        }
+                    }).join('');
+                    const $option = $('<option>').val(nombreLocalidad).text(nombreLocalidad);
+                    $localidadLista.append($option);
+                })
+            });
+        });
+    });
+    function confirmEdit() {
+        return confirm('¿Estás seguro de que quieres editar esta asociación?');
+    }
+    function confirmVolver() {
+        return confirm('¿Estás seguro de que quieres volver a Asociaciones?');
+    }
 </script>
+<script>
+    const uploadUrl = "{{ route('upload') }}";
+</script>
+@include('ckeditor.script')
 @stop

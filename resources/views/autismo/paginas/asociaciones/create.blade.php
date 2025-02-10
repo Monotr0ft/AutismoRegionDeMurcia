@@ -5,8 +5,8 @@
 <title>
     Autismo Región de Murcia - Crear Asociación
 </title>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <style>
-
     .ck-editor__editable_inline {
         min-height: 400px;
     }
@@ -15,9 +15,9 @@
         background-color: transparent;
         color: #000000;
     }
-
 </style>
-<script src="{{ asset('/assets/ckeditor5/build/ckeditor.js') }}"></script>
+
+@include('ckeditor.css')
 
 @stop
 
@@ -38,7 +38,7 @@
                 </div>
                 <br>
                 <div class="form-group mb-3">
-                    <label for="texto">Descripción</label>
+                    <label for="editor">Descripción</label>
                     <textarea class="form-control" id="editor" name="descripcion"></textarea>
                 </div>
                 <br>
@@ -156,14 +156,6 @@
 </div>
 <script>
 
-$(document).ready(function() {
-    ClassicEditor
-        .create(document.querySelector('#editor'))
-        .catch(error => {
-            console.error(error);
-        });
-});
-
     function previewImage(event, querySelector) {
         const input = event.target;
         const $imgPreview = $(querySelector);
@@ -248,5 +240,9 @@ $(document).ready(function() {
     });
 
 </script>
+<script>
+    const uploadUrl = "{{ route('upload') }}";
+</script>
+@include('ckeditor.script')
 
 @stop
