@@ -30,7 +30,7 @@ class NewsletterController extends Controller
     
             return redirect()->back()->with('success', '¡Gracias por suscribirte a nuestro boletín!');
         }catch (\Exception $e) {
-            return redirect()->back()->withErrors('¡Ha ocurrido un error! Por favor, intenta de nuevo.');
+            return redirect()->back()->withErrors(['newsletter_error' => '¡Ha ocurrido un error! Por favor, intenta de nuevo.']);
         }
     }
 

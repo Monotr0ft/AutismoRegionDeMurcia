@@ -9,6 +9,8 @@ use App\Models\Newsletter;
 use App\Mail\NotificacionNuevaAsociacion;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\File;
+use Biscolab\ReCaptcha\Facades\ReCaptcha;
+use Illuminate\Support\Facades\Http;
 
 class AsociacionNuevaController extends Controller
 {
@@ -26,6 +28,19 @@ class AsociacionNuevaController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $request->validate([
+            'g-recaptcha-response' => 'required',
+        ]);
+
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => env('RECAPTCHA_SECRET'),
+            'response' => $request->input('g-recaptcha-response'),
+        ]);
+
+        if (!$response->json()['success']) {
+            return back()->withErrors(['captcha' => 'Captcha inválido'])->withInput();
+        }
         $provincia = $request->input('provincia');
         $municipio = $request->input('municipio');
         $localidad = $request->input('localidad');

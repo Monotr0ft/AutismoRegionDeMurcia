@@ -42,13 +42,9 @@
         <div class="col-12 col-md-2 mb-3">
         </div>
         <div class="col-md-5 offset-md-1 mb-3">
-        @if ($errors->any())
+        @if ($errors->has('newsletter_error'))
             <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+                {{  $errors->first('newsletter_error') }}
             </div>
         @elseif (Session::has('success'))
             <div class="alert alert-success">

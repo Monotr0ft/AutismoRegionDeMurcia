@@ -1,10 +1,7 @@
 @extends('autismo.index')
 
 @section('title')
-
-<title>
-    Autismo Región de Murcia - Crear Asociación
-</title>
+<title>Autismo Región de Murcia - Crear Asociación</title>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <style>
     .ck-editor__editable_inline {
@@ -30,7 +27,18 @@
     <div class="row">
         <div class="col-12 col-md-4"></div>
         <div class="col-12 col-md-4">
-            <form action="{{ route('asociaciones.create') }}" method="POST" enctype="multipart/form-data">
+            @if ($errors->any() && !$errors->has('newsletter_error'))
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    @if ($error != 'newsletter_error')
+                        <li>{{ $error }}</li>
+                    @endif
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+            <form action="{{ route('asociaciones.store') }}" method="POST" enctype="multipart/form-data" id="asociacionForm">
                 @csrf
                 <div class="form-group mb-3">
                     <label for="nombre">Nombre</label>
@@ -68,7 +76,7 @@
                     <div class="form-group">
                         <label for="tipo_calle">Tipo de calle</label>
                         <select class="form-select" name="tipo_calle" id="tipo_calle" required>
-                            <option selected>Selecciona un tipo de calle</option>
+                            <option value="" selected>Selecciona un tipo de calle</option>
                             <option value="Calle">Calle</option>
                             <option value="Avda">Avenida</option>
                             <option value="Travesia">Travesia</option>
@@ -102,7 +110,7 @@
                 <div class="form-group mb-3">
                     <label for="tipo">Tipo</label>
                     <select class="form-select" id="tipo" name="tipo" required>
-                        <option selected>Seleccione un tipo</option>
+                        <option value="" selected>Seleccione un tipo</option>
                         <option value="Asociación">Asociación</option>
                         <option value="Fundación">Fundación</option>
                     </select>
@@ -148,14 +156,29 @@
                         ¿Es una asociación regional?
                     </label>
                 </div>
-                <button type="submit" class="btn btn-primary my-3">Crear Asociación</button>
+                <button type="button" class="btn btn-primary my-3" id="submitBtn">Crear Asociación</button>
+
+                <!-- Modal de reCAPTCHA -->
+                <div class="modal fade" id="recaptchaModal" tabindex="-1" aria-labelledby="recaptchaModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="recaptchaModalLabel">Verificación de reCAPTCHA</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="recaptchaWidget" class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_API') }}" data-callback="recaptchaCallback"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
         <div class="col-12 col-md-4"></div>
     </div>
 </div>
-<script>
 
+<script>
     function previewImage(event, querySelector) {
         const input = event.target;
         const $imgPreview = $(querySelector);
@@ -173,7 +196,7 @@
         $div.html(`
             <input type="text" class="form-control" name="redes_sociales[]">
             <div class="input-group-append">
-                <button class="btn btn-danger" type="button" onclick="removeRedSocial(this)">-<button>
+                <button class="btn btn-danger" type="button" onclick="removeRedSocial(this)">-</button>
             </div>
         `);
         $redesSociales.append($div);
@@ -183,7 +206,36 @@
         $(button).closest('.input-group').remove();
     }
 
+    function validateForm() {
+        let isValid = true;
+        $('#asociacionForm').find('input[required], select[required], textarea[required]').each(function() {
+            if ($(this).val() === '') {
+                isValid = false;
+                $(this).addClass('is-invalid');
+            } else {
+                $(this).removeClass('is-invalid');
+            }
+        });
+        return isValid;
+    }
+
+    function loadRecaptcha() {
+        grecaptcha.ready(() => {
+            grecaptcha.render('recaptchaWidget', {
+                sitekey: "{{ env('RECAPTCHA_API') }}",
+                callback: recaptchaCallback
+            });
+        });
+    }
+
     $(document).ready(function() {
+        const script = $('<script>', {
+            src: 'https://www.google.com/recaptcha/api.js?onload=loadRecaptcha&render=explicit&hl=es',
+            async: true,
+            defer: true
+        });
+        $('head').append(script);
+
         const $provinciaLista = $('#provincia');
         const $municipioLista = $('#municipio');
         const $localidadLista = $('#localidad');
@@ -237,7 +289,36 @@
             });
         });
 
+        $('#submitBtn').click(function(e) {
+            e.preventDefault();
+            if (validateForm()) {
+                $('#recaptchaModal').modal('show');
+                grecaptcha.reset();
+            }
+        });
+
     });
+
+    function recaptchaCallback(response) {
+        if (!response) {
+            alert('Error: Completa el reCAPTCHA');
+            return;
+        }
+        
+        // Agregar el token al formulario
+        $('#asociacionForm').append(`
+            <input type="hidden" name="g-recaptcha-response" value="${response}">
+        `);
+
+        // Ocultar el modal
+        $('#recaptchaModal').modal('hide');
+
+        // Deshabilitar el botón para evitar doble envío
+        $('#submitBtn').prop('disabled', true);
+        
+        // Enviar el formulario
+        $('#asociacionForm').off('submit').submit();
+    }
 
 </script>
 <script>

@@ -26,8 +26,8 @@ Route::post('/accept-cookies', [CookieController::class, 'acceptCookies'])->name
 
 Route::group(['prefix' => 'asociaciones'], function() {
     Route::get('/', [AsociacionController::class, 'getAsociaciones'])->name('asociaciones');
-    Route::get('/formulario', [AsociacionController::class, 'getCreate']);
-    Route::post('/formulario', [AsociacionNuevaController::class, 'store'])->name('asociaciones.create');
+    Route::get('/formulario', [AsociacionController::class, 'getCreate'])->name('asociaciones.create');
+    Route::post('/formulario', [AsociacionNuevaController::class, 'store'])->name('asociaciones.store');
 });
 
 Route::get('/noticias', [NoticiaController::class, 'getNoticias'])->name('noticias');
@@ -43,13 +43,22 @@ include __DIR__.'/login.php';
 
 Route::group(['prefix' => 'dashboard', 'middleware' => 'user'], function() {
     Route::get('/', function() { return view('autismo.dashboard.home'); } )->name('dashboard');
-    include __DIR__.'/asociaciones.php';
-    include __DIR__.'/asociacionesnuevas.php';
-    include __DIR__.'/paginas.php';
-    include __DIR__.'/noticias.php';
-    include __DIR__.'/recursos.php';
-    include __DIR__.'/etiquetas.php';
-    include __DIR__.'/imageupload.php';
+    include __DIR__.'/usuarios.php';
+    Route::group(['middleware' => 'can:gestionar_asociaciones'], function() {
+        include __DIR__.'/asociaciones.php';
+        include __DIR__.'/asociacionesnuevas.php';
+    });
+    Route::group(['middleware' => 'can:gestionar_noticias'], function() {
+        include __DIR__.'/noticias.php';
+    });
+    Route::group(['middleware' => 'can:gestionar_recursos'], function() {
+        include __DIR__.'/recursos.php';
+        include __DIR__.'/etiquetas.php';
+    });
+    Route::group(['middleware' => 'can:gestionar_paginas'], function() {
+        include __DIR__.'/paginas.php';
+        include __DIR__.'/imageupload.php';
+    });
 });
 
 /**

@@ -42,5 +42,6 @@
             </div>
         </div>
     </div>
+    @include('bootstrap.script')
 </body>
 </html>

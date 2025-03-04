@@ -31,7 +31,7 @@
 <br>
 <div class="d-flex justify-content-center">
     <div class="col-12 col-md-3"></div>
-    <div class="col-12 col-md 6">
+    <div class="col-12 col-md-6">
         <form action="{{ route('dashboard.noticias.store') }}" method="POST" onsubmit="return confirmSubmit()" onreset="return confirmReset()">
             @csrf
             <div class="form-group">

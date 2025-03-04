@@ -28,8 +28,10 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory()->create([
             'name' => 'Monotr0ft',
             'email' => 'admin@autismoregiondemurcia.es',
-            'password' => 'MARTINric/2004'
+            'password' => 'MARTINric/2004',
+            'is_boss' => true,
         ]);
+        DB::table('apartados')->truncate();
         $this->call(ArbaUserSeeder::class);
         $this->call(AsociacionSeeder::class);
         $this->call(StockPlantasSeeder::class);

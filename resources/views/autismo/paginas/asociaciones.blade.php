@@ -49,7 +49,7 @@
         @endforeach
     </div>
     <div class="text-center my-3">
-        <a href="{{ action([\App\Http\Controllers\AsociacionController::class, 'getCreate']) }}" class="btn btn-more">Añadir Asociación</a>
+        <a href="{{ route('asociaciones.create') }}" class="btn btn-more">Añadir Asociación</a>
     </div>
 </div>
 
