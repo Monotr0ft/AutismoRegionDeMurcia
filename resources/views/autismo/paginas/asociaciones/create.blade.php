@@ -55,21 +55,21 @@
                     <div class="form-group">
                         <label for="provincia">Provincia</label>
                         <select class="form-select" name="provincia" id="provincia" required>
-                            <option selected>Selecciona una provincia</option>
+                            <option value="" selected>Selecciona una provincia</option>
                         </select>
                     </div>
                     <br>
                     <div class="form-group">
                         <label for="municipio">Municipio</label>
                         <select class="form-select" name="municipio" id="municipio" required disabled>
-                            <option selected>Selecciona un municipio</option>
+                            <option value="" selected>Selecciona un municipio</option>
                         </select>
                     </div>
                     <br>
                     <div class="form-group">
                         <label for="localidad">Localidad</label>
                         <select class="form-select" name="localidad" id="localidad" required disabled>
-                            <option selected>Selecciona una localidad</option>
+                            <option value="" selected>Selecciona una localidad</option>
                         </select>
                     </div>
                     <br>
@@ -252,7 +252,7 @@
             const provinciaId = $provinciaLista.find('option:selected').attr('id');
             $.getJSON(`https://apiv1.geoapi.es/municipios?type=JSON&key=f830ac50cc0e6b1d1bd1081223bacdf1d8dce93a435988ee74e06b513245e2a2&CPRO=${provinciaId}`, function(data) {
                 $municipioLista.prop('disabled', false).empty();
-                const $defaultOption = $('<option>').prop('selected', true).prop('disabled', true).text('Selecciona un municipio');
+                const $defaultOption = $('<option>').val('').prop('selected', true).prop('disabled', true).text('Selecciona un municipio');
                 $municipioLista.append($defaultOption);
                 data.data.forEach(function(municipio) {
                     const nombreMunicipio = municipio.DMUN50.split(/(\(.*?\))/).map((segment, index) => {
@@ -273,7 +273,7 @@
             const municipioId = $municipioLista.find('option:selected').attr('id');
             $.getJSON(`https://apiv1.geoapi.es/poblaciones?type=JSON&key=f830ac50cc0e6b1d1bd1081223bacdf1d8dce93a435988ee74e06b513245e2a2&CPRO=${provinciaId}&CMUM=${municipioId}`, function(data) {
                 $localidadLista.prop('disabled', false).empty();
-                const $defaultOption = $('<option>').prop('selected', true).prop('disabled', true).text('Selecciona una localidad');
+                const $defaultOption = $('<option>').val('').prop('selected', true).prop('disabled', true).text('Selecciona una localidad');
                 $localidadLista.append($defaultOption);
                 data.data.forEach(function(localidad) {
                     const nombreLocalidad = localidad.NENTSI50.split(/(\(.*?\))/).map((segment, index) => {

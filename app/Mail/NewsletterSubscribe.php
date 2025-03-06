@@ -32,7 +32,11 @@ class NewsletterSubscribe extends Mailable
             ->with([
                 'url' => env('APP_URL'),
                 'token' => $this->token,
-            ]);
+            ])
+            ->withSwiftMessage(function ($message) {
+                $message->getHeaders()
+                    ->addTextHeader('Content-Type', 'text/html');
+            });
     }
 
     /**
