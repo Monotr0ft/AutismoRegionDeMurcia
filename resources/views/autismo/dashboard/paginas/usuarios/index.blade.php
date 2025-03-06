@@ -64,28 +64,28 @@
                         @if (Auth::user()->esJefe())
                         <td class="admin-col">
                             @if (!$usuario->esJefe())
-                                <input type="checkbox" class="admin-checkbox" data-id="{{ $usuario->id }}" {{ $usuario->esAdministrador() ? 'checked' : '' }} onchange="updatePermission(this, 'admin')">
+                                <input type="checkbox" class="admin-checkbox" data-id="{{ $usuario->id }}" {{ $usuario->esAdministrador() ? 'checked' : '' }}>
                             @endif
                         </td>
                         @endif
                         <td class="permiso-col asociaciones-col">
                             @if (!$usuario->esJefe())
-                                <input type="checkbox" class="asociaciones-checkbox" data-id="{{ $usuario->id }}" {{ $usuario->puedeGestionarAsociaciones() ? 'checked' : '' }} onchange="updatePermission(this, 'asociaciones')">
+                                <input type="checkbox" class="asociaciones-checkbox" data-id="{{ $usuario->id }}" {{ $usuario->puedeGestionarAsociaciones() ? 'checked' : '' }}>
                             @endif
                         </td>
                         <td class="permiso-col noticias-col">
                             @if (!$usuario->esJefe())
-                                <input type="checkbox" class="noticias-checkbox" data-id="{{ $usuario->id }}" {{ $usuario->puedeGestionarNoticias() ? 'checked' : '' }} onchange="updatePermission(this, 'noticias')">
+                                <input type="checkbox" class="noticias-checkbox" data-id="{{ $usuario->id }}" {{ $usuario->puedeGestionarNoticias() ? 'checked' : '' }}>
                             @endif
                         </td>
                         <td class="permiso-col paginas-col">
                             @if (!$usuario->esJefe())
-                                <input type="checkbox" class="paginas-checkbox" data-id="{{ $usuario->id }}" {{ $usuario->puedeGestionarPaginas() ? 'checked' : '' }} onchange="updatePermission(this, 'paginas')">
+                                <input type="checkbox" class="paginas-checkbox" data-id="{{ $usuario->id }}" {{ $usuario->puedeGestionarPaginas() ? 'checked' : '' }}>
                             @endif
                         </td>
                         <td class="permiso-col recursos-col">
                             @if (!$usuario->esJefe())
-                                <input type="checkbox" class="recursos-checkbox" data-id="{{ $usuario->id }}" {{ $usuario->puedeGestionarRecursos() ? 'checked' : '' }} onchange="updatePermission(this, 'recursos')">
+                                <input type="checkbox" class="recursos-checkbox" data-id="{{ $usuario->id }}" {{ $usuario->puedeGestionarRecursos() ? 'checked' : '' }}>
                             @endif
                         </td>
                         <td>
@@ -149,6 +149,38 @@
                     alert('Error en la comunicación con el servidor');
                     console.error('Error:', xhr.responseText);
                     togglePermissionCheckboxes(checkbox);
+                }
+            });
+        });
+
+        $('.asociaciones-checkbox, .noticias-checkbox, .paginas-checkbox, .recursos-checkbox').change(function() {
+            const checkbox = this;
+            const originalState = $(checkbox).is(':checked');
+            const type = $(checkbox).attr('class').split('-')[0];
+
+            $.ajax({
+                url: '{{ route("usuarios.updatePermission") }}',
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                },
+                data: JSON.stringify({
+                    user_id: $(checkbox).data('id'),
+                    type: type,
+                    status: originalState
+                }),
+                contentType: 'application/json',
+                success: function(data) {
+                    if (!data.success) {
+                        $(checkbox).prop('checked', !originalState);
+                        alert('Error al actualizar el permiso');
+                    }
+                },
+                error: function(xhr) {
+                    $(checkbox).prop('checked', !originalState);
+                    alert('Error en la comunicación con el servidor');
+                    console.error('Error:', xhr.responseText);
                 }
             });
         });

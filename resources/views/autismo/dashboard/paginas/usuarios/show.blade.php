@@ -100,17 +100,6 @@
                             <br>
                             <button type="submit" class="btn btn-submit">Actualizar Nombre de Usuario</button>
                         </form>
-                        <hr>
-                        <form method="POST" action="{{ route('panel.update.email') }}">
-                            @csrf
-                            @method('PUT')
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" value="" required>
-                            </div>
-                            <br>
-                            <button type="submit" class="btn btn-submit">Actualizar Email</button> 
-                        </form>
                     </div>
                 </div>
             </div>

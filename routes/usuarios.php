@@ -11,7 +11,6 @@ Route::put('/panel/password', [UserController::class, 'update_password'])->name(
 
 Route::put('/panel/name', [UserController::class, 'update_name'])->name('panel.update.name');
 
-Route::put('/panel/email', [UserController::class, 'update_email'])->name('panel.update.email');
 
 Route::get('/usuarios', [UserController::class, 'index'])->name('dashboard.usuarios');
 

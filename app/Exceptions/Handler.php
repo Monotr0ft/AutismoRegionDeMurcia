@@ -33,6 +33,7 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
     public function render($request, Throwable $exception)
     {
         // Si es una excepción de validación, redirige con errores

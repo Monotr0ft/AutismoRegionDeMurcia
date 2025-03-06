@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotificacionNuevoRecurso;
+use App\Models\Newsletter;
 use App\Models\Recurso;
 use App\Models\Etiqueta;
 
@@ -40,6 +43,11 @@ class RecursoController extends Controller
 
         if ($request->has('etiquetas')) {
             $recurso->etiquetas()->sync($request->etiquetas);
+        }
+
+        $newsletter = Newsletter::all();
+        foreach($newsletter as $email) {
+            Mail::to($email->email)->send(new NotificacionNuevoRecurso($email->token));
         }
 
         return redirect()->route('dashboard.recursos');
