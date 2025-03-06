@@ -12,6 +12,7 @@ use App\Models\Apartado;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserCreated;
+use App\Mail\UserDeleted;
 
 class UserController extends Controller
 {
@@ -41,7 +42,7 @@ class UserController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        return redirect('/login');
     }
 
     public function getCreate()
@@ -163,8 +164,15 @@ class UserController extends Controller
         }
     }
 
-    public function delete(User $user)
+    public function destroy(Request $request, User $user)
     {
-        Gate::authorize('delete', $user);
+        Gate::authorize('delete', Auth::user());
+        $request->validate([
+            'razon' => 'required'
+        ]);
+        $jefe = User::where('is_boss', 1)->first();
+        Mail::to($jefe->email)->send(new UserDeleted($user, $request->razon, Auth::user()));
+        $user->delete();
+        return redirect()->route('dashboard.usuarios')->with('success', 'Usuario eliminado correctamente');
     }
 }

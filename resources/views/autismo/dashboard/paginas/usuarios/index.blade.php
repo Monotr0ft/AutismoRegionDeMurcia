@@ -9,13 +9,6 @@
             overflow: hidden;
         }
     </style>
-    <script>
-
-        function confirmDelete() {
-            return confirm('¿Estás seguro de que quieres eliminar este usuario?');
-        }
-
-    </script>
 
 @stop
 
@@ -90,11 +83,13 @@
                         </td>
                         <td>
                             <a href="" class="btn btn-warning">Editar</a>
-                            <form action="" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirmDelete()">Eliminar</button>
-                            </form>
+                            @if (Auth::user()->id != $usuario->id)
+                                <form action="{{ route('dashboard.usuarios.destroy', $usuario) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" onclick="return confirmDelete()">Eliminar</button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -103,6 +98,23 @@
     </div>
 </div>
 <script>
+    function confirmDelete() {
+        var razon = prompt("Por favor, indique la razón para eliminar este usuario:");
+        if (razon === null || razon.trim() === "") {
+            alert("Debe proporcionar una razón para eliminar el usuario.");
+            return false;
+        }
+
+        var form = event.target.closest('form');
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'razon';
+        input.value = razon;
+        form.appendChild(input);
+
+        return true;
+    }
+
     $(document).ready(function() {
         // Función para ocultar/mostrar solo los checkboxes
         function togglePermissionCheckboxes(checkbox) {

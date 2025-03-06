@@ -20,3 +20,5 @@ Route::post('/usuarios/create', [UserController::class, 'store'])->name('dashboa
 
 Route::post('/usuarios/update-permission', [UserController::class, 'updatePermission'])
     ->name('usuarios.updatePermission');
+
+Route::delete('/usuarios/{user}', [UserController::class, 'destroy'])->name('dashboard.usuarios.destroy');

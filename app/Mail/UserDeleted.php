@@ -9,28 +9,31 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class NotificacionNuevoRecurso extends Mailable
+class UserDeleted extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $token;
+    public $user, $razon, $admin;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($token)
+    public function __construct($user, $razon, $admin)
     {
-        $this->token = $token;
+        $this->user = $user;
+        $this->razon = $razon;
+        $this->admin = $admin;
     }
 
     public function build()
     {
         return $this->from(env('MAIL_FROM_ADDRESS'), 'ARM')
-            ->subject('¡Hay un nuevo recurso disponible!')
-            ->view('emails.notificacionnuevorecurso')
+            ->subject('Se ha borrado una cuenta de usuario')
+            ->view('emails.usuarioborrado')
             ->with([
-                'url' => env('APP_URL') . '/recursos',
-                'token' => $this->token,
+                'user' => $this->user,
+                'razon' => $this->razon,
+                'admin' => $this->admin,
             ])
             ->withSwiftMessage(function ($message) {
                 $message->getHeaders()

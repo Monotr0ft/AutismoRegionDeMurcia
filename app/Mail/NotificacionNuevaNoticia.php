@@ -31,7 +31,11 @@ class NotificacionNuevaNoticia extends Mailable
             ->with([
                 'url' => env('APP_URL') . '/noticias',
                 'token' => $this->token,
-            ]);
+            ])
+            ->withSwiftMessage(function ($message) {
+                $message->getHeaders()
+                    ->addTextHeader('Content-Type', 'text/html');
+            });
     }
 
     /**

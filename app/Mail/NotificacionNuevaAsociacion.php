@@ -33,7 +33,11 @@ class NotificacionNuevaAsociacion extends Mailable
                 'url' => env('APP_URL') . '/asociaciones',
                 'asociacion' => $this->asociacion,
                 'token' => $this->token,
-            ]);
+            ])
+            ->withSwiftMessage(function ($message) {
+                $message->getHeaders()
+                    ->addTextHeader('Content-Type', 'text/html');
+            });
     }
 
     /**

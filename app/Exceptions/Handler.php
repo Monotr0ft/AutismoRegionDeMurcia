@@ -38,22 +38,18 @@ class Handler extends ExceptionHandler
     {
         // Si es una excepción de validación, redirige con errores
         if ($exception instanceof ValidationException) {
-            return redirect()->back()->withErrors($exception->validator)->withInput();
+            return redirect()->back()->withErrors($exception->validator->errors()->all())->withInput();
         }
 
         // Si el modelo no existe (ej: findOrFail)
         if ($exception instanceof ModelNotFoundException) {
-            return redirect()
-                ->back()
-                ->withErrors(['error' => 'El registro solicitado no existe.']);
+            return redirect()->back()->withErrors(['El registro solicitado no existe.']);
         }
 
         // Errores comunes en CRUD (operaciones fallidas)
         if ($exception instanceof \Exception || $exception instanceof HttpException) {
             $message = $exception->getMessage() ?: 'Ocurrió un error inesperado.';
-            return redirect()
-                ->back()
-                ->withErrors(['error' => $message]);
+            return redirect()->back()->withErrors([$message]);
         }
 
         // Si el método no está permitido, lanza una excepción 404

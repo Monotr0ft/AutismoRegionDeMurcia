@@ -24,29 +24,20 @@ class UserCreated extends Mailable
         $this->password = $password;
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
+    public function build()
     {
-        return new Envelope(
-            subject: 'Nuevo usuario creado',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'emails.nuevousuario',
-            with: [
+        return $this->from(env('MAIL_FROM_ADDRESS'), 'ARM')
+            ->subject('¡Bienvenido a ARM!')
+            ->view('emails.nuevousuario')
+            ->with([
+                'url' => env('APP_URL'),
                 'user' => $this->user,
                 'password' => $this->password,
-                'url' => url('/login'),
-            ],
-        );
+            ])
+            ->withSwiftMessage(function ($message) {
+                $message->getHeaders()
+                    ->addTextHeader('Content-Type', 'text/html');
+            });
     }
 
     /**
