@@ -45,7 +45,9 @@
             <tbody>
                 @foreach ($usuarios as $usuario)
                     @if (Auth::user()->esAdministrador() && $usuario->esAdministrador())
-                        @continue
+                        @if (!Auth::user()->esPropietario($usuario, 'id'))
+                            @continue
+                        @endif
                     @endif
                     @if (Auth::user()->esAdministrador() && $usuario->esJefe())
                         @continue
@@ -62,28 +64,28 @@
                         </td>
                         @endif
                         <td class="permiso-col asociaciones-col">
-                            @if (!$usuario->esJefe())
+                            @if (!$usuario->esJefe() && !Auth::user()->esPropietario($usuario, 'id'))
                                 <input type="checkbox" class="asociaciones-checkbox" data-id="{{ $usuario->id }}" {{ $usuario->puedeGestionarAsociaciones() ? 'checked' : '' }}>
                             @endif
                         </td>
                         <td class="permiso-col noticias-col">
-                            @if (!$usuario->esJefe())
+                            @if (!$usuario->esJefe() && !Auth::user()->esPropietario($usuario, 'id'))
                                 <input type="checkbox" class="noticias-checkbox" data-id="{{ $usuario->id }}" {{ $usuario->puedeGestionarNoticias() ? 'checked' : '' }}>
                             @endif
                         </td>
                         <td class="permiso-col paginas-col">
-                            @if (!$usuario->esJefe())
+                            @if (!$usuario->esJefe() && !Auth::user()->esPropietario($usuario, 'id'))
                                 <input type="checkbox" class="paginas-checkbox" data-id="{{ $usuario->id }}" {{ $usuario->puedeGestionarPaginas() ? 'checked' : '' }}>
                             @endif
                         </td>
                         <td class="permiso-col recursos-col">
-                            @if (!$usuario->esJefe())
+                            @if (!$usuario->esJefe() && !Auth::user()->esPropietario($usuario, 'id'))
                                 <input type="checkbox" class="recursos-checkbox" data-id="{{ $usuario->id }}" {{ $usuario->puedeGestionarRecursos() ? 'checked' : '' }}>
                             @endif
                         </td>
                         <td>
-                            <a href="" class="btn btn-warning">Editar</a>
-                            @if (Auth::user()->id != $usuario->id)
+                            @if (!Auth::user()->esPropietario($usuario, 'id'))
+                            <a href="{{ route('dashboard.usuarios.edit', $usuario) }}" class="btn btn-warning">Editar</a>
                                 <form action="{{ route('dashboard.usuarios.destroy', $usuario) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')

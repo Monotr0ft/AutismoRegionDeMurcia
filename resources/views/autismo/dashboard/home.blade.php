@@ -104,7 +104,7 @@
                 <h4>Gestionar los usuarios de la página web</h4>
                 <div class="text-center">
                     <a href="{{ route('dashboard.usuarios') }}" class="btn btn-primary">Ver usuarios</a>
-                    <a href="" class="btn btn-success">Crear nuevo usuario</a>
+                    <a href="{{ route('dashboard.usuarios.create') }}" class="btn btn-success">Crear nuevo usuario</a>
                 </div>
             </div>
         </div>

@@ -11,8 +11,10 @@ use App\Models\User;
 use App\Models\Apartado;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\ContraseniaCambiada;
 use App\Mail\UserCreated;
 use App\Mail\UserDeleted;
+use App\Mail\UserEdit;
 
 class UserController extends Controller
 {
@@ -75,6 +77,8 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $password = Str::random(10);
+        $user->remember_token = Str::random(10);
+        $user->code = Str::random(10);
         $user->password = Hash::make($password);
         $user->save();
 
@@ -94,10 +98,35 @@ class UserController extends Controller
                 return redirect()->back()->withErrors(['new_password' => 'Las contraseñas no coinciden']);
             }else {
                 $user->password = Hash::make($request->new_password);
+                Mail::to($user->email)->send(new ContraseniaCambiada($user));
                 $user->save();
                 return redirect()->back()->with('success', 'Contraseña actualizada correctamente');
             }
         }
+    }
+
+    public function getNotYourself($token)
+    {
+        $user = User::where('code', $token)->first();
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['error' => 'Token inválido']);
+        }
+        return view('autismo.user.notyourself')->with('token', $token);
+    }
+
+    public function reupdate_password(Request $request)
+    {
+        $user = User::where('code', $request->token)->first();
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['error' => 'Token inválido']);
+        }
+        if ($request->password != $request->password_confirmation) {
+            return redirect()->back()->withErrors(['password' => 'Las contraseñas no coinciden']);
+        }
+        $user->password = Hash::make($request->password);
+        $user->code = Str::random(10);
+        $user->save();
+        return redirect()->route('login')->with('success', 'Contraseña actualizada correctamente');
     }
 
     public function update_name(Request $request)
@@ -107,15 +136,6 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->save();
         return redirect()->back()->with('success', 'Nombre actualizado correctamente');
-    }
-
-    public function update_email(Request $request)
-    {
-        $user = Auth::user();
-        Gate::authorize('update', $user);
-        $user->email = $request->email;
-        $user->save();
-        return redirect()->back()->with('success', 'Correo electrónico actualizado correctamente');
     }
 
     public function updatePermission(Request $request) {
@@ -162,6 +182,34 @@ class UserController extends Controller
                 'message' => 'Error del servidor: ' . $e->getMessage()
             ], 500);
         }
+    }
+
+    public function getEdit($id)
+    {
+        $user = Auth::user();
+        Gate::authorize('update', $user);
+        $anotherUser = User::findOrFail($id);
+        return view('autismo.dashboard.paginas.usuarios.edit', ['user' => $anotherUser]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        Gate::authorize('update', Auth::user());
+        $request->validate([
+            'razon' => 'required'
+        ]);
+        $user->name = $request->name;
+        if ($request->email) {
+            $user->email = $request->email;
+            $user->save();
+        }
+        if ($request->reset) {
+            Mail::to($user->email)->send(new ContraseniaCambiada($user));
+        }
+        $jefe = User::where('is_boss', 1)->first();
+        Mail::to($jefe->email)->send(new UserEdit($user, $request->razon, Auth::user()));
+        return redirect()->route('dashboard.usuarios')->with('success', 'Usuario actualizado correctamente');   
     }
 
     public function destroy(Request $request, User $user)

@@ -35,7 +35,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('gestionar_recursos', function ($user) {
-            return $user->puedeGestionarTodo();
+            return $user->puedeGestionarRecursos() || $user->puedeGestionarTodo();
         });
 
         Gate::define('gestionar_paginas', function ($user) {

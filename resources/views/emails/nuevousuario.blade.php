@@ -17,7 +17,7 @@
 
         <p style="margin-top: 0; font-size: 16px; line-height: 1.5; text-align: left;">Por favor, cambia tu contraseña después de iniciar sesión.</p>
 
-        <a href="{{ $url }}" style="width: 30%; margin: 30px auto; display: block; text-align: center; background-color: #3d4852; color: #ffffff; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Iniciar sesión</a>
+        <a href="{{ $url . '/login' }}" style="width: 30%; margin: 30px auto; display: block; text-align: center; background-color: #3d4852; color: #ffffff; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Iniciar sesión</a>
     </main>
 
 @stop
