@@ -5,12 +5,25 @@ html, body {
     flex-direction: column;
 }
 
+nav {
+    background-color: rgb(14, 165, 235)
+}
+
+figcaption {
+    font-size: 1.5rem;
+    color: rgb(41, 165, 236);
+}
+
+h1, h2 {
+    color: rgb(76, 156, 129);
+}
+
 .justify {
     text-align: justify;
 }
 
 body {
-    background-color: rgb(243, 243, 243);
+    background-color: rgb(238, 238, 238);
     margin: 0;
 }
 
@@ -19,7 +32,7 @@ main.contenido {
 }
 
 .pie {
-    background-color: rgb(180, 180, 180);
+    background-color: rgb(129, 173, 255);
     width: 100%;
     padding: 1rem 0;
 }

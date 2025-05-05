@@ -49,7 +49,10 @@
     <div class="row">
         <h2 class=" text-center my-5 col-12">¿Qué es el autismo?</h2>
         <div class="col-12 col-md-6 text-center">
-            <img src="#" alt="Autismo" class="img-fluid" style="border: black 3px solid;">
+            <figure>
+                <img src="{{ asset('assets/img/infinite-7846410_1280.png') }}" alt="Autismo" class="img-fluid" style="width: 20rem;">
+                <figcaption class="text-center mt-2">Somos Infinitos</figcaption>
+            </figure>
         </div>
         <div class="col-12 col-md-6 ck-content">
             {!! $parrafo2->contenido !!}
@@ -72,14 +75,10 @@
                 <!-- Tarjetas de asociaciones -->
                 @foreach ($asociaciones as $asociacion)
                     <div class="asociacion-item col-12 col-md-6 col-lg-4" style="display: inline-block; flex: 0 0 auto; padding: 0 15px;">
-                        <div class="card" style="width: 100%;">
-                            <div class="card-header d-flex justify-content-around align-items-center" style="background-color: #FFFFFF;">
-                                <img src="{{ asset($asociacion->logo ) }}" alt="{{ $asociacion->nombre }}" class="img-fluid" style="height: 200px;">
-                            </div>
-                            <div class="card-body text-center" style="background-color: #CCCCCC;">
-                                <h3>{{ $asociacion->nombre }}</h3>
-                                <a href="https://{{ $asociacion->web }}" class="btn btn-more" target="_blank">Ver más</a>
-                            </div>
+                        <div class="card border-more" style="width: 100%;">
+                            <a href="https://{{ $asociacion->web }}" class="btn" target="_blank">
+                                <img src="{{ asset($asociacion->logo ) }}" alt="{{ $asociacion->nombre }}" class="img-fluid" style="text-align: center; height: 200px;">
+                            </a>
                         </div>
                     </div>
                 @endforeach
@@ -98,9 +97,9 @@
         <div class="row my-2">
             @foreach ($noticias as $noticia)
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card">
-                        <h3 class="card-header" style="background-color: #788AA3;">{{ $noticia->titulo }}</h3>
-                        <div class="card-body d-flex justify-content-between align-items-center" style="background-color: #CCCCCC;">
+                    <div class="card border-more">
+                        <h3 class="card-header" style="background-color:rgb(26, 190, 128);">{{ $noticia->titulo }}</h3>
+                        <div class="card-body d-flex justify-content-between align-items-center" style="background-color:rgb(255, 255, 255);">
                             <p class="card-text mb-0"><strong>{{ \Carbon\Carbon::parse($noticia->fecha)->format('d/m/Y') }}</strong></p>
                             <a class="btn btn-more" href="https://{{ $noticia->url }}" target="_blank">Ver noticia</a>
                         </div>
