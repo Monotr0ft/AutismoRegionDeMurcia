@@ -16,7 +16,7 @@ class AsociacionController extends Controller
      */
     public function index()
     {
-        $asociaciones = Asociacion::all()->sortBy('nombre');
+        $asociaciones = Asociacion::all()->orderBy('nombre');
         return view('autismo.dashboard.paginas.asociaciones.index', ['asociaciones' => $asociaciones]);
     }
 
