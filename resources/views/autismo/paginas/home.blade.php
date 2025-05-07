@@ -50,7 +50,7 @@
         <h2 class=" text-center my-5 col-12">¿Qué es el autismo?</h2>
         <div class="col-12 col-md-6 text-center">
             <figure>
-                <img src="{{ asset('assets/img/infinite-7846410_1280.png') }}" alt="Autismo" class="img-fluid" style="width: 20rem;">
+                <img src="{{ asset('assets/img/infinite-7846410_1280.png') }}" alt="Autismo" class="img-fluid" style="width: 30rem;">
                 <figcaption class="text-center mt-2">Somos Infinitos</figcaption>
             </figure>
         </div>
