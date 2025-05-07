@@ -158,7 +158,7 @@ class AsociacionController extends Controller
 
     public function getAsociaciones()
     {
-        $asociaciones = Asociacion::where('publicar', true)->get();
+        $asociaciones = Asociacion::where('publicar', true)->orderBy('nombre', 'asc')->get();
         return view('autismo.paginas.asociaciones', ['asociaciones' => $asociaciones]);
     }
 
