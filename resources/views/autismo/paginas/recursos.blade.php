@@ -23,9 +23,9 @@
             <div class="row" id="recursos-container">
                 @foreach ($recursos as $recurso)
                     <div class="col-12 col-md-6 col-lg-4 recurso-card" data-etiquetas="{{ implode(',', $recurso->etiquetas->pluck('id')->toArray()) }}">
-                        <div class="card">
-                            <h3 class="card-header" style="background-color: #788AA3;">{{ $recurso->titulo }}</h3>
-                            <div class="card-body" style="background-color: #CCCCCC;">
+                        <div class="card border-more">
+                            <h3 class="card-header" style="background-color:rgb(95, 140, 207);">{{ $recurso->titulo }}</h3>
+                            <div class="card-body">
                                 @if ($recurso->url)
                                     <a class="btn btn-more" href="https://{{ $recurso->url }}" target="_blank">Ver recurso</a>
                                 @else

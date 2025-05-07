@@ -21,7 +21,7 @@
                     <br><br>
                     <a href="https://{{ $asociacion->web }}" class="text-decoration-none" style="color: black" target="_blank"><h3>{{ $asociacion->nombre }}</h3></a>
                 </div>
-                <div class="card-body" style="background-color: #CCCCCC;">
+                <div class="card-body" style="background-color: rgb(148, 187, 245);">
                     <div class="ck-content">{!! $asociacion->descripcion !!}</div>
                     <ul>
                         <li>Tipo: {{ $asociacion->tipo }}</li>

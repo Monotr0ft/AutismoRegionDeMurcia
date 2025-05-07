@@ -98,7 +98,7 @@
             @foreach ($noticias as $noticia)
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card border-more">
-                        <h3 class="card-header" style="background-color:rgb(26, 190, 128);">{{ $noticia->titulo }}</h3>
+                        <h3 class="card-header" style="background-color:rgb(95, 140, 207);">{{ $noticia->titulo }}</h3>
                         <div class="card-body d-flex justify-content-between align-items-center" style="background-color:rgb(255, 255, 255);">
                             <p class="card-text mb-0"><strong>{{ \Carbon\Carbon::parse($noticia->fecha)->format('d/m/Y') }}</strong></p>
                             <a class="btn btn-more" href="https://{{ $noticia->url }}" target="_blank">Ver noticia</a>
