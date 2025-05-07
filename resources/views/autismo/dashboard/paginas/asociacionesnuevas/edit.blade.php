@@ -246,6 +246,22 @@
             });
         }); 
     }); 
+
+    function toggleDireccion() {
+        const $direccion = $('#direccion');
+        const $nuevaDireccion = $('#nueva_direccion');
+        if ($nuevaDireccion.is(':checked')) {
+            $direccion.show();
+            $nuevaDireccion.val(1);
+        } else {
+            $direccion.hide();
+            $nuevaDireccion.val(0);
+        }
+    }
+    $('#nueva_direccion').change(function() {
+        toggleDireccion();
+    });
+
     function confirmEdit() {
         return confirm('¿Estás seguro de que quieres editar esta asociación?');
     }   

@@ -246,6 +246,23 @@
             });
         });
     });
+
+    function toggleDireccion() {
+        const $direccion = $('#direccion');
+        if ($('#nueva_direccion').is(':checked')) {
+            $direccion.show();
+            $('#municipio').prop('disabled', true);
+            $('#localidad').prop('disabled', true);
+        } else {
+            $direccion.hide();
+            $('#municipio').prop('disabled', false);
+            $('#localidad').prop('disabled', false);
+        }
+    }
+    $('#nueva_direccion').change(function() {
+        toggleDireccion();
+    });
+
     function confirmEdit() {
         return confirm('¿Estás seguro de que quieres editar esta asociación?');
     }
