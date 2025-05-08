@@ -49,8 +49,9 @@
         @endforeach
     </div>
     <div class="text-center my-3">
-        <h3>Si perteneces a una asociación específica del Espectro Autista en la Región de Murcia</h3>
-        <h3>y quieres que aparezcas en esta web, pulsa en el botón que hay abajo.</h3>
+        <h4>Si perteneces a una asociación específica del Espectro Autista en la Región de Murcia</h4>
+        <h4>y quieres que aparezcas en esta web, pulsa en el botón que hay abajo.</h4>
+        <br>
         <a href="{{ route('asociaciones.create') }}" class="btn btn-more">Añadir Asociación</a>
     </div>
 </div>
