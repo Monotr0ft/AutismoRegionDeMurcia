@@ -30,10 +30,13 @@ class AsociacionController extends Controller
         $asociacion->descripcion = $request->descripcion;
         $asociacion->direccion = $request->direccion;
         if ($request->has('telefono')) {
-            $asociacion->telefono = str_replace(' ', '', $request->telefono);
-        } else {
-            $asociacion->telefono = '';
-        }
+                $telefono = $request->telefono;
+                // Quitar espacios y convertir a número
+                $telefonoSinEspacios = str_replace(' ', '', (string)$telefono);
+                $asociacion->telefono = is_numeric($telefonoSinEspacios) ? (int)$telefonoSinEspacios : 0;
+            } else {
+                $asociacion->telefono = 0;
+            }
         $asociacion->email = $request->email;
         $asociacion->web = $request->web;
         $asociacion->publicar = 0;
@@ -85,9 +88,12 @@ class AsociacionController extends Controller
             $asociacion->nombre = $request->nombre;
             $asociacion->descripcion = $request->descripcion;
             if ($request->has('telefono')) {
-                $asociacion->telefono = str_replace(' ', '', $request->telefono);
+                $telefono = $request->telefono;
+                // Quitar espacios y convertir a número
+                $telefonoSinEspacios = str_replace(' ', '', (string)$telefono);
+                $asociacion->telefono = is_numeric($telefonoSinEspacios) ? (int)$telefonoSinEspacios : 0;
             } else {
-                $asociacion->telefono = '';
+                $asociacion->telefono = 0;
             }
             $asociacion->email = $request->email;
             $asociacion->web = $request->web;
