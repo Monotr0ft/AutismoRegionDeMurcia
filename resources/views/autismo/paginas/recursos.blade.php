@@ -70,16 +70,15 @@ $(document).ready(function() {
 
     function filterRecursos() {
         $recursoCards.each(function() {
-            const etiquetas = $(this).data('etiquetas').split(',').map(Number);
+            const etiquetas = String($(this).data('etiquetas')).split(',').map(Number);
             const hasAllEtiquetas = Array.from(selectedEtiquetas).every(id => etiquetas.includes(parseInt(id)));
             if (selectedEtiquetas.size === 0 || hasAllEtiquetas) {
-                $(this).show();
+                $(this).stop(true, true).fadeIn(300);
             } else {
-                $(this).hide();
+                $(this).stop(true, true).fadeOut(300);
             }
         });
     }
-
 });
 
 </script>
