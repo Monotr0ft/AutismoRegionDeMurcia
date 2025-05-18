@@ -29,7 +29,11 @@ class AsociacionController extends Controller
         $asociacion->nombre = $request->nombre;
         $asociacion->descripcion = $request->descripcion;
         $asociacion->direccion = $request->direccion;
-        $asociacion->telefono = str_replace(' ', '', $request->telefono);
+        if ($request->has('telefono')) {
+            $asociacion->telefono = str_replace(' ', '', $request->telefono);
+        } else {
+            $asociacion->telefono = '';
+        }
         $asociacion->email = $request->email;
         $asociacion->web = $request->web;
         $asociacion->publicar = 0;
@@ -80,7 +84,11 @@ class AsociacionController extends Controller
         if ($asociacion) {
             $asociacion->nombre = $request->nombre;
             $asociacion->descripcion = $request->descripcion;
-            $asociacion->telefono = str_replace(' ', '', $request->telefono);
+            if ($request->has('telefono')) {
+                $asociacion->telefono = str_replace(' ', '', $request->telefono);
+            } else {
+                $asociacion->telefono = '';
+            }
             $asociacion->email = $request->email;
             $asociacion->web = $request->web;
             if ($request->nueva_direccion === '1') {
