@@ -129,7 +129,7 @@
                 <br>
                 <div class="form-group mb-3">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" value="{{ $asociacion->email }}" required>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ $asociacion->email }}">
                 </div>
                 <br>
                 <div class="form-group mb-3">
@@ -143,7 +143,7 @@
                         @if ($asociacion->redes_sociales != null)
                             @foreach (json_decode($asociacion->redes_sociales) as $red_social)
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" name="redes_sociales[]" value="{{ $red_social }}" required>
+                                    <input type="text" class="form-control" name="redes_sociales[]" value="{{ $red_social }}">
                                     <button type="button" class="btn btn-danger" onclick="removeRedSocial(this)">Eliminar</button>
                                 </div>
                             @endforeach

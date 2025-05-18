@@ -18,8 +18,8 @@ return new class extends Migration
             $table->enum('tipo', ['Asociación', 'Fundación']);
             $table->string('direccion')->nullable();
             $table->integer('telefono')->nullable();
-            $table->string('email');
-            $table->string('web');
+            $table->string('email')->nullable();
+            $table->string('web')->nullable();
             $table->text('redes_sociales')->nullable();
             $table->text('descripcion');
             $table->boolean('es_regional');

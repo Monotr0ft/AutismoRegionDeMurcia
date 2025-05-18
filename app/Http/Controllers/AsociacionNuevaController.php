@@ -69,7 +69,7 @@ class AsociacionNuevaController extends Controller
         $asociacion = new AsociacionNueva();
         $asociacion->nombre = $request->nombre;
         $asociacion->descripcion = $request->descripcion;
-        $asociacion->telefono = $request->telefono;
+        $asociacion->telefono = str_replace(' ', '', $request->telefono);
         $asociacion->direccion = $direccion;
         $asociacion->email = $request->email;
         $asociacion->web = str_replace(['https://', 'http://'], '', $request->web);
@@ -121,7 +121,7 @@ class AsociacionNuevaController extends Controller
         if ($asociacion) {
             $asociacion->nombre = $request->nombre;
             $asociacion->descripcion = $request->descripcion;
-            $asociacion->telefono = $request->telefono;
+            $asociacion->telefono = str_replace(' ', '', $request->telefono);
             $asociacion->email = $request->email;
             $asociacion->web = $request->web;
             if ($request->nueva_direccion === "1") {

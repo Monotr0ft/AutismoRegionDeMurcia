@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('noticias')->default(false);
             $table->boolean('paginas')->default(false);
             $table->boolean('recursos')->default(false);
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
