@@ -13,6 +13,7 @@
     <div class="row my-2">
         <div class="col-12 d-flex flex-wrap gap-2">
             <p>Filtros:</p>
+            <br>
             @foreach ($etiquetas as $etiqueta)
                 <button value="{{ $etiqueta->id }}" class="badge bg-secondary etiqueta-btn">{{ $etiqueta->nombre }}</button>
             @endforeach
