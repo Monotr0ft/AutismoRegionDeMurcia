@@ -112,7 +112,7 @@ class RecursoController extends Controller
 
     function getEdit($id)
     {
-        $etiquetas = Etiqueta::all();
+        $etiquetas = Etiqueta::all()->sortBy('nombre');
         $recurso = Recurso::find($id);
         return view('autismo.dashboard.paginas.recursos.edit', ['etiquetas' => $etiquetas, 'recurso' => $recurso]);
     }
