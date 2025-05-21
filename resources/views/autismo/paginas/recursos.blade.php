@@ -96,9 +96,9 @@ $(function() {
 
             // Mostrar u ocultar directamente sin animaciones
             if (mostrar) {
-                $(this).stop(true, true).fadeIn(200).css('display', 'block');
+                $(this).fadeIn(200).css('display', 'block');
             } else {
-                $(this).stop(true, true).fadeOut(200).css('display', 'none');
+                $(this).fadeOut(200).css('display', 'none');
             }
         });
     }
