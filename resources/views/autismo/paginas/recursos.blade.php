@@ -53,7 +53,7 @@
 
 $(document).ready(function() {
     const $etiquetaButtons = $('.etiqueta-btn');
-    const $colCards = $('#recursos-container > .col-12'); // Selecciona las columnas
+    const $colCards = $('#recursos-container .col-12');
     const selectedEtiquetas = new Set();
 
     $etiquetaButtons.click(function() {
