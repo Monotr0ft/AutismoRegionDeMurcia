@@ -53,7 +53,7 @@
 
 $(document).ready(function() {
     const $etiquetaButtons = $('.etiqueta-btn');
-    const $recursoCards = $('.recurso-card');
+    const $colCards = $('#recursos-container > .col-12'); // Selecciona las columnas
     const selectedEtiquetas = new Set();
 
     $etiquetaButtons.click(function() {
@@ -70,24 +70,22 @@ $(document).ready(function() {
 
     function filterRecursos() {
         if (selectedEtiquetas.size === 0) {
-            $recursoCards.fadeIn(200); // Animación al mostrar todos
+            $colCards.fadeIn(200);
         } else {
-            $recursoCards.each(function() {
-                let recursoEtiquetas = $(this).data('etiquetas');
-                if (Array.isArray(recursoEtiquetas)) {
-                    // Ya es array
-                } else if (typeof recursoEtiquetas === 'string') {
+            $colCards.each(function() {
+                let recursoEtiquetas = $(this).find('.recurso-card').data('etiquetas');
+                if (typeof recursoEtiquetas === 'string') {
                     recursoEtiquetas = recursoEtiquetas.split(',');
                 } else if (typeof recursoEtiquetas === 'number') {
                     recursoEtiquetas = [recursoEtiquetas.toString()];
-                } else {
+                } else if (!Array.isArray(recursoEtiquetas)) {
                     recursoEtiquetas = [];
                 }
                 const hasSelectedEtiqueta = recursoEtiquetas.some(etiqueta => selectedEtiquetas.has(etiqueta));
                 if (hasSelectedEtiqueta) {
-                    $(this).fadeIn(200); // Animación al mostrar
+                    $(this).fadeIn(200);
                 } else {
-                    $(this).fadeOut(200); // Animación al ocultar
+                    $(this).fadeOut(200);
                 }
             });
         }
