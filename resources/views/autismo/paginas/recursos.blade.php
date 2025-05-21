@@ -24,8 +24,8 @@
         <div class="col-12">
             <div class="row" id="recursos-container">
                 @foreach ($recursos as $recurso)
-                    <div class="col-12 col-md-6 col-lg-4 my-3 d-flex align-items-stretch recurso-card" data-etiquetas="{{ implode(',', $recurso->etiquetas->pluck('id')->toArray()) }}">
-                        <div class="card border-more h-100 d-flex flex-column">
+                    <div class="col-12 col-md-6 col-lg-4 my-3 d-flex align-items-stretch">
+                        <div class="card border-more h-100 w-100 d-flex flex-column recurso-card" data-etiquetas="{{ implode(',', $recurso->etiquetas->pluck('id')->toArray()) }}"></div>
                             <h3 class="card-header" style="background-color:rgb(95, 140, 207);">{{ $recurso->titulo }}</h3>
                             <div class="card-body">
                                 @if ($recurso->url)
@@ -73,7 +73,16 @@ $(document).ready(function() {
             $recursoCards.show();
         } else {
             $recursoCards.each(function() {
-                const recursoEtiquetas = $(this).data('etiquetas').split(',');
+                let recursoEtiquetas = $(this).data('etiquetas');
+                if (Array.isArray(recursoEtiquetas)) {
+                    // Already an array, do nothing
+                } else if (typeof recursoEtiquetas === 'string') {
+                    recursoEtiquetas = recursoEtiquetas.split(',');
+                } else if (typeof recursoEtiquetas === 'number') {
+                    recursoEtiquetas = [recursoEtiquetas.toString()];
+                } else {
+                    recursoEtiquetas = [];
+                }
                 const hasSelectedEtiqueta = recursoEtiquetas.some(etiqueta => selectedEtiquetas.has(etiqueta));
                 if (hasSelectedEtiqueta) {
                     $(this).show();
