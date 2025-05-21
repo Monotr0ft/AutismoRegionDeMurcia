@@ -24,7 +24,7 @@
         <div class="col-12">
             <div class="row" id="recursos-container">
                 @foreach ($recursos as $recurso)
-                    <div class="col-12 col-md-6 col-lg-4 my-3 d-flex align-items-stretch">
+                    <div class="col-12 col-md-6 col-lg-4 my-3 align-items-stretch">
                         <div class="card border-more h-100 w-100 d-flex flex-column recurso-card" data-etiquetas="{{ implode(',', $recurso->etiquetas->pluck('id')->toArray()) }}">
                             <h3 class="card-header" style="background-color:rgb(95, 140, 207);">{{ $recurso->titulo }}</h3>
                             <div class="card-body">
@@ -96,9 +96,9 @@ $(function() {
 
             // Mostrar u ocultar directamente sin animaciones
             if (mostrar) {
-                $(this).show();
+                $(this).stop(true, true).fadeIn(200).css('display', 'block');
             } else {
-                $(this).hide();
+                $(this).stop(true, true).fadeOut(200).css('display', 'none');
             }
         });
     }
