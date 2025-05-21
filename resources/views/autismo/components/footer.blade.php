@@ -64,7 +64,7 @@
     </div>
     </div>
     <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-        <p>© 2024 Monotr0ft. All rights reserved</p>
+        <p>© 2025 Monotr0ft. All rights reserved</p>
         <ul class="list-unstyled d-flex">
             <li class="ms-3"></li>
             <li class="ms-3"></li>
