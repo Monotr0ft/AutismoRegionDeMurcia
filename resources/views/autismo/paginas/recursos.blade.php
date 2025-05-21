@@ -70,12 +70,12 @@ $(document).ready(function() {
 
     function filterRecursos() {
         if (selectedEtiquetas.size === 0) {
-            $recursoCards.show();
+            $recursoCards.fadeIn(200); // Animación al mostrar todos
         } else {
             $recursoCards.each(function() {
                 let recursoEtiquetas = $(this).data('etiquetas');
                 if (Array.isArray(recursoEtiquetas)) {
-                    // Already an array, do nothing
+                    // Ya es array
                 } else if (typeof recursoEtiquetas === 'string') {
                     recursoEtiquetas = recursoEtiquetas.split(',');
                 } else if (typeof recursoEtiquetas === 'number') {
@@ -85,9 +85,9 @@ $(document).ready(function() {
                 }
                 const hasSelectedEtiqueta = recursoEtiquetas.some(etiqueta => selectedEtiquetas.has(etiqueta));
                 if (hasSelectedEtiqueta) {
-                    $(this).show();
+                    $(this).fadeIn(200); // Animación al mostrar
                 } else {
-                    $(this).hide();
+                    $(this).fadeOut(200); // Animación al ocultar
                 }
             });
         }
