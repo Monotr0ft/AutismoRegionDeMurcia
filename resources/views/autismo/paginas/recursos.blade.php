@@ -50,11 +50,10 @@
 </div>
 
 <script>
-console.log('Script de recursos cargado'); // Debug para saber si el script se ejecuta
 
 $(function() {
     const $etiquetaButtons = $('.etiqueta-btn');
-    const $recursoCards = $('.recurso-card').parent();
+    const $recursoCards = $('.recurso-card').closest('.col-12.col-md-6.col-lg-4');
     const selectedEtiquetas = new Set();
 
     // Asegurarnos que al iniciar todos los recursos estén visibles
@@ -104,6 +103,7 @@ $(function() {
         });
     }
 });
+
 </script>
 
 @stop
