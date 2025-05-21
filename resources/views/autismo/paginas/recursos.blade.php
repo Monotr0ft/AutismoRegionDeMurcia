@@ -61,6 +61,7 @@ $(document).ready(function() {
 
     $etiquetaButtons.click(function() {
         const etiquetaId = $(this).val();
+        console.log('Botón etiqueta clickeado:', etiquetaId);
         if (selectedEtiquetas.has(etiquetaId)) {
             selectedEtiquetas.delete(etiquetaId);
             $(this).removeClass('bg-primary').addClass('bg-secondary');
@@ -68,12 +69,14 @@ $(document).ready(function() {
             selectedEtiquetas.add(etiquetaId);
             $(this).removeClass('bg-secondary').addClass('bg-primary');
         }
+        console.log('Etiquetas seleccionadas:', Array.from(selectedEtiquetas));
         filterRecursos();
     });
 
     function filterRecursos() {
         // Si no hay etiquetas seleccionadas, mostrar todos los recursos
         if (selectedEtiquetas.size === 0) {
+            console.log('Ninguna etiqueta seleccionada, mostrando todos los recursos');
             $recursoCards.show();
             return;
         }
@@ -83,12 +86,14 @@ $(document).ready(function() {
             const $card = $(this).find('.recurso-card');
             let etiquetasStr = $card.attr('data-etiquetas');
             let etiquetasArray = etiquetasStr ? etiquetasStr.split(',') : [];
+            console.log('Recurso etiquetas:', etiquetasArray, 'Etiquetas seleccionadas:', Array.from(selectedEtiquetas));
             
             // Verificar si el recurso tiene alguna de las etiquetas seleccionadas
             let mostrar = Array.from(selectedEtiquetas).some(etiquetaId => 
                 etiquetasArray.includes(etiquetaId)
             );
-            
+            console.log('¿Mostrar este recurso?', mostrar);
+
             // Mostrar u ocultar directamente sin animaciones
             if (mostrar) {
                 $(this).show();
