@@ -25,9 +25,9 @@
             <div class="row" id="recursos-container">
                 @foreach ($recursos as $recurso)
                     <div class="col-12 col-md-6 col-lg-4 my-3 d-flex align-items-stretch recurso-card" data-etiquetas="{{ implode(',', $recurso->etiquetas->pluck('id')->toArray()) }}">
-                        <div class="card border-more h-100 d-flex flex-column"></div>
+                        <div class="card border-more h-100 d-flex flex-column">
                             <h3 class="card-header" style="background-color:rgb(95, 140, 207);">{{ $recurso->titulo }}</h3>
-                            <div class="card-body flex-grow-1 d-flex flex-column">
+                            <div class="card-body">
                                 @if ($recurso->url)
                                     <a class="btn btn-more" href="https://{{ $recurso->url }}" target="_blank">Ver recurso</a>
                                 @else
@@ -35,7 +35,7 @@
                                 @endif
                                 <br>
                                 <br>
-                                <div class="d-flex flex-wrap gap-2 mt-auto">
+                                <div class="d-flex flex-wrap gap-2">
                                     @foreach ($recurso->etiquetas as $etiqueta)
                                         <span class="badge bg-primary" id="{{ $etiqueta->id }}">{{ $etiqueta->nombre }}</span>
                                     @endforeach
@@ -69,15 +69,19 @@ $(document).ready(function() {
     });
 
     function filterRecursos() {
-        $recursoCards.each(function() {
-            const etiquetas = String($(this).data('etiquetas')).split(',').map(String);
-            const hasAllEtiquetas = Array.from(selectedEtiquetas).every(id => etiquetas.includes(id));
-            if (selectedEtiquetas.size === 0 || hasAllEtiquetas) {
-                $(this).stop(true, true).fadeIn(300);
-            } else {
-                $(this).stop(true, true).fadeOut(300);
-            }
-        });
+        if (selectedEtiquetas.size === 0) {
+            $recursoCards.show();
+        } else {
+            $recursoCards.each(function() {
+                const recursoEtiquetas = $(this).data('etiquetas').split(',');
+                const hasSelectedEtiqueta = recursoEtiquetas.some(etiqueta => selectedEtiquetas.has(etiqueta));
+                if (hasSelectedEtiqueta) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
     }
 });
 
