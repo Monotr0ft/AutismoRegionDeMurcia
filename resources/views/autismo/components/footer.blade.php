@@ -29,13 +29,16 @@
             <h5>Cookies y Privacidad</h5>
             <ul class="nav flex-column">
                 <li class="nav-item mb-2">
-                    <a href="#" class="nav-link p-0 text-muted">Cookies</a>
+                    <!-- Cookies -->
+                    <a href="" class="nav-link p-0 text-muted" data-bs-toggle="modal" data-bs-target="#explainCookiesModal">Cookies</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a href="#" class="nav-link p-0 text-muted">Política de privacidad</a>
+                    <!-- Política de privacidad -->
+                    <a href="" class="nav-link p-0 text-muted" data-bs-toggle="modal" data-bs-target="#privacyModal">Política de privacidad</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a href="#" class="nav-link p-0 text-muted">Seguridad y protección</a>
+                    <!-- Seguridad y protección -->
+                    <a href="" class="nav-link p-0 text-muted" data-bs-toggle="modal" data-bs-target="#securityModal">Seguridad y protección</a>
                 </li>
             </ul>
         </div>

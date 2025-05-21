@@ -25,6 +25,21 @@
     </main>
     @include('autismo.components.footer')
     @include('bootstrap.script')
+    <!-- Modal de Explicación de Cookies -->
+    <div class="modal fade" id="explainCookiesModal" tabindex="-1" role="dialog" aria-labelledby="explainCookiesModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="explainCookiesModalLabel">¿Qué son las Cookies?</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Las cookies son pequeños archivos que se almacenan en su dispositivo para mejorar la experiencia de usuario, recordar preferencias y recopilar información estadística sobre la navegación.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Política de Privacidad -->
     <div class="modal fade" id="privacyModal" tabindex="-1" role="dialog" aria-labelledby="privacyModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -32,11 +47,29 @@
                     <h5 class="modal-title" id="privacyModalLabel">Política de Privacidad</h5>
                 </div>
                 <div class="modal-body">
-                    <p></p>
+                    <p>Esta web respeta y protege los datos personales de los usuarios. Nunca se pedirá información muy personal (DNI, Nombre, etc.) sobre tí.</p>
+                    <p>La única información que manejamos es la de Newsletter por el que te suscribes con tu email. Está información solo se usa para enviarte correos sobre cambios en la web, y para nada más.</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal de Seguridad y Protección -->
+    <div class="modal fade" id="securityModal" tabindex="-1" role="dialog" aria-labelledby="securityModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="securityModalLabel">Seguridad y Protección</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Toda la información que se almacena en esta web está estrictamente protegida, por lo que es muy difícil que alguien sin permisos entre.</p>
+                    <p>Siempre se irá actualizando para seguir dando protección a estos datos, y, sobre todo, a cualquier persona que visite la web.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Aceptación de Cookies -->
     <div class="modal fade" id="cookiesModal" tabindex="-1" role="dialog" aria-labelledby="cookiesModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
