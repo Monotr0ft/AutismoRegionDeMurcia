@@ -70,7 +70,10 @@ $(document).ready(function() {
 
     function filterRecursos() {
         if (selectedEtiquetas.size === 0) {
-            $recursoCards.fadeIn(200);
+            // Mostrar todos cuando no hay filtros seleccionados
+            $recursoCards.fadeIn(200, function() {
+                $(this).css('display', 'flex'); // Asegurarse de que se muestren como flex
+            });
             return;
         }
         
@@ -89,9 +92,13 @@ $(document).ready(function() {
             }
             
             if (mostrar) {
-                $(this).fadeIn(200);
+                $(this).fadeIn(200, function() {
+                    $(this).css('display', 'flex'); // Mantener el display flex
+                });
             } else {
-                $(this).fadeOut(200);
+                $(this).fadeOut(200, function() {
+                    $(this).css('display', 'none'); // Asegurar que se oculte completamente
+                });
             }
         });
     }
