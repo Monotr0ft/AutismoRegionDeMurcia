@@ -56,6 +56,9 @@ $(document).ready(function() {
     const $recursoCards = $('.recurso-card').parent();
     const selectedEtiquetas = new Set();
 
+    // Asegurarnos que al iniciar todos los recursos estén visibles
+    $recursoCards.show();
+
     $etiquetaButtons.click(function() {
         const etiquetaId = $(this).val();
         if (selectedEtiquetas.has(etiquetaId)) {
@@ -69,36 +72,28 @@ $(document).ready(function() {
     });
 
     function filterRecursos() {
+        // Si no hay etiquetas seleccionadas, mostrar todos los recursos
         if (selectedEtiquetas.size === 0) {
-            // Mostrar todos cuando no hay filtros seleccionados
-            $recursoCards.fadeIn(200, function() {
-                $(this).css('display', 'flex'); // Asegurarse de que se muestren como flex
-            });
+            $recursoCards.show();
             return;
         }
         
+        // Examinar cada recurso para decidir si mostrarlo u ocultarlo
         $recursoCards.each(function() {
             const $card = $(this).find('.recurso-card');
             let etiquetasStr = $card.attr('data-etiquetas');
             let etiquetasArray = etiquetasStr ? etiquetasStr.split(',') : [];
             
-            // Verificar si alguna de las etiquetas seleccionadas está en este recurso
-            let mostrar = false;
-            for (const etiquetaId of selectedEtiquetas) {
-                if (etiquetasArray.includes(etiquetaId)) {
-                    mostrar = true;
-                    break;
-                }
-            }
+            // Verificar si el recurso tiene alguna de las etiquetas seleccionadas
+            let mostrar = Array.from(selectedEtiquetas).some(etiquetaId => 
+                etiquetasArray.includes(etiquetaId)
+            );
             
+            // Mostrar u ocultar directamente sin animaciones
             if (mostrar) {
-                $(this).fadeIn(200, function() {
-                    $(this).css('display', 'flex'); // Mantener el display flex
-                });
+                $(this).show();
             } else {
-                $(this).fadeOut(200, function() {
-                    $(this).css('display', 'none'); // Asegurar que se oculte completamente
-                });
+                $(this).hide();
             }
         });
     }
