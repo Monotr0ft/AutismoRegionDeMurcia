@@ -50,8 +50,9 @@
 </div>
 
 <script>
+console.log('Script de recursos cargado'); // Debug para saber si el script se ejecuta
 
-$(document).ready(function() {
+$(function() {
     const $etiquetaButtons = $('.etiqueta-btn');
     const $recursoCards = $('.recurso-card').parent();
     const selectedEtiquetas = new Set();
@@ -103,7 +104,6 @@ $(document).ready(function() {
         });
     }
 });
-
 </script>
 
 @stop
