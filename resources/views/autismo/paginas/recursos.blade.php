@@ -53,7 +53,7 @@
 
 $(document).ready(function() {
     const $etiquetaButtons = $('.etiqueta-btn');
-    const $colCards = $('#recursos-container .col-12');
+    const $recursoCards = $('.recurso-card').parent();
     const selectedEtiquetas = new Set();
 
     $etiquetaButtons.click(function() {
@@ -70,25 +70,30 @@ $(document).ready(function() {
 
     function filterRecursos() {
         if (selectedEtiquetas.size === 0) {
-            $colCards.fadeIn(200);
-        } else {
-            $colCards.each(function() {
-                let recursoEtiquetas = $(this).find('.recurso-card').data('etiquetas');
-                if (typeof recursoEtiquetas === 'string') {
-                    recursoEtiquetas = recursoEtiquetas.split(',');
-                } else if (typeof recursoEtiquetas === 'number') {
-                    recursoEtiquetas = [recursoEtiquetas.toString()];
-                } else if (!Array.isArray(recursoEtiquetas)) {
-                    recursoEtiquetas = [];
-                }
-                const hasSelectedEtiqueta = recursoEtiquetas.some(etiqueta => selectedEtiquetas.has(etiqueta));
-                if (hasSelectedEtiqueta) {
-                    $(this).fadeIn(200);
-                } else {
-                    $(this).fadeOut(200);
-                }
-            });
+            $recursoCards.fadeIn(200);
+            return;
         }
+        
+        $recursoCards.each(function() {
+            const $card = $(this).find('.recurso-card');
+            let etiquetasStr = $card.attr('data-etiquetas');
+            let etiquetasArray = etiquetasStr ? etiquetasStr.split(',') : [];
+            
+            // Verificar si alguna de las etiquetas seleccionadas está en este recurso
+            let mostrar = false;
+            for (const etiquetaId of selectedEtiquetas) {
+                if (etiquetasArray.includes(etiquetaId)) {
+                    mostrar = true;
+                    break;
+                }
+            }
+            
+            if (mostrar) {
+                $(this).fadeIn(200);
+            } else {
+                $(this).fadeOut(200);
+            }
+        });
     }
 });
 
