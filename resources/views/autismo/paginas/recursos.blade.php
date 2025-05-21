@@ -53,15 +53,16 @@
 
 $(function() {
     const $etiquetaButtons = $('.etiqueta-btn');
-    const $recursoCards = $('.recurso-card').closest('.col-12.col-md-6.col-lg-4');
+    // Selecciona las columnas de recursos correctamente
+    const $recursoCols = $('#recursos-container .col-12');
     const selectedEtiquetas = new Set();
 
-    // Asegurarnos que al iniciar todos los recursos estén visibles
-    $recursoCards.show();
+    // Mostrar todos los recursos al cargar
+    $recursoCols.show();
 
     $etiquetaButtons.click(function() {
         const etiquetaId = $(this).val();
-        console.log('Botón etiqueta clickeado:', etiquetaId);
+        // Alternar selección visual y lógica
         if (selectedEtiquetas.has(etiquetaId)) {
             selectedEtiquetas.delete(etiquetaId);
             $(this).removeClass('bg-primary').addClass('bg-secondary');
@@ -69,36 +70,24 @@ $(function() {
             selectedEtiquetas.add(etiquetaId);
             $(this).removeClass('bg-secondary').addClass('bg-primary');
         }
-        console.log('Etiquetas seleccionadas:', Array.from(selectedEtiquetas));
         filterRecursos();
     });
 
     function filterRecursos() {
-        // Si no hay etiquetas seleccionadas, mostrar todos los recursos
         if (selectedEtiquetas.size === 0) {
-            console.log('Ninguna etiqueta seleccionada, mostrando todos los recursos');
-            $recursoCards.show();
+            $recursoCols.stop(true, true).fadeIn(200);
             return;
         }
-        
-        // Examinar cada recurso para decidir si mostrarlo u ocultarlo
-        $recursoCards.each(function() {
+        $recursoCols.each(function() {
             const $card = $(this).find('.recurso-card');
-            let etiquetasStr = $card.attr('data-etiquetas');
-            let etiquetasArray = etiquetasStr ? etiquetasStr.split(',') : [];
-            console.log('Recurso etiquetas:', etiquetasArray, 'Etiquetas seleccionadas:', Array.from(selectedEtiquetas));
-            
-            // Verificar si el recurso tiene alguna de las etiquetas seleccionadas
-            let mostrar = Array.from(selectedEtiquetas).some(etiquetaId => 
-                etiquetasArray.includes(etiquetaId)
-            );
-            console.log('¿Mostrar este recurso?', mostrar);
-
-            // Mostrar u ocultar directamente sin animaciones
+            let etiquetasStr = $card.data('etiquetas');
+            let etiquetasArray = etiquetasStr ? etiquetasStr.toString().split(',') : [];
+            // Mostrar si alguna etiqueta coincide
+            const mostrar = Array.from(selectedEtiquetas).some(id => etiquetasArray.includes(id));
             if (mostrar) {
-                $(this).fadeIn(200).css('display', 'block');
+                $(this).stop(true, true).fadeIn(200);
             } else {
-                $(this).fadeOut(200).css('display', 'none');
+                $(this).stop(true, true).fadeOut(200);
             }
         });
     }
