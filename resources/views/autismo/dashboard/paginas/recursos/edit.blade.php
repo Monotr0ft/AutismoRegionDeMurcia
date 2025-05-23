@@ -39,6 +39,11 @@
             </div>
             <br>
             <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required>{{ $recurso->descripcion }}</textarea>
+            </div>
+            <br>
+            <div class="form-group">
                 <label for="tipo">Tipo</label>
                 <div class="text-center" id="tipo">
                     <div class="form-check-inline">

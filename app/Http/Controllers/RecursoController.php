@@ -22,6 +22,7 @@ class RecursoController extends Controller
     {
         $recurso = new Recurso();
         $recurso->titulo = $request->titulo;
+        $recurso->descripcion = $request->descripcion;
         switch ($request->tipo) {
             case 'urlTipo':
                 $recurso->url = str_replace(['http://', 'https://'], '', $request->url);
@@ -57,6 +58,7 @@ class RecursoController extends Controller
     {
         $recurso = Recurso::find($id);
         $recurso->titulo = $request->titulo;
+        $recurso->descripcion = $request->descripcion;
         switch ($request->tipo) {
             case 'urlTipo':
                 $recurso->url = str_replace(['http://', 'https://'], '', $request->url);

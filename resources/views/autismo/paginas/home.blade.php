@@ -124,6 +124,8 @@
                     <div class="card border-more">
                         <h3 class="card-header" style="background-color:rgb(95, 140, 207);">{{ $recurso->titulo }}</h3>
                         <div class="card-body d-flex justify-content-between align-items-center" style="background-color:rgb(255, 255, 255);">
+                            <p class="card-text mb-0"><strong>{{ $recurso->descripcion }}</strong></p>
+                            <br>
                             @if ($recurso->url)
                                 <a class="btn btn-more" href="https://{{ $recurso->url }}" target="_blank">Ver recurso</a>
                             @else

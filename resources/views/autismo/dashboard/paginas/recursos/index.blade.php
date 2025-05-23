@@ -32,6 +32,7 @@
             <thead>
                 <tr>
                     <th>Título</th>
+                    <th>Descripción</th>
                     <th>Recurso</th>
                     <th>Etiquetas</th>
                     <th>Acciones</th>
@@ -41,6 +42,11 @@
                 @foreach ($recursos as $recurso)
                 <tr>
                     <td>{{ $recurso->titulo }}</td>
+                    <td class="text-truncate" style="max-width: 150px;">
+                        @if ($recurso->descripcion != null)
+                            {{ $recurso->descripcion }}
+                        @endif
+                    </td>
                     <td class="text-truncate" style="max-width: 150px;">
                         @if ($recurso->url != null)
                             <a href="https://{{ $recurso->url }}" target="_blank">Ver recurso</a>
