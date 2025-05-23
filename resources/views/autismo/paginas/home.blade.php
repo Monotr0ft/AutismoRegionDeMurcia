@@ -36,7 +36,7 @@
     <div class="row">
         <h1 class="text-center my-5 col-12 text-decoration-underline">Autismo Región de Murcia</h1>
         <div class="col-12 col-md-6 order-2 order-md-1 ck-content">
-            {!! $parrafo1->contenido !!}
+            {!! $parrafo1 !!}
             <div class="text-center m-2">
                 <a href="{{ route('queesarm') }}"><button class="btn btn-more">Más información</button></a>
             </div>
@@ -55,7 +55,7 @@
             </figure>
         </div>
         <div class="col-12 col-md-6 ck-content">
-            {!! $parrafo2->contenido !!}
+            {!! $parrafo2 !!}
             <div class="text-center m-2">
                 <a href="{{ route('autismo') }}"><button class="btn btn-more">Más información</button></a>
             </div>
