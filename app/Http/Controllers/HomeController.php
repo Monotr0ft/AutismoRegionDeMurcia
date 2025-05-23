@@ -41,7 +41,7 @@ class HomeController extends Controller
 
         foreach ($paragraphs as $paragraph) {
             $texto = trim($paragraph->textContent);
-            if (!empty($texto) && $texto !== '$nbsp;') {
+            if (!empty($texto) && $texto !== '&nbsp;') {
                 return $doc->saveHTML($paragraph);
             }
         }
