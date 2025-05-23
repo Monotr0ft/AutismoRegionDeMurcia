@@ -40,8 +40,8 @@ class HomeController extends Controller
         $paragraphs = $doc->getElementsByTagName('p');
 
         foreach ($paragraphs as $paragraph) {
-            $texto = trim($paragraph->textContent);
-            if (!empty($texto) && $texto !== '&nbsp;') {
+            $texto = trim(str_replace("\xC2\xA0", ' ', $paragraph->textContent));
+            if (!empty($texto)) {
                 return $doc->saveHTML($paragraph);
             }
         }
