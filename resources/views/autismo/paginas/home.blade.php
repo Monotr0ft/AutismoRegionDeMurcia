@@ -6,6 +6,8 @@
 @php
     $asociaciones = App\Models\Asociacion::orderBy('nombre', 'asc')->get();
     $noticias = App\Models\Noticia::orderBy('created_at', 'desc')->take(3)->get();
+    $recursos = App\Models\Recurso::orderBy('created_at', 'desc')->take(3)->get();
+    $etiquetas = App\Models\Etiqueta::orderBy('nombre', 'asc')->get();
 @endphp
 
 <style>
@@ -32,11 +34,12 @@
 
 @section('content')
 
-<div class="contenido">
+< class="contenido">
     <div class="row">
         <h1 class="text-center my-5 col-12 text-decoration-underline">Autismo Región de Murcia</h1>
         <div class="col-12 col-md-6 order-2 order-md-1 ck-content">
             {!! $parrafo1 !!}
+            <br>
             <div class="text-center m-2">
                 <a href="{{ route('queesarm') }}"><button class="btn btn-more">Más información</button></a>
             </div>
@@ -56,6 +59,7 @@
         </div>
         <div class="col-12 col-md-6 ck-content">
             {!! $parrafo2 !!}
+            <br>
             <div class="text-center m-2">
                 <a href="{{ route('autismo') }}"><button class="btn btn-more">Más información</button></a>
             </div>
@@ -109,6 +113,33 @@
         </div>
         <div class="text-center my-3">
             <a href="{{ route('noticias') }}"><button class="btn btn-more">Más noticias</button></a>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <h2 class="text-center my-5">Recursos recientes</h2>
+        <div class="row my-2">
+            @foreach ($recursos as $recurso)
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card border-more">
+                        <h3 class="card-header" style="background-color:rgb(95, 140, 207);">{{ $recurso->titulo }}</h3>
+                        <div class="card-body d-flex justify-content-between align-items-center" style="background-color:rgb(255, 255, 255);">
+                            @if ($recurso->url)
+                                <a class="btn btn-more" href="https://{{ $recurso->url }}" target="_blank">Ver recurso</a>
+                            @else
+                                <a class="btn btn-more" href="{{ asset($recurso->archivo) }}" target="_blank">Ver recurso</a>
+                            @endif
+                            <br>
+                            <br>
+                            <div class="d-flex flex-wrap gap-2">
+                                @foreach ($recurso->etiquetas as $etiqueta)
+                                    <span class="badge bg-primary" id="{{ $etiqueta->id }}">{{ $etiqueta->nombre }}</span>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 </div>
