@@ -48,7 +48,7 @@ class HomeController extends Controller
                     $segundoTexto = strip_tags($segundo);
                     $longitud = mb_strlen($segundoTexto);
 
-                    if ($longitud < 80) {
+                    if ($longitud < 120) {
                         // Si es corto, no poner puntos suspensivos
                         $segundoConPuntos = $segundoTexto;
                     } elseif ($longitud < 200) {
