@@ -34,7 +34,7 @@
 
 @section('content')
 
-< class="contenido">
+<div class="contenido">
     <div class="row">
         <h1 class="text-center my-5 col-12 text-decoration-underline">Autismo Región de Murcia</h1>
         <div class="col-12 col-md-6 order-2 order-md-1 ck-content">
