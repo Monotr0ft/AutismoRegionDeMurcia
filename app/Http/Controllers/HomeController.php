@@ -48,11 +48,15 @@ class HomeController extends Controller
                     // Insertar puntos suspensivos en la mitad del segundo párrafo
                     $segundoTexto = strip_tags($segundo);
                     $mitad = (int)(mb_strlen($segundoTexto) / 2);
-                    $segundoConPuntos = mb_substr($segundoTexto, 0, $mitad) . '...' . mb_substr($segundoTexto, $mitad);
+                    $segundoConPuntos = mb_substr($segundoTexto, 0, $mitad) . '...';
                     return $primero . $segundoConPuntos;
                 }
                 $primero = $doc->saveHTML($paragraph);
             }
+        }
+
+        if ($primero) {
+            return $primero;
         }
 
         return '';
