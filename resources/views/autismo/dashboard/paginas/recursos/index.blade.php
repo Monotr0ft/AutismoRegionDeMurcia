@@ -42,7 +42,7 @@
                 @foreach ($recursos as $recurso)
                 <tr>
                     <td>{{ $recurso->titulo }}</td>
-                    <td class="text-truncate" style="max-width: 150px;">
+                    <td style="max-width: 150px;">
                         @if ($recurso->descripcion != null)
                             {{ $recurso->descripcion }}
                         @endif

@@ -28,7 +28,7 @@
                         <div class="card border-more h-100 w-100 d-flex flex-column recurso-card" data-etiquetas="{{ implode(',', $recurso->etiquetas->pluck('id')->toArray()) }}">
                             <h3 class="card-header" style="background-color:rgb(95, 140, 207);">{{ $recurso->titulo }}</h3>
                             <div class="card-body">
-                                <p class="card-text text-truncate" style="max-width: 150px;">
+                                <p class="card-text mb-0" style="max-width: 150px;">
                                     @if ($recurso->descripcion)
                                         {{ $recurso->descripcion }}
                                     @endif
