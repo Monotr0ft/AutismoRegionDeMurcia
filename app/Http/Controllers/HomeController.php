@@ -45,10 +45,21 @@ class HomeController extends Controller
             if (!empty($texto)) {
                 if ($primero) {
                     $segundo = $doc->saveHTML($paragraph);
-                    // Insertar puntos suspensivos en la mitad del segundo párrafo
                     $segundoTexto = strip_tags($segundo);
-                    $mitad = (int)(mb_strlen($segundoTexto) / 2);
-                    $segundoConPuntos = mb_substr($segundoTexto, 0, $mitad) . '...';
+                    $longitud = mb_strlen($segundoTexto);
+
+                    if ($longitud < 80) {
+                        // Si es corto, no poner puntos suspensivos
+                        $segundoConPuntos = $segundoTexto;
+                    } elseif ($longitud < 200) {
+                        // Si es medio, cortar a la mitad y añadir ...
+                        $mitad = (int)($longitud / 2);
+                        $segundoConPuntos = mb_substr($segundoTexto, 0, $mitad) . '...';
+                    } else {
+                        // Si es largo, cortar a un cuarto y añadir ...
+                        $cuarto = (int)($longitud / 4);
+                        $segundoConPuntos = mb_substr($segundoTexto, 0, $cuarto) . '...';
+                    }
                     return $primero . $segundoConPuntos;
                 }
                 $primero = $doc->saveHTML($paragraph);
