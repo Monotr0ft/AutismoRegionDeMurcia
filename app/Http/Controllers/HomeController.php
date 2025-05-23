@@ -38,11 +38,20 @@ class HomeController extends Controller
         $doc = new DOMDocument();
         $doc->loadHTML('<?xml encoding="UTF-8">' . $html);
         $paragraphs = $doc->getElementsByTagName('p');
+        $primero = null;
 
         foreach ($paragraphs as $paragraph) {
             $texto = trim(str_replace("\xC2\xA0", ' ', $paragraph->textContent));
             if (!empty($texto)) {
-                return $doc->saveHTML($paragraph);
+                if ($primero) {
+                    $segundo = $doc->saveHTML($paragraph);
+                    // Insertar puntos suspensivos en la mitad del segundo párrafo
+                    $segundoTexto = strip_tags($segundo);
+                    $mitad = (int)(mb_strlen($segundoTexto) / 2);
+                    $segundoConPuntos = mb_substr($segundoTexto, 0, $mitad) . '...' . mb_substr($segundoTexto, $mitad);
+                    return $primero . $segundoConPuntos;
+                }
+                $primero = $doc->saveHTML($paragraph);
             }
         }
 
