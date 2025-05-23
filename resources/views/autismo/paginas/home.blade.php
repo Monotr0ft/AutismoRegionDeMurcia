@@ -141,6 +141,10 @@
                 </div>
             @endforeach
         </div>
+        <br>
+        <div class="text-center my-3">
+            <a href="{{ route('recursos') }}"><button class="btn btn-more">Más recursos</button></a>
+        </div>
     </div>
 </div>
 
