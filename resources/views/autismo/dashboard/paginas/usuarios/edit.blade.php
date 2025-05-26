@@ -42,7 +42,7 @@
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-        <form action="{{ route('dashboard.usuarios.update') }}" method="POST" onsubmit="return confirmEdit()">
+        <form action="{{ route('dashboard.usuarios.update', $user->id) }}" method="POST" onsubmit="return confirmEdit()">
             @csrf
             @method('PUT')
             <div class="form-group">
