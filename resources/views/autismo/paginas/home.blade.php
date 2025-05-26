@@ -129,7 +129,6 @@
                                     {{ $recurso->descripcion }}
                                 </p>
                             @endif
-                            <br>
                             @if ($recurso->url)
                                 <a class="btn btn-more" href="https://{{ $recurso->url }}" target="_blank">Ver recurso</a>
                             @else
