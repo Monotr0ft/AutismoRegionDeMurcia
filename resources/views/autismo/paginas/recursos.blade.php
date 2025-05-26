@@ -15,7 +15,7 @@
             <p>Filtros:</p>
             <br>
             @foreach ($etiquetas as $etiqueta)
-                <button value="{{ $etiqueta->id }}" class="badge bg-secondary etiqueta-btn">{{ $etiqueta->nombre }}</button>
+                <button value="{{ $etiqueta->id }}" class="badge bg-more etiqueta-btn">{{ $etiqueta->nombre }}</button>
             @endforeach
         </div>
         <div class="col-12">
