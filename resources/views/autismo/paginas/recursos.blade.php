@@ -28,11 +28,11 @@
                         <div class="card border-more h-100 w-100 d-flex flex-column recurso-card" data-etiquetas="{{ implode(',', $recurso->etiquetas->pluck('id')->toArray()) }}">
                             <h3 class="card-header" style="background-color:rgb(95, 140, 207);">{{ $recurso->titulo }}</h3>
                             <div class="card-body">
-                                <p class="card-text" style="max-width: 150px;">
-                                    @if ($recurso->descripcion)
+                                @if ($recurso->descripcion)
+                                <p class="card-text">
                                         {{ $recurso->descripcion }}
-                                    @endif
                                 </p>
+                                @endif
                                 <br>
                                 @if ($recurso->url)
                                     <a class="btn btn-more" href="https://{{ $recurso->url }}" target="_blank">Ver recurso</a>
