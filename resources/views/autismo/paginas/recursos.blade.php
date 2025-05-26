@@ -71,10 +71,10 @@ $(function() {
         // Alternar selección visual y lógica
         if (selectedEtiquetas.has(etiquetaId)) {
             selectedEtiquetas.delete(etiquetaId);
-            $(this).removeClass('bg-primary').addClass('bg-more');
+            $(this).removeClass('text-bg-primary').addClass('text-bg-more');
         } else {
             selectedEtiquetas.add(etiquetaId);
-            $(this).removeClass('bg-more').addClass('bg-primary');
+            $(this).removeClass('text-bg-more').addClass('text-bg-primary');
         }
         filterRecursos();
     });
