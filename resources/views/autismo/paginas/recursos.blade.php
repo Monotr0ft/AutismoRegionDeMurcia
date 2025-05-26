@@ -15,7 +15,7 @@
             <p>Filtros:</p>
             <br>
             @foreach ($etiquetas as $etiqueta)
-                <button value="{{ $etiqueta->id }}" class="badge bg-more etiqueta-btn">{{ $etiqueta->nombre }}</button>
+                <button value="{{ $etiqueta->id }}" class="badge rounded-pill text-bg-more etiqueta-btn">{{ $etiqueta->nombre }}</button>
             @endforeach
         </div>
         <div class="col-12">
@@ -71,10 +71,10 @@ $(function() {
         // Alternar selección visual y lógica
         if (selectedEtiquetas.has(etiquetaId)) {
             selectedEtiquetas.delete(etiquetaId);
-            $(this).removeClass('bg-primary').addClass('bg-secondary');
+            $(this).removeClass('bg-primary').addClass('bg-more');
         } else {
             selectedEtiquetas.add(etiquetaId);
-            $(this).removeClass('bg-secondary').addClass('bg-primary');
+            $(this).removeClass('bg-more').addClass('bg-primary');
         }
         filterRecursos();
     });
