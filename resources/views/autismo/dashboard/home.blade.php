@@ -15,22 +15,6 @@
 </div>
 <br>
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-    @can('gestionar_usuarios')
-    <div class="col d-flex align-items-stretch">
-        <div class="card" style="width: 100%;">
-            <div class="card-header">
-                <h2>Usuarios</h2>
-            </div>
-            <div class="card-body">
-                <h4>Gestiona los usuarios de la página web</h4>
-                <div class="text-center">
-                    <a href="{{ route('dashboard.usuarios') }}" class="btn btn-primary">Ver usuarios</a>
-                    <a href="{{ route('dashboard.usuarios.create') }}" class="btn btn-success">Crear nuevo usuario</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endcan
     @can('gestionar_asociaciones')
     <div class="col d-flex align-items-stretch">
         <div class="card" style="width: 100%;">
@@ -40,8 +24,8 @@
             <div class="card-body">
                 <h4>Gestiona las asociaciones que existen y las que están por revisar de la página web</h4>
                 <div class="text-center">
-                    <a href="{{ route('dashboard.asociaciones') }}" class="btn btn-primary">Ver asociaciones</a>
-                    <a href="{{ route('dashboard.asociacionesnuevas') }}" class="btn btn-warning">Ver asociaciones nuevas</a>
+                    <a href="{{ route('dashboard.asociaciones') }}" class="btn btn-primary">Asociaciones</a>
+                    <a href="{{ route('dashboard.asociacionesnuevas') }}" class="btn btn-warning">Asociaciones propuestas</a>
                 </div>
             </div>
         </div>
