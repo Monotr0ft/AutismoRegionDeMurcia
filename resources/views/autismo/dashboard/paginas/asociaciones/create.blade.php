@@ -29,7 +29,6 @@
         <div class="col-12 col-md-4">
             <form action="{{ route('dashboard.asociaciones.store') }}" method="POST" enctype="multipart/form-data" onsubmit="return confirmEdit()">
                 @csrf
-                @method('PUT')
                 <div class="form-group mb-3">
                     <label for="nombre">Nombre</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" required>
