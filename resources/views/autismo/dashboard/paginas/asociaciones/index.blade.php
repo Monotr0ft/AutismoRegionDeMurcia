@@ -30,7 +30,7 @@
     </div>
     <br>
     <div class="text-center">
-        <a href="{{ route('dashboard.asociacionesnuevas') }}" class="btn btn-primary">Ver asociaciones nuevas</a>
+        <a href="{{ route('dashboard.asociacionesnuevas') }}" class="btn btn-primary">Ver asociaciones propuestas</a>
         <a href="{{ route('dashboard.asociaciones.create') }}" class="btn btn-success">Crear nueva asociación</a>
     </div>
     <br>
