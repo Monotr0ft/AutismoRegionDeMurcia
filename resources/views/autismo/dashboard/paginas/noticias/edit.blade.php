@@ -33,18 +33,23 @@
             @csrf
             @method('PUT')
             <div class="form-group">
-                <label for="titulo">Título</label>
+                <label for="titulo">Título de la Noticia</label>
                 <input type="text" class="form-control" id="titulo" name="titulo" value="{{ $noticia->titulo }}" required>
             </div>
             <br>
             <div class="form-group">
-                <label for="url">URL</label>
+                <label for="url">URL de la Noticia</label>
                 <input type="text" class="form-control" id="url" name="url" value="{{ $noticia->url }}" required>
             </div>
             <br>
             <div class="form-group">
-                <label for="fecha">Fecha</label>
+                <label for="fecha">Fecha de publicación de la Noticia</label>
                 <input type="date" class="form-control" id="fecha" name="fecha" value="{{ $noticia->fecha }}" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="comentario">Comentario (opcional)</label>
+                <textarea class="form-control" id="comentario" name="comentario" rows="3">{{ $noticia->comentario }}</textarea>
             </div>
             <br>
             <div class="d-flex justify-content-around">

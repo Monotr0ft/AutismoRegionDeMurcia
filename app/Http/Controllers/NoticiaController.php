@@ -22,6 +22,7 @@ class NoticiaController extends Controller
         $noticia->titulo = $request->titulo;
         $noticia->url = str_replace(['http://', 'https://'], '', $request->url);
         $noticia->fecha = $request->fecha;
+        $noticia->comentario = $request->comentario ?? null;
         $newsletter = Newsletter::all();
         foreach ($newsletter as $email) {
             Mail::to($email->email)->send(new NotificacionNuevaNoticia($email->token));
@@ -36,6 +37,7 @@ class NoticiaController extends Controller
         $noticia->titulo = $request->titulo;
         $noticia->url = str_replace(['http://', 'https://'], '', $request->url);
         $noticia->fecha = $request->fecha;
+        $noticia->comentario = $request->comentario ?? null;
         $noticia->save();
         return redirect()->route('dashboard.noticias');
     }

@@ -16,6 +16,10 @@
                 <div class="card border-more">
                     <h3 class="card-header" style="background-color:rgb(95, 140, 207);">{{ $noticia->titulo }}</h3>
                     <div class="card-body d-flex justify-content-between align-items-center">
+                        @if ($noticia->comentario)
+                            <p class="card-text mb-0">{{ $noticia->comentario }}</p>
+                            <br>
+                        @endif
                         <p class="card-text mb-0"><strong>{{ \Carbon\Carbon::parse($noticia->fecha)->format('d/m/Y') }}</strong></p>
                         <a class="btn btn-more ml-3" href="https://{{ $noticia->url }}" target="_blank">Ver noticia</a>
                     </div>

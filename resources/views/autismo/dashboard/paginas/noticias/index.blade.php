@@ -33,6 +33,7 @@
                     <th>Titulo</th>
                     <th>Enlace</th>
                     <th>Fecha</th>
+                    <th>Comentario</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -42,6 +43,13 @@
                         <td>{{ $noticia->titulo }}</td>
                         <td><a href="https://{{ $noticia->url }}">Ver noticia</a></td>
                         <td>{{ $noticia->fecha }}</td>
+                        <td>
+                            @if ($noticia->comentario)
+                                {{ $noticia->comentario }}
+                            @else
+                                Sin comentario
+                            @endif
+                        </td>
                         <td>
                             <a href="{{ route('dashboard.noticias.edit', $noticia->id) }}" class="btn btn-warning">Editar</a>
                             <form action="#" method="POST" style="display: inline;">
