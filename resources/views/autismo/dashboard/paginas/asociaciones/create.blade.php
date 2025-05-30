@@ -37,7 +37,7 @@
                 <br>
                 <div class="form-group mb-3">
                     <label for="editor">Descripción</label>
-                    <textarea class="form-control" id="editor" name="descripcion" rows="20" required></textarea>
+                    <textarea class="form-control" id="editor" name="descripcion"></textarea>
                 </div>
                 <br>
                 <h2>Direccion</h2>
@@ -167,24 +167,35 @@
         const objectURL = URL.createObjectURL(file);
         $imgPreview.attr('src', objectURL).show();
     }
+
     function addRedSocial() {
         const $redesSociales = $('#redes_sociales');
         const $div = $('<div>').addClass('input-group mb-3');
         $div.html(`
             <input type="text" class="form-control" name="redes_sociales[]">
             <div class="input-group-append">
-                <button class="btn btn-danger" type="button" onclick="removeRedSocial(this)">-<button>
+                <button class="btn btn-danger" type="button" onclick="removeRedSocial(this)">-</button>
             </div>
         `);
         $redesSociales.append($div);
     }
+
     function removeRedSocial(button) {
         $(button).closest('.input-group').remove();
     }
+    
     $(document).ready(function() {
+        const script = $('<script>', {
+            src: 'https://www.google.com/recaptcha/api.js?onload=loadRecaptcha&render=explicit&hl=es',
+            async: true,
+            defer: true
+        });
+        $('head').append(script);
+
         const $provinciaLista = $('#provincia');
         const $municipioLista = $('#municipio');
         const $localidadLista = $('#localidad');
+
         $.getJSON('https://apiv1.geoapi.es/provincias?type=JSON&key=f830ac50cc0e6b1d1bd1081223bacdf1d8dce93a435988ee74e06b513245e2a2&CCOM=17', function(data) {
             data.data.forEach(function(provincia) {
                 const nombreProvincia = provincia.PRO.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -192,11 +203,12 @@
                 $provinciaLista.append($option);
             });
         });
+
         $provinciaLista.change(function() {
             const provinciaId = $provinciaLista.find('option:selected').attr('id');
             $.getJSON(`https://apiv1.geoapi.es/municipios?type=JSON&key=f830ac50cc0e6b1d1bd1081223bacdf1d8dce93a435988ee74e06b513245e2a2&CPRO=${provinciaId}`, function(data) {
                 $municipioLista.prop('disabled', false).empty();
-                const $defaultOption = $('<option>').prop('selected', true).prop('disabled', true).text('Selecciona un municipio');
+                const $defaultOption = $('<option>').val('').prop('selected', true).prop('disabled', true).text('Selecciona un municipio');
                 $municipioLista.append($defaultOption);
                 data.data.forEach(function(municipio) {
                     const nombreMunicipio = municipio.DMUN50.split(/(\(.*?\))/).map((segment, index) => {
@@ -211,12 +223,13 @@
                 });
             });
         });
+
         $municipioLista.change(function() {
             const provinciaId = $provinciaLista.find('option:selected').attr('id');
             const municipioId = $municipioLista.find('option:selected').attr('id');
             $.getJSON(`https://apiv1.geoapi.es/poblaciones?type=JSON&key=f830ac50cc0e6b1d1bd1081223bacdf1d8dce93a435988ee74e06b513245e2a2&CPRO=${provinciaId}&CMUM=${municipioId}`, function(data) {
                 $localidadLista.prop('disabled', false).empty();
-                const $defaultOption = $('<option>').prop('selected', true).prop('disabled', true).text('Selecciona una localidad');
+                const $defaultOption = $('<option>').val('').prop('selected', true).prop('disabled', true).text('Selecciona una localidad');
                 $localidadLista.append($defaultOption);
                 data.data.forEach(function(localidad) {
                     const nombreLocalidad = localidad.NENTSI50.split(/(\(.*?\))/).map((segment, index) => {
@@ -231,6 +244,15 @@
                 })
             });
         });
+
+        $('#submitBtn').click(function(e) {
+            e.preventDefault();
+            if (validateForm()) {
+                $('#recaptchaModal').modal('show');
+                grecaptcha.reset();
+            }
+        });
+
     });
 
     function confirmEdit() {
