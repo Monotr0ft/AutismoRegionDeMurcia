@@ -37,6 +37,32 @@ class AsociacionController extends Controller
         } else {
             $asociacion->telefono = 0;
         }
+        $provincia = $request->input('provincia');
+        $municipio = $request->input('municipio');
+        $localidad = $request->input('localidad');
+        $tipo_calle = $request->input('tipo_calle');
+        $nombre_calle = $request->input('nombre_calle');
+        $numero = $request->input('numero');
+        if ($request->has('ampliacion')) {
+            $ampliacion = $request->input('ampliacion');
+        }
+        $municipioASCII = iconv('UTF-8', 'ASCII//TRANSLIT', $municipio);
+        $localidadASCII = iconv('UTF-8', 'ASCII//TRANSLIT', $localidad);
+        $codigo_postal = $request->input('codigo_postal');
+        if ($ampliacion) {
+            if ($municipioASCII != $localidadASCII) {
+                $direccion = $tipo_calle . ' ' . $nombre_calle . ', ' . $numero . ', ' . $ampliacion . ', ' . $codigo_postal . ', ' . $localidad . ', ' . $municipio . ' (' . $provincia . ')';
+            }else {
+                $direccion = $tipo_calle . ' ' . $nombre_calle . ', ' . $numero . ', ' . $ampliacion . ', ' . $codigo_postal . ', ' . $municipio . ' (' . $provincia . ')';
+            }
+        }else {
+            if ($municipioASCII != $localidadASCII) {
+                $direccion = $tipo_calle . ' ' . $nombre_calle . ', ' . $numero . ', ' . $codigo_postal . ', ' . $localidad . ', ' . $municipio . ' (' . $provincia . ')';
+            }else {
+                $direccion = $tipo_calle . ' ' . $nombre_calle . ', ' . $numero . ', ' . $codigo_postal . ', ' . $municipio . ' (' . $provincia . ')';
+            }
+        }
+        $asociacion->direccion = $direccion;
         $asociacion->email = $request->email;
         $asociacion->web = $request->web;
         $asociacion->publicar = 0;
