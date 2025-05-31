@@ -11,7 +11,8 @@ class ImageUploadController extends Controller
     public function upload(Request $request)
     {
         $image = $request->file('upload');
-        $imageName = $image->getClientOriginalName();
+        $timestamp = time();
+        $imageName = $timestamp . '_' . $image->getClientOriginalName();
         $imagePath = public_path('assets/img');
         $image->move($imagePath, $imageName);
         return [
