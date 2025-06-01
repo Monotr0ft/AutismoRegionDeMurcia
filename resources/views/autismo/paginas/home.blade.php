@@ -4,7 +4,7 @@
 
 <title>Autismo Región de Murcia - Home</title>
 @php
-    $asociaciones = App\Models\Asociacion::orderBy('nombre', 'asc')->get();
+    $asociaciones = App\Models\Asociacion::where('publicar', true)->orderBy('nombre', 'asc')->get();
     $noticias = App\Models\Noticia::orderBy('created_at', 'desc')->take(3)->get();
     $recursos = App\Models\Recurso::orderBy('created_at', 'desc')->take(3)->get();
     $etiquetas = App\Models\Etiqueta::orderBy('nombre', 'asc')->get();
