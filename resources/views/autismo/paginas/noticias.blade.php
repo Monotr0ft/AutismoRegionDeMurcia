@@ -20,8 +20,10 @@
                             <p class="card-text mb-0">{{ $noticia->comentario }}</p>
                             <br>
                         @endif
-                        <p class="card-text mb-0"><strong>{{ \Carbon\Carbon::parse($noticia->fecha)->format('d/m/Y') }}</strong></p>
-                        <a class="btn btn-more ml-3" href="https://{{ $noticia->url }}" target="_blank">Ver noticia</a>
+                        <div class="d-flex flex-column align-items-center">
+                            <p class="card-text mb-0"><strong>{{ \Carbon\Carbon::parse($noticia->fecha)->format('d/m/Y') }}</strong></p>
+                            <a class="btn btn-more" href="https://{{ $noticia->url }}" target="_blank">Ver noticia</a>
+                        </div>
                     </div>
                 </div>
             </div>
