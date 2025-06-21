@@ -46,7 +46,7 @@
             <br>
             <div class="form-group">
                 <label for="editor">Descripción</label>
-                <textarea class="form-control" id="editor" name="descripcion" rows="3" required></textarea>
+                <textarea class="form-control" id="editor" name="descripcion" rows="3"></textarea>
             </div>
             <br>
             <div class="form-group" id="urlDiv">

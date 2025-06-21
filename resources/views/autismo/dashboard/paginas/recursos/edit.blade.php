@@ -43,7 +43,7 @@
             <br>
             <div class="form-group">
                 <label for="editor">Descripción</label>
-                <textarea class="form-control" id="editor" name="descripcion" rows="3" required>{{ $recurso->descripcion }}</textarea>
+                <textarea class="form-control" id="editor" name="descripcion" rows="3">{!! $recurso->descripcion !!}</textarea>
             </div>
             <br>
             <div class="form-group" id="urlDiv">
