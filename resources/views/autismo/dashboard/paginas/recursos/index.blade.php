@@ -80,4 +80,33 @@
     </div>
 </div>
 
+<!-- Modal Descripción -->
+<div class="modal fade" id="descripcionModal" tabindex="-1" aria-labelledby="descripcionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="descripcionModalLabel">Descripción del recurso</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body" id="descripcionModalBody">
+                <!-- Aquí se mostrará la descripción -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function () {
+    $('.ver-descripcion').on('click', function () {
+        var descripcion = $(this).data('descripcion');
+        $('#descripcionModalBody').html(descripcion);
+        var modal = new bootstrap.Modal(document.getElementById('descripcionModal'));
+        modal.show();
+    });
+});
+</script>
+
 @endsection
