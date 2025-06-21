@@ -131,9 +131,9 @@
                         <h3 class="card-header" style="background-color:rgb(95, 140, 207);">{{ $recurso->titulo }}</h3>
                         <div class="card-body" style="background-color:rgb(255, 255, 255);">
                             @if ($recurso->descripcion)
-                                <p class="card-text">
-                                    {{ $recurso->descripcion }}
-                                </p>
+                                <div class="card-text">
+                                    {!! $recurso->descripcion !!}
+                                </div>
                             @endif
                             @if ($recurso->url)
                                 <a class="btn btn-more" href="https://{{ $recurso->url }}" target="_blank">Ver página</a>

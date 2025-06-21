@@ -44,14 +44,20 @@
                     <td>{{ $recurso->titulo }}</td>
                     <td style="max-width: 150px;">
                         @if ($recurso->descripcion != null)
-                            {{ $recurso->descripcion }}
+                            <a href="javascript:void(0);" 
+                               class="text-primary ver-descripcion" 
+                               style="cursor:pointer; text-decoration:underline;" 
+                               data-descripcion="{!! htmlspecialchars($recurso->descripcion, ENT_QUOTES, 'UTF-8') !!}">
+                                Ver descripción
+                            </a>
                         @endif
                     </td>
                     <td class="text-truncate" style="max-width: 150px;">
                         @if ($recurso->url != null)
-                            <a href="https://{{ $recurso->url }}" target="_blank">Ver recurso</a>
-                        @else
-                            <a href="{{ asset($recurso->archivo) }}" target="_blank">Ver recurso</a>
+                            <a href="https://{{ $recurso->url }}" target="_blank">Ver página</a>
+                        @endif
+                        @if ($recurso->archivo != null)
+                            <a href="{{ asset($recurso->archivo) }}" target="_blank">Ver PDF</a>
                         @endif
                     </td>
                     <td>
