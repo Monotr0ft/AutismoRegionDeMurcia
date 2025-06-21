@@ -4,6 +4,8 @@
 
 <title>Dashboard Autismo Región de Murcia - Editar recurso {{ $recurso->titulo }}</title>
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <script>
     
     function confirmEdit() {
@@ -16,6 +18,7 @@
 
 </script>
 
+@include('ckeditor.css')
 
 @endsection
 
@@ -39,33 +42,15 @@
             </div>
             <br>
             <div class="form-group">
-                <label for="descripcion">Descripción</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required>{{ $recurso->descripcion }}</textarea>
+                <label for="editor">Descripción</label>
+                <textarea class="form-control" id="editor" name="descripcion" rows="3" required>{{ $recurso->descripcion }}</textarea>
             </div>
             <br>
-            <div class="form-group">
-                <label for="tipo">Tipo</label>
-                <div class="text-center" id="tipo">
-                    <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="tipo" id="urlTipo" value="urlTipo" @if ($recurso->url != null) checked @endif>
-                        <label class="form-check-label" for="urlTipo">
-                            URL
-                        </label>
-                    </div>
-                    <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="tipo" id="archivoTipo" value="archivoTipo" @if ($recurso->archivo != null) checked @endif>
-                        <label class="form-check-label" for="archivoTipo">
-                            Archivo
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="form-group" @if ($recurso->url != null) style="display: block;" @else style="display: none;" @endif id="urlDiv">
+            <div class="form-group" id="urlDiv">
                 <label for="url">URL</label>
                 <input type="text" class="form-control" id="url" name="url" value="{{ $recurso->url }}">
             </div>
-            <div class="form-group" @if ($recurso->archivo != null) style="display: block;" @else style="display: none;" @endif id="archivoDiv">
+            <div class="form-group" id="archivoDiv">
                 <label for="archivo">Archivo</label>
                 <input type="file" class="form-control" id="archivo" name="archivo" value="{{ $recurso->archivo }}">
             </div>
@@ -96,15 +81,6 @@
 <script>
     
     $(document).ready(function() {
-        $('input[type=radio][name=tipo]').change(function() {
-            if (this.value === 'urlTipo') {
-                $('#urlDiv').show().prop('required', true);
-                $('#archivoDiv').hide().prop('required', false);
-            } else if (this.value === 'archivoTipo') {
-                $('#urlDiv').hide().prop('required', false);
-                $('#archivoDiv').show().prop('required', true);
-            }
-        });
 
         $('#archivo').change(function() {
             var archivo = $('#archivo').val();
@@ -117,5 +93,9 @@
     });
 
 </script>
+<script>
+    const uploadUrl = "{{ route('upload') }}";
+</script>
+@include('ckeditor.script')
 
 @endsection

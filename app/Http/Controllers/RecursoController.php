@@ -23,22 +23,22 @@ class RecursoController extends Controller
         $recurso = new Recurso();
         $recurso->titulo = $request->titulo;
         $recurso->descripcion = $request->descripcion;
-        switch ($request->tipo) {
-            case 'urlTipo':
-                $recurso->url = str_replace(['http://', 'https://'], '', $request->url);
-                break;
-            case 'archivoTipo':
-                if ($request->hasFile('archivo')) {
-                    $archivo = $request->file('archivo');
-                    $nombre = $request->titulo . '.pdf';
-                    $archivo->storeAs('public/archivos', $nombre);
-                    if (!File::exists(public_path('assets/archivos'))) {
-                        File::makeDirectory(public_path('assets/archivos'), 0777, true);
-                    }
-                    File::move(storage_path('app/public/archivos/' . $nombre), public_path('assets/archivos/' . $nombre));
-                    $recurso->archivo = 'assets/archivos/' . $nombre;
-                }
-                break;
+        if ($request->url) {
+            $recurso->url = str_replace(['http://', 'https://'], '', $request->url);
+        } else {
+            $recurso->url = null;
+        }
+        if ($request->hasFile('archivo')) {
+            $archivo = $request->file('archivo');
+            $nombre = $request->titulo . '.pdf';
+            $archivo->storeAs('public/archivos', $nombre);
+            if (!File::exists(public_path('assets/archivos'))) {
+                File::makeDirectory(public_path('assets/archivos'), 0777, true);
+            }
+            File::move(storage_path('app/public/archivos/' . $nombre), public_path('assets/archivos/' . $nombre));
+            $recurso->archivo = 'assets/archivos/' . $nombre;
+        }else {
+            $recurso->archivo = null;
         }
         $recurso->save();
 
@@ -59,32 +59,23 @@ class RecursoController extends Controller
         $recurso = Recurso::find($id);
         $recurso->titulo = $request->titulo;
         $recurso->descripcion = $request->descripcion;
-        switch ($request->tipo) {
-            case 'urlTipo':
-                $recurso->url = str_replace(['http://', 'https://'], '', $request->url);
-                if ($recurso->archivo) {
-                    File::delete(public_path($recurso->archivo));
-                    $recurso->archivo = null;
-                }
-                break;
-            case 'archivoTipo':
-                if ($recurso->url) {
-                    $recurso->url = null;
-                }
-                if ($request->hasFile('archivo')) {
-                    $archivo = $request->file('archivo');
-                    $nombre = $request->titulo . '.pdf';
-                    $archivo->storeAs('public/archivos', $nombre);
-                    if (!File::exists(public_path('assets/archivos'))) {
-                        File::makeDirectory(public_path('assets/archivos'), 0777, true);
-                    }
-                    if ($recurso->archivo) {
-                        File::delete(public_path($recurso->archivo));
-                    }
-                    File::move(storage_path('app/public/archivos/' . $nombre), public_path('assets/archivos/' . $nombre));
-                    $recurso->archivo = 'assets/archivos/' . $nombre;
-                }
-                break;
+        if ($request->url) {
+            $recurso->url = str_replace(['http://', 'https://'], '', $request->url);
+        } else {
+            $recurso->url = null;
+        }
+        if ($request->hasFile('archivo')) {
+            if ($recurso->archivo) {
+                File::delete(public_path($recurso->archivo));
+            }
+            $archivo = $request->file('archivo');
+            $nombre = $request->titulo . '.pdf';
+            $archivo->storeAs('public/archivos', $nombre);
+            if (!File::exists(public_path('assets/archivos'))) {
+                File::makeDirectory(public_path('assets/archivos'), 0777, true);
+            }
+            File::move(storage_path('app/public/archivos/' . $nombre), public_path('assets/archivos/' . $nombre));
+            $recurso->archivo = 'assets/archivos/' . $nombre;
         }
         $recurso->save();
 

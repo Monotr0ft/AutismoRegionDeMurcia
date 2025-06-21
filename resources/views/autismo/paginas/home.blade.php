@@ -134,9 +134,10 @@
                                 </p>
                             @endif
                             @if ($recurso->url)
-                                <a class="btn btn-more" href="https://{{ $recurso->url }}" target="_blank">Ver recurso</a>
-                            @else
-                                <a class="btn btn-more" href="{{ asset($recurso->archivo) }}" target="_blank">Ver recurso</a>
+                                <a class="btn btn-more" href="https://{{ $recurso->url }}" target="_blank">Ver página</a>
+                            @endif
+                            @if ($recurso->archivo)
+                                <a class="btn btn-more" href="{{ asset($recurso->archivo) }}" target="_blank">Ver PDF</a>
                             @endif
                             <br>
                             <br>

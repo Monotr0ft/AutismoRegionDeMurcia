@@ -4,6 +4,8 @@
 
 <title>Dashboard Autismo Región de Murcia - Crear recurso</title>
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <script>
 
     function confirmCreate() {
@@ -19,6 +21,8 @@
     }
 
 </script>
+
+@include('ckeditor.css')
 
 @endsection
 
@@ -41,33 +45,15 @@
             </div>
             <br>
             <div class="form-group">
-                <label for="descripcion">Descripción</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+                <label for="editor">Descripción</label>
+                <textarea class="form-control" id="editor" name="descripcion" rows="3" required></textarea>
             </div>
             <br>
-            <div class="form-group">
-                <label for="tipo">Tipo</label>
-                <div class="text-center" id="tipo">
-                    <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="tipo" id="urlTipo" value="urlTipo" checked>
-                        <label class="form-check-label" for="urlTipo">
-                            URL
-                        </label>
-                    </div>
-                    <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="tipo" id="archivoTipo" value="archivoTipo">
-                        <label class="form-check-label" for="archivoTipo">
-                            Archivo
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="form-group" style="display: block;" id="urlDiv">
+            <div class="form-group" id="urlDiv">
                 <label for="url">URL</label>
                 <input type="text" class="form-control" id="url" name="url" required>
             </div>
-            <div class="form-group" style="display: none;" id="archivoDiv">
+            <div class="form-group" id="archivoDiv">
                 <label for="archivo">Archivo</label>
                 <input type="file" class="form-control" id="archivo" name="archivo">
             </div>
@@ -99,15 +85,6 @@
 <script>
 
     $(document).ready(function() {
-        $('input[type=radio][name=tipo]').change(function() {
-            if (this.value === 'urlTipo') {
-                $('#urlDiv').show().find('input').prop('required', true);
-                $('#archivoDiv').hide().find('input').prop('required', false);
-            } else if (this.value === 'archivoTipo') {
-                $('#urlDiv').hide().find('input').prop('required', false);
-                $('#archivoDiv').show().find('input').prop('required', true);
-            }
-        });
 
         $('#archivo').change(function() {
             var archivo = $('#archivo').val();
@@ -120,5 +97,9 @@
     });
 
 </script>
+<script>
+    const uploadUrl = "{{ route('upload') }}";
+</script>
+@include('ckeditor.script')
 
 @endsection
