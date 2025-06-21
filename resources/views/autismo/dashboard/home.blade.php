@@ -41,7 +41,7 @@
                 <h4>Gestiona las noticias de la página web</h4>
                 <div class="text-center">
                     <a href="{{ route('dashboard.noticias') }}" class="btn btn-primary">Ver noticias</a>
-                    <a herf="{{ route('dashboard.noticias.create') }}" class="btn btn-success">Crear nueva noticia</a>
+                    <a href="{{ route('dashboard.noticias.create') }}" class="btn btn-success">Crear nueva noticia</a>
                 </div>
             </div>
         </div>
