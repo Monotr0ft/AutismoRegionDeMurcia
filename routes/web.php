@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RecursoController;
 use App\Http\Controllers\PaginaController;
 use App\Http\Controllers\NoticiaController;
+use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\CookieController;
 
 /*
@@ -37,6 +38,9 @@ Route::get('/queesarm', [PaginaController::class, 'arm'])->name('queesarm');
 Route::get('/autismo', [PaginaController::class, 'autismo'])->name('autismo');
 
 Route::get('/recursos', [RecursoController::class, 'getRecursos'])->name('recursos');
+
+Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto');
+Route::post('/contacto', [ContactoController::class, 'send'])->name('contacto.send');
 
 include __DIR__.'/newsletter.php';
 include __DIR__.'/login.php';

@@ -18,6 +18,9 @@
                     <a href="{{ route('asociaciones') }}" class="nav-link p-0 text-muted">Asociaciones TEA Murcia</a>
                 </li>
                 <li class="nav-item mb-2">
+                    <a href="{{ route('asociaciones.create') }}" class="nav-link p-0 text-muted">Solicitar Asociación</a>
+                </li>
+                <li class="nav-item mb-2">
                     <a href="{{ route('recursos') }}" class="nav-link p-0 text-muted">Recursos</a>
                 </li>
                 <li class="nav-item mb-2">

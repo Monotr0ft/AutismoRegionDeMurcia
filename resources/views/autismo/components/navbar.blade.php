@@ -26,6 +26,9 @@
                 <li class="nav-item px-3 h4">
                     <a class="nav-link {{ Request::is('noticias') ? 'active' : '' }}" href="{{ route('noticias') }}">Noticias</a>
                 </li>
+                <li class="nav-item px-3 h4">
+                    <a class="nav-link {{ Request::is('contacto') ? 'active' : '' }}" href="{{ route('contacto') }}">Contacto</a>
+                </li>
             </ul>
         </div>
     </div>
