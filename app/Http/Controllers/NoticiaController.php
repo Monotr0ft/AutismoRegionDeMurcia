@@ -12,7 +12,7 @@ class NoticiaController extends Controller
 {
     public function index()
     {
-        $noticias = Noticia::all();
+        $noticias = Noticia::all()->sortByDesc('fecha');
         return view('autismo.dashboard.paginas.noticias.index', ['noticias' => $noticias]);
     }
 
