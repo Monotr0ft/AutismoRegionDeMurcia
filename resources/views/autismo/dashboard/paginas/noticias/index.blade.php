@@ -68,7 +68,7 @@
                             @else
                                 <form action="{{ route('dashboard.noticias.ocultar', $noticia->id) }}" method="POST" style="display: inline;">
                                     @csrf
-                                    <button type="submit" class="btn btn-secondary" onclick="return confirm('¿Estás seguro de que quieres ocultar esta noticia?')">Ocultar</button>
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que quieres ocultar esta noticia?')">Ocultar</button>
                                 </form>
                             @endif
                             <form action="#" method="POST" style="display: inline;">
