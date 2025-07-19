@@ -23,10 +23,7 @@ class NoticiaController extends Controller
         $noticia->url = str_replace(['http://', 'https://'], '', $request->url);
         $noticia->fecha = $request->fecha;
         $noticia->comentario = $request->comentario ?? null;
-        $newsletter = Newsletter::all();
-        foreach ($newsletter as $email) {
-            Mail::to($email->email)->send(new NotificacionNuevaNoticia($email->token));
-        }
+        $noticia->publicar = false; // Default value for 'publicar'
         $noticia->save();
         return redirect()->route('dashboard.noticias');
     }
@@ -49,7 +46,7 @@ class NoticiaController extends Controller
             $noticia->delete();
         }
         return redirect()->route('dashboard.noticias');
-    }
+    }   
 
     public function getCreate()
     {
@@ -67,8 +64,32 @@ class NoticiaController extends Controller
 
     public function getNoticias()
     {
-        $noticias = Noticia::all()->sortByDesc('fecha');
+        $noticias = Noticia::all()->where('publicar', true)->sortByDesc('fecha');
         return view('autismo.paginas.noticias', ['noticias' => $noticias]);
+    }
+
+    public function publicar($id)
+    {
+        $noticia = Noticia::find($id);
+        if ($noticia) {
+            $noticia->publicar = true;
+            $noticia->save();
+        }
+        $newsletter = Newsletter::all();
+        foreach ($newsletter as $email) {
+            Mail::to($email->email)->send(new NotificacionNuevaNoticia($email->token));
+        }
+        return redirect()->route('dashboard.noticias');
+    }
+
+    public function ocultar($id)
+    {
+        $noticia = Noticia::find($id);
+        if ($noticia) {
+            $noticia->publicar = false;
+            $noticia->save();
+        }
+        return redirect()->route('dashboard.noticias');
     }
 
 }

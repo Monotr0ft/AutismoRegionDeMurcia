@@ -34,6 +34,7 @@
                     <th>Enlace</th>
                     <th>Fecha</th>
                     <th>Comentario</th>
+                    <th>¿Está publicada?</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -51,7 +52,25 @@
                             @endif
                         </td>
                         <td>
+                            @if ($noticia->publicar)
+                                Sí
+                            @else
+                                No
+                            @endif
+                        </td>
+                        <td>
                             <a href="{{ route('dashboard.noticias.edit', $noticia->id) }}" class="btn btn-warning">Editar</a>
+                            @if (!$noticia->publicar)
+                                <form action="{{ route('dashboard.noticias.publicar', $noticia->id) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success" onclick="return confirm('¿Estás seguro de que quieres publicar esta noticia?')">Publicar</button>
+                                </form>
+                            @else
+                                <form action="{{ route('dashboard.noticias.ocultar', $noticia->id) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-secondary" onclick="return confirm('¿Estás seguro de que quieres ocultar esta noticia?')">Ocultar</button>
+                                </form>
+                            @endif
                             <form action="#" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
